@@ -1,0 +1,277 @@
+﻿@model HalloDoc.DTO.FamilyRequest
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_RequestHeader";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+
+<div class="modal fade"
+     id="myModal"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="h-100 w-100 d-flex align-items-center">
+        <div class="modal-dialog">
+            <div class="modal-content p-3">
+                <div class="modal-body">
+                    <div class="d-flex flex-column align-items-center justify-content-center">
+                        <div class="warning_icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" fill="currentColor" class="bi bi-exclamation-circle-fill war-i" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                            </svg>
+                        </div>
+                        <h4 class="my-3">Infromation</h4>
+                        <p class="text-center my-3">
+                            When submiiting a request You must Proivde the correct contact
+                            infotrmation for the patient or the responsibly Party. Failure
+                            to proivde the correct email and phone number will delay
+                            sarvice or be declined
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3 mb-5">
+                    <button type="button"
+                            id="hidemodal"
+                            class="btn btn-info text-white">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center">
+    <div class="mt-2 shadow p-3 mb-5 bg-white rounded">
+        <div class="d-flex justify-content-end">
+            <button class="back-btn rounded" onclick="back()">&lt Back</button>
+        </div>
+        <form asp-action="FamilyRequest" method="post" enctype="multipart/form-data">
+
+
+            <div class="container-fluid">
+                <h4>Family/Friend Information</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="F_Firstname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Your First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="F_Lastname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Your Last Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <input type="tel"
+                                   asp-for="F_Phone"
+                                   class="form-control"
+                                   id="phone"
+                                   placeholder="(201) 555-0123"
+                                   style="height: 58px; width: 100%" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email"
+                                   asp-for="F_Email"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="F_relation"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Relation With Patient</label>
+                        </div>
+                    </div>
+                </div>
+                <h4>Patient Information</h4>
+                <div class="form-floating">
+                    <textarea class="form-control"
+                              placeholder="Leave a comment here"
+                              asp-for="P_symp"
+                              id="floatingTextarea"
+                              style="height: 100px"
+                              rows="5"></textarea>
+                    <label for="floatingTextarea">Enter Brief Details Of Symptoms</label>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Firstname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Lastname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Last name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="date"
+                                   asp-for="dob"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Date of Birth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Patient Contact Information</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="email"
+                                   class="form-control"
+                                   asp-for="P_Email"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Phone"
+                                   id="mobile_code"
+                                   class="form-control"
+                                   placeholder="Phone Number"
+                                   name="name" />
+                            <label for="floatingInput">Phone Number</label>
+                        </div>
+                    </div>
+                </div>
+                <h4>Patient Location</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Street"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_City"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">City</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_State"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Zipcode"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="P_Location"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Room # / Suite &lpar;Optional&rpar;</label>
+                        </div>
+                    </div>
+                </div>
+                <h4>&lpar;Optional&rpar; Upload Photo or Document</h4>
+                <div class="row">
+                    <div class="col-md-12 bg-light">
+                        <div class="mb-3">
+                        </div>
+                        <div class="d-flex"
+                             onclick="document.getElementById('choose-file').click()"
+                             style="cursor: pointer">
+                            <label class="col-8 col-md-10 col-lg-11 upload"
+                                   id="fileLabel">Select File</label>
+                            <button type="button" class="col-4 col-md-2 col-lg-1 btn btn-info uploadbtn text-white">
+                                <img src="./Images/cloud-upload-icon.svg" alt="" />
+                                Upload
+                            </button>
+                        </div>
+                    </div>
+
+                    <input asp-for="P_File" type="file" style="display: none" id="choose-file" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn submit m-2">Submit</button>
+                <a asp-controller="Home" asp-action="Index">
+                    <button type="button" class="btn btn-light m-2">Cancle</button>
+
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+</div>
+
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInputField1 = document.querySelector("#phone1");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>

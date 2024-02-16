@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="d-flex justify-content-center mt-5 pt-5">
+    <div class="mt-5 pt-5 justify-content-center p-auto m-auto">
+        <a asp-controller="Home" asp-action="SubmitRequest">
+            <button style="width: 330px"
+                    class="submit-request-btn">
+                Submit A Request
+            </button>
+        </a>
+
+        <br />
+        <a asp-controller="Patient" asp-action="PatientLogin">
+            <button style="width: 330px"
+                    class="registered-patient-btn w-100"
+                    onclick="window.location.href='patientLogin.html'">
+                Registered Patient
+            </button>
+        </a>
+
+    </div>
+</div>
+
+
+
+

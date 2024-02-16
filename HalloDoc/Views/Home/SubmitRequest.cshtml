@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_RequestHeader";
+}
+<div class="d-flex justify-content-center mt-5">
+    <!-- <div class="position-absolute top-50 start-50 translate-middle"> -->
+    <div class="mt-5">
+        <div class="d-inline-flex">
+            <h2 class="m-3">I am a...</h2>
+            <button style="position: absolute; right: 15%"
+                    class="back-btn back mt-2 rounded p-2"
+                    onclick="back()">
+                &lt Back
+            </button>
+        </div>
+        <a class="w-100" asp-controller="Patient" asp-action="PatientRequest">
+            <div class="patient-btn m-2 p-2 rounded s-div"
+                 onclick="window.location.href='createPatientRequest.html'">
+                <p>PATIENT</p>
+            </div>
+        </a>
+        <a asp-controller="Patient" asp-action="FamilyRequest">
+            <div class="family-btn m-2 p-2 rounded s-div"
+                 onclick="window.location.href='createFamilyFriendRequest.html'">
+                <p>FAMILY/FRIEND</p>
+            </div>
+        </a>
+        <a asp-controller="Patient" asp-action="ConciergeRequest">
+            <div class="concierge-btn m-2 p-2 rounded s-div"
+                 onclick="window.location.href='createConciergeRequest.html'">
+                <p>CONCIERGE</p>
+            </div>
+        </a>
+        <a asp-controller="Patient" asp-action="BusinessRequest">
+
+            <div class="business-btn m-2 p-2 rounded s-div">
+                <p>BUSINESS PARTNERS</p>
+            </div>
+        </a>
+
+
+
+    </div>
+</div>
+

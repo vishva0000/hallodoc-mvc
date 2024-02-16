@@ -1,0 +1,225 @@
+﻿@model HalloDoc.DTO.PatientRequest
+@{
+    Layout = "_RequestHeader";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+<link rel=”stylesheet” href=”https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css” />
+<div class="d-flex justify-content-center">
+    <div class="mt-2 shadow p-3 mb-5 bg-white rounded">
+        <div class="d-flex justify-content-end">
+            <button class="back-btn rounded" onclick="back()">&lt Back</button>
+        </div>
+        <form asp-action="PatientRequest" enctype="multipart/form-data" method="post">
+            <div class="container-fluid">
+                <h4>Patient Information</h4>
+
+                <div class="form-floating">
+                    <textarea class="form-control"
+                              asp-for="Symptoms"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea"
+                              style="height: 100px"></textarea>
+                    <label for="floatingTextarea">Enter Brief Details Of Symptoms</label>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Firstname" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Lastname" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Last name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="date"
+                                   asp-for="dob"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Date of Birth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Patient Contact Information</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" type="email"
+                                   class="form-control"
+                                   id=""
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <input asp-for="Phone" type="tel"
+                                   class="form-control"
+                                   id="phone"
+                                   placeholder="(201) 555-0123"
+                                   style="height: 58px" />
+                            <label for="phone"></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <span class="row" id="passwordSection">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="password"
+                                       class="form-control"
+                                       id="password"
+                                       asp-for="Password"
+                                       placeholder="name@example.com" />
+                                <label for="Password">Password</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="password"
+                                       class="form-control"
+                                       id="confirmPassword"
+                                       asp-for="ConfirmPassword"
+                                       placeholder="" />
+                                <label for="confirm">Confirm Password</label>
+                            </div>
+                        </div>
+                    </span>
+
+                </div>
+                <h4>Patient Location</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Street" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Street</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="City" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">City</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="State" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Zipcode" type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Zip Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="Room"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Room # / Suite &lpar;Optional&rpar;</label>
+                        </div>
+                    </div>
+                </div>
+                <h4>&lpar;Optional&rpar; Upload Photo or Document</h4>
+                <div class="row">
+                    @*   <div class="mb-3">
+                    <input asp-for="File" type="file" class="form-control" id="formFile">
+
+
+                    </div> *@
+                    <div class="col-md-12 bg-light">
+                        <div class="mb-3">
+                            <div class="d-flex"
+                                 onclick="document.getElementById('choose-file').click()"
+                                 style="cursor: pointer">
+                                <label class="col-8 col-md-10 col-lg-11 upload"
+                                       id="fileLabel">Select File</label>
+                                <button class="col-4 col-md-2 col-lg-1 btn btn-info uploadbtn text-white">
+                                    <img src="./Images/cloud-upload-icon.svg" alt="" />
+                                    Upload
+                                </button>
+                            </div>
+                        </div>
+
+                        <input asp-for="File" type="file" style="display: none" id="choose-file" />
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn submit m-2">Submit</button>
+                    <a asp-controller="Home" asp-action="Index">
+                        <button type="button" class="btn btn-light m-2">Cancle</button>
+
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function checkEmail() {
+        var element = document.getElementById("email");
+        var email = element.value;
+        console.log(email);
+        $.ajax({
+            type: 'GET',
+            url: "/Patient/IsPatientPresent/" + email,
+            contentType: false,
+            processData: false,
+
+            success: function (response) {
+                if (!response) {
+                    document.getElementById("passwordSection").style.display = "flex";
+                }
+                else {
+                    document.getElementById("passwordSection").style.display = "none";
+                }
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
+
+    }
+
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInputField1 = document.querySelector("#phone1");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>

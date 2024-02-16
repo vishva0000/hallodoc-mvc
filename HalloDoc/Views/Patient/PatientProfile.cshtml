@@ -1,0 +1,200 @@
+﻿@model List<HalloDoc.DTO.PatientProfile>
+@{
+    Layout = "_Patientdashboard";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+
+<div style="height: 100%" class="bg-light">
+    <div class="p-2">
+        <ul class="nav ">
+            <li style=" cursor: pointer; " class="nav-item ">
+
+                <a asp-action="PatientDashboardPage" asp-asp-controller="Patient" class="nav-link text-dark text-decoration-none">Dashboard </a>
+            </li>
+            <li style=" cursor: pointer;" class="nav-item custom-tab">
+                <a style="color: #0dcaf0;" class="nav-link  text-decoration-none">Profile</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="container">
+
+
+            <div class="d-inline-flex justify-content-between w-100">
+
+                <h2 class="m-2">User Profile</h2>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+           @foreach (var item in Model)
+            {
+
+                <div class="bg-white rounded-2 row mt-3">
+                    <h4 class="m-2 p-2">General Information</h4>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   value="@item.Firstname"
+                                   placeholder="name@example.com" disabled />
+                            <label for="floatingInput">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   value="@item.Lastname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" disabled />
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3">
+                            <input type="date"
+                                   value=""
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" disabled />
+                            <label for="floatingInput">Date of Birth</label>
+                        </div>
+                    </div>
+                    <h4 class="m-2 p-2">Contact Information</h4>
+                    <div class="row">
+
+
+                        <div class="col-md-2">
+                            <div class="form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" disabled>
+                                    <option selected>Mobile</option>
+                                    <option value="1">Phone</option>
+                                    <option value="2">Landline</option>
+
+
+
+                                </select>
+
+                                <label for="floatingInput">Type</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       value="@item.phone"
+                                       id="mobile_code"
+                                       class="form-control"
+                                       placeholder="Phone Number"
+                                       name="name" disabled />
+                                <label for="floatingInput">Phone Number</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-floating mb-3">
+                                <input type="email"
+                                       value="@item.email"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" disabled />
+                                <label for="floatingInput">Email</label>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="m-2 p-2">Location Information</h4>
+                    <div class="row">
+
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       value="@item.street"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" disabled />
+                                <label for="floatingInput">Street</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       value="@item.city"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" disabled />
+                                <label for="floatingInput">City</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-5">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       value="@item.state"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" disabled />
+                                <label for="floatingInput">State</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       value="@item.zipcode"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" disabled />
+                                <label for="floatingInput">Zip Code</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2 border-1">
+                            <div style="color:#0dcaf0; border: 1px solid #0dcaf0;" class="rounded p-2">
+                                <svg class="m-2" style="color: #0dcaf0;" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                                Map
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-inline-flex justify-content-between">
+                        <p></p>
+                        <button style="background-color:#0dcaf0; color: white;" class="btn ml-auto">Edit</button>
+                    </div>
+
+
+                </div>
+            } 
+
+        </div>
+    </div>
+</div>
+
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInputField1 = document.querySelector("#phone1");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
