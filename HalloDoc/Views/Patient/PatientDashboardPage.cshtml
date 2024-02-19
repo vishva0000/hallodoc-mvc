@@ -80,7 +80,7 @@
                         <td>
 
 
-                        <a asp-controller="Patient" asp-action="PatientViewDocs">
+                        <a asp-controller="Patient" asp-action="ViewDocument" asp-route-requestId="@item.RequestID">
                         <button class="btn btn-outline-info"><span>(@item.count)</span> Document </button>
                         </a>
                         </td>
@@ -113,11 +113,11 @@
                 <div class="modal-body">
                     <p>Here I want to create new request for...</p>
                     <div class="align-text-center ps-5 ml-2">
-                        <a asp-controller="Patient" asp-action="PatientRequest">
+                        <a asp-controller="Patient" asp-action="RequestForMe">
                             <button style="background-color:#0dcaf0; color:white;" type="button" class="btn m-2">Me</button>
 
                         </a>
-                        <a asp-controller="Patient" asp-action="FamilyRequest">
+                        <a asp-controller="Patient" asp-action="RequestForSomeoneElse">
                             <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn m-2">Some One Else</button>
 
                         </a>

@@ -1,4 +1,5 @@
 using HalloDoc.Models;
+using HalloDoc.Utility;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HallodocContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddSingleton<HalloDoc.Utility.IEmailSender, EmailSender>();
 
 var app = builder.Build();
 

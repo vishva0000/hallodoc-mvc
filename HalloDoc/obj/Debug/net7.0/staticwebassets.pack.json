@@ -253,12 +253,24 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (1).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (1).png"
+    },
+    {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (10).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (10).png"
     },
     {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (2).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (2).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (24).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (24).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (3).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (3).png"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.HalloDoc.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -5,6 +5,9 @@
 @{
     Layout = "_Layout";
 }
+@using (Html.BeginForm())
+{
+   
 <div class="d-flex justify-content-center mt-5 main">
     <div class="mt-5 pt-5">
         <button class="back-btn rounded mb-3" onclick="back()">&lt Back</button>
@@ -34,7 +37,10 @@
 
 
             </div>
-            <span asp-validation-for="Email" class="text-danger"></span>
+                <span class="text-danger">
+                    @Html.ValidationMessage("Email")
+
+                </span>
 
             <div class="input-group mb-3 border rounded">
                 <input id="password"
@@ -71,6 +77,10 @@
                     </button>
                 </div>
             </div>
+                <span class="text-danger">
+                    @Html.ValidationMessage("Password")
+
+                </span>
 
             <button type="submit"
                     class="btn blue-background text-light btn-lg btn-block w-100">
@@ -85,3 +95,4 @@
         </p>
     </div>
 </div>
+}

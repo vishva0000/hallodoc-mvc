@@ -1,13 +1,14 @@
-﻿@{
+﻿@model HalloDoc.DTO.CreatePatient
+@{
     Layout = "_Layout";
 }
 
-<div class="d-flex justify-content-center mt-5 main">
+<div class="d-flex justify-content-center mt-5">
     <form asp-action="CreatePatient">
-        <div class="mt-5 pt-5">
+        <div style ="width:290px;"class="mt-5 pt-5 ">
             <button class="back-btn rounded mb-3" onclick="back()">&lt Back</button>
 
-            <h2 class="text-center">Create Account</h2>
+            <h2 class="text-center m-2">Create Account</h2>
             <br />
             <div class="input-group mb-3 border rounded">
                 <input type="text"
@@ -30,7 +31,7 @@
 
             </div>
 
-            <div style="width:290px" class="input-group mb-3 border rounded">
+           @*  <div style="width:290px" class="input-group mb-3 border rounded">
 
 
 
@@ -99,6 +100,26 @@
                             </svg>
                         </div>
                     </button>
+                </div>
+            </div> *@
+            <div class="">
+                <div class="form-floating mb-3">
+                    <input type="password"
+                           class="form-control"
+                           id="password"
+                           asp-for="Password"
+                           placeholder="name@example.com" />
+                    <label for="Password">Password</label>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-floating mb-3">
+                    <input type="password"
+                           class="form-control"
+                           id="confirmPassword"
+                           asp-for="ConfirmPassword"
+                           placeholder="" />
+                    <label for="confirm">Confirm Password</label>
                 </div>
             </div>
             <button type="submit"
