@@ -10,6 +10,8 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.AspNetCore.Identity;
+using MimeKit;
+using System.Globalization;
 
 namespace HalloDoc.Controllers
 {
@@ -18,6 +20,8 @@ namespace HalloDoc.Controllers
         public HallodocContext context;
         public readonly IHostingEnvironment _environment;
         const string CookieUserEmail = "UserId";
+        const string emailforreset = "EmailId";
+  
         IEmailSender _EmailSender;
 
 
@@ -41,39 +45,40 @@ namespace HalloDoc.Controllers
             if (ModelState.IsValid)
             {
 
-            
-            var email = model.Email;
-            var password = model.Password;
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(7);
 
-            Response.Cookies.Append(CookieUserEmail, model.Email, options);
 
-            if (email != null || password != null)
-            {
-                var user = context.AspNetUsers.Where(a => a.Email == email).FirstOrDefault();
+                var email = model.Email;
+                var password = model.Password;
+                CookieOptions options = new CookieOptions();
+                options.Expires = DateTime.Now.AddDays(7);
 
-                if (user != null)
+                Response.Cookies.Append(CookieUserEmail, model.Email, options);
+
+                if (email != null || password != null)
                 {
-                    if (user.PasswordHash == password)
+                    var user = context.AspNetUsers.Where(a => a.Email == email).FirstOrDefault();
+
+                    if (user != null)
                     {
-                        return RedirectToAction("PatientDashboardPage", "Patient");
+                        if (user.PasswordHash == password)
+                        {
+                            return RedirectToAction("PatientDashboardPage", "Patient");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Wrong Password");
+                        }
+
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Wrong Password");
+
+                        ModelState.AddModelError("", "Failed to login");
+                        return View(model);
+
+
                     }
-
                 }
-                else
-                {
-
-                    ModelState.AddModelError("", "Failed to login");
-                    return View(model);
-
-
-                }
-            }
             }
             return View(model);
         }
@@ -86,9 +91,13 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult ForgetPassword(ForgetPassword model)
         {
-            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ForgetPassword", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(7);
 
-            return View();
+            Response.Cookies.Append(emailforreset, model.email, options);
+            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", "Please <a href=\"https://localhost:44301/Patient/ResetPassword\">login</a>");
+
+            return RedirectToAction("PatientLogin", "Patient");
         }
         [HttpGet]
         public IActionResult ResetPassword()
@@ -96,14 +105,15 @@ namespace HalloDoc.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult ResetPassword(ResetPassword model,string email)
+        public IActionResult ResetPassword(ResetPassword model)
         {
-            var data = context.AspNetUsers.Where(a => a.Email == email);
-            foreach(var item in data)
-            {
-                
-            }
-            return View();
+            string? UserEmail = Request.Cookies[emailforreset];
+
+            var data = context.AspNetUsers.Where(a => a.Email == UserEmail).FirstOrDefault();
+            data.PasswordHash = model.Password;
+            context.Update(data);
+            context.SaveChanges();
+            return RedirectToAction("PatientLogin","Patient");
         }
         [HttpGet]
         public IActionResult PatientRequest()
@@ -304,16 +314,73 @@ namespace HalloDoc.Controllers
 
            
             context.SaveChanges();
-            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "Hello", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
+            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "CreateAccount", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
 
             return RedirectToAction("Index", "Home");
 
         }
 
-
+        [HttpGet]
         public IActionResult BusinessRequest()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult BusinessRequest(BusinessRequest model)
+        {
+            Request insertrequest = new Request()
+            {
+                RequestTypeId = 1,
+                FirstName = model.B_Firstname,
+                LastName = model.B_Lastname,
+                PhoneNumber = model.B_Phone,
+                Email = model.B_Email,
+                Status = 1,
+                CreatedDate = DateTime.Now,
+                IsUrgentEmailSent = new BitArray(new bool[1] { false })
+            };
+            context.Requests.Add(insertrequest);
+
+            var dob = model.P_dob;
+            int day = dob.Day;
+            var mon = dob.ToString("MMMM");
+            var year = dob.Year;
+
+            RequestClient insertrequestclient = new RequestClient()
+            {
+                Request = insertrequest,
+                FirstName = model.P_Firstname,
+                LastName = model.P_Lastname,
+                PhoneNumber = model.P_Phone,
+                Email = model.P_Email,
+                Notes = model.P_symp,
+                Location = model.P_Room,
+                IntDate = day,
+                StrMonth = mon,
+                IntYear = year
+
+            };
+            context.RequestClients.Add(insertrequestclient);
+
+            Business insertbusiness = new Business()
+            {
+                Name = model.B_Hotel,
+                PhoneNumber = model.B_Phone,
+                CreatedDate = DateTime.Now
+
+            };
+            context.Businesses.Add(insertbusiness);
+
+            RequestBusiness insertrequestbusiness = new RequestBusiness() 
+            {
+                Business = insertbusiness,
+                Request = insertrequest
+
+
+            };
+            context.RequestBusinesses.Add(insertrequestbusiness);
+            context.SaveChanges();
+            return RedirectToAction("Index","Home");
         }
         [HttpGet]
         public IActionResult ConciergeRequest()
@@ -376,11 +443,26 @@ namespace HalloDoc.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public IActionResult CreatePatient()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult CreatePatient(CreatePatient model)
         {
             if (ModelState.IsValid)
             {
 
+           
+            AspNetUser insertuser = new AspNetUser()
+            {
+                Email = model.Email,
+                PasswordHash = model.Password
+            };
+            context.AspNetUsers.Add(insertuser);
+            context.SaveChanges();
             }
             return View();
         }
@@ -404,36 +486,68 @@ namespace HalloDoc.Controllers
             return View(data);
             //return View();
         }
-        
+        [HttpGet]
         public IActionResult PatientProfile()
         {
             string? UserEmail = Request.Cookies[CookieUserEmail];
+            PatientProfile model = new PatientProfile();
+            var details = context.Users.Where(a => a.Email == UserEmail).Include(a => a.Requests).FirstOrDefault();
 
-            List<PatientProfile> data = new();
-            var details = context.Users.Where(a => a.Email == UserEmail).Include(a => a.Requests);
-            
-            foreach (var item in details)
-            {
-                PatientProfile profile = new PatientProfile()
-                {
-                    Firstname = item.FirstName,
-                    Lastname = item.LastName,
-                    phone = item.Mobile,
-                    email = item.Email,
-                    street = item.Street,
-                    city = item.City,
-                    state = item.State,
-                    zipcode = item.ZipCode
-                };
-                data.Add(profile);
-            }
-            return View(data);
+            //string month = details.StrMonth;
+            //int day = (int)details.IntDate;
+            //int year = (int)details.IntYear;
+
+            //DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
+            //int monthInNum = dtfi.MonthNames.ToList().IndexOf(month) + 1;
+            //string dateOfBirth = $"{day}-{monthInNum}-{year}";
+            //DateTime DOB = DateTime.ParseExact(dateOfBirth, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+
+            model.Firstname = details.FirstName;
+            model.Lastname = details.LastName;
+            model.phone = details.Mobile;
+            model.email = details.Email;
+            model.street = details.Street;
+            model.city = details.City;
+            model.state = details.State;
+            model.zipcode = details.ZipCode;
+            //model.dob = DOB;
+           
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult PatientProfile(PatientProfile model)
+        {
+            string? UserEmail = Request.Cookies[CookieUserEmail];
+
+            var details = context.Users.Where(a => a.Email == UserEmail).FirstOrDefault();
+            var dob = model.dob;
+            int day = dob.Day;
+            var mon = dob.ToString("MMMM");
+            var year = dob.Year;
+
+            details.FirstName = model.Firstname;
+            details.LastName = model.Lastname;
+            details.Mobile = model.phone;
+            details.Email = model.email;
+            details.Street = model.street;
+            details.City = model.city;
+            details.State = model.state;
+            details.ZipCode = model.zipcode;
+            details.StrMonth = mon;
+            details.IntDate = day;
+            details.IntYear= year;
+
+            context.Users.Update(details);
+            context.SaveChanges();
+
+
+            return View();
         }
 
         [HttpGet]
         public IActionResult ViewDocument(int RequestID)
         {
-         
             var file = context.RequestWiseFiles.Where(a => a.RequestId == RequestID);
             var req = context.Requests.Where(a => a.RequestId == RequestID).FirstOrDefault();
             var name = context.RequestClients.Where(a => a.RequestId == RequestID).FirstOrDefault();
@@ -447,6 +561,7 @@ namespace HalloDoc.Controllers
                     CreatedBy = name.FirstName,
                     CreatedDate = files.CreatedDate,
                     DocumentId = files.RequestWiseFileId
+                    
                 };
                 data.Add(FileDataList);
             }
@@ -454,17 +569,47 @@ namespace HalloDoc.Controllers
             {
                 Name = name.FirstName,
                 ConfirmationNumber = req.ConfirmationNumber,
-                Document = data
+                Document = data,
+                RequestId = RequestID
+               
             };
             return View(doc);
         }
+        public IActionResult Download(int Download)
+        {
+            var data = context.RequestWiseFiles.Where(a=>a.RequestWiseFileId == Download).FirstOrDefault();
+            string filePath = data.FileName;
 
+            if (filePath == null)
+            {
+                return RedirectToAction("PatientDashboard", "Patient");
+            }
+           
+            return PhysicalFile(filePath, MimeTypes.GetMimeType(filePath), Path.GetFileName(filePath));
+        }
+       
         [HttpPost]
-        public async Task< IActionResult> addDocument(IFormFile file)
+        public void addDocument(IFormFile file,int requestid)
         {
             
-            return View("ViewDocument");
+            
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, file.FileName);
+                
+
+                file.CopyTo(new FileStream(filePath, FileMode.Create));
+            RequestWiseFile insertfile = new RequestWiseFile()
+            {
+                    RequestId = requestid,
+                    FileName = filePath,
+                    CreatedDate = DateTime.Now
+
+                };
+                context.RequestWiseFiles.Add(insertfile);
+            context.SaveChanges();
+            RedirectToAction("ViewDocument", requestid);
         }
+
         public IActionResult ReviewAgreement()
         {
             return View();

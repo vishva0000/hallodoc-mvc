@@ -261,8 +261,16 @@
       "PackagePath": "staticwebassets\\uploads\\Screenshot (10).png"
     },
     {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (19).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (19).png"
+    },
+    {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (2).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (2).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (21).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (21).png"
     },
     {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (24).png",
@@ -271,6 +279,14 @@
     {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (3).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (3).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (4).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (4).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (5).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (5).png"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.HalloDoc.Microsoft.AspNetCore.StaticWebAssets.props",

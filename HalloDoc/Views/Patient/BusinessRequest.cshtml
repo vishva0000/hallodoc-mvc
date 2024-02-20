@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model HalloDoc.DTO.BusinessRequest
 @{
     Layout = "_RequestHeader";
 }
@@ -11,13 +9,14 @@
         <div class="d-flex justify-content-end">
             <button class="back-btn rounded" onclick="back()">&lt Back</button>
         </div>
-        <form action="">
+        <form asp-action="BusinessRequest" method="post">
             <div class="container-fluid">
                 <h4>Business Information</h4>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="B_Firstname"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -27,6 +26,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="B_Lastname"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -35,7 +35,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <input type="tel"
+                            <input type="text"
+                                asp-for="B_Phone"
                                    class="form-control"
                                    id="phone"
                                    placeholder="(201) 555-0123"
@@ -46,6 +47,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="email"
+                                asp-for="B_Email"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -55,15 +57,17 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="B_Hotel"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
-                            <label for="floatingInput">Hotel/Property Name</label>
+                            <label for="floatingInput">Business/Property Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="B_caseNo"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -75,6 +79,7 @@
                 <h4>Patient Information</h4>
                 <div class="form-floating">
                     <textarea class="form-control"
+                               asp-for="P_symp"
                               placeholder="Leave a comment here"
                               id="floatingTextarea"
                               style="height: 100px"
@@ -87,6 +92,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    class="form-control"
+                                   asp-for="P_Firstname"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">First Name</label>
@@ -95,6 +101,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_Lastname"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -104,6 +111,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="date"
+                                asp-for="P_dob"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -117,6 +125,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="email"
+                                asp-for="P_Email"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -126,6 +135,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_Phone"
                                    id="mobile_code"
                                    class="form-control"
                                    placeholder="Phone Number"
@@ -139,6 +149,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_Street"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -148,6 +159,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_City"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -157,6 +169,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_State"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -166,6 +179,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_ZipCode"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -175,6 +189,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
+                                asp-for="P_Room"
                                    class="form-control"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
@@ -184,7 +199,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="btn submit m-2">Submit</button>
+                    <button type="submit" class="btn submit m-2">Submit</button>
                     <a asp-controller="Home" asp-action="Index">
                         <button type="button" class="btn btn-light m-2">Cancle</button>
 

@@ -1,4 +1,4 @@
-﻿@model List<HalloDoc.DTO.PatientProfile>
+﻿@model HalloDoc.DTO.PatientProfile
 @{
     Layout = "_Patientdashboard";
 }
@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 
-<div style="height: 100%" class="bg-light">
+<div style="height: 100%" class="bg-light" onload="edit()">
     <div class="p-2">
         <ul class="nav ">
             <li style=" cursor: pointer; " class="nav-item ">
@@ -37,28 +37,27 @@
                 </div>
             </div>
             <br />
-           @foreach (var item in Model)
-            {
+            <form asp-action="PatientProfile" method="post" asp-controller="patient" > 
 
                 <div class="bg-white rounded-2 row mt-3">
                     <h4 class="m-2 p-2">General Information</h4>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
-                                   class="form-control"
+                                    class="form-control input"
                                    id="floatingInput"
-                                   value="@item.Firstname"
-                                   placeholder="name@example.com" disabled />
+                                   asp-for="Firstname"
+                                   placeholder="name@example.com"  />
                             <label for="floatingInput">First Name</label>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
-                                   value="@item.Lastname"
-                                   class="form-control"
+                                asp-for="Lastname"
+                                       class="form-control input"
                                    id="floatingInput"
-                                   placeholder="name@example.com" disabled />
+                                   placeholder="name@example.com" />
                             <label for="floatingInput">Last Name</label>
                         </div>
                     </div>
@@ -66,9 +65,10 @@
                         <div class="form-floating mb-3">
                             <input type="date"
                                    value=""
-                                   class="form-control"
+                                   asp-for="dob"
+                                       class="form-control input"
                                    id="floatingInput"
-                                   placeholder="name@example.com" disabled />
+                                   placeholder="name@example.com"  />
                             <label for="floatingInput">Date of Birth</label>
                         </div>
                     </div>
@@ -77,37 +77,31 @@
 
 
                         <div class="col-md-2">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" aria-label="Default select example" disabled>
-                                    <option selected>Mobile</option>
-                                    <option value="1">Phone</option>
-                                    <option value="2">Landline</option>
-
-
-
-                                </select>
-
-                                <label for="floatingInput">Type</label>
+                            <div >
+                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                        <option value="1">Mobile</option>
+                                        <option value="2">Phone</option>
+                                        <option value="3">Landline</option>
+                                    </select>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       value="@item.phone"
-                                       id="mobile_code"
-                                       class="form-control"
-                                       placeholder="Phone Number"
-                                       name="name" disabled />
-                                <label for="floatingInput">Phone Number</label>
+                                       asp-for="phone"
+                                       class="form-control input"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Phone number</label>
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-floating mb-3">
                                 <input type="email"
-                                       value="@item.email"
-                                       class="form-control"
+                                    asp-for="email"
+                                           class="form-control input"
                                        id="floatingInput"
-                                       placeholder="name@example.com" disabled />
+                                       placeholder="name@example.com"  />
                                 <label for="floatingInput">Email</label>
                             </div>
                         </div>
@@ -119,20 +113,20 @@
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       value="@item.street"
-                                       class="form-control"
+                                    asp-for="street"
+                                           class="form-control input"
                                        id="floatingInput"
-                                       placeholder="name@example.com" disabled />
+                                       placeholder="name@example.com"  />
                                 <label for="floatingInput">Street</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       value="@item.city"
-                                       class="form-control"
+                                    asp-for="city"
+                                           class="form-control input"
                                        id="floatingInput"
-                                       placeholder="name@example.com" disabled />
+                                       placeholder="name@example.com"  />
                                 <label for="floatingInput">City</label>
                             </div>
                         </div>
@@ -142,10 +136,10 @@
                         <div class="col-md-5">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       value="@item.state"
-                                       class="form-control"
+                                    asp-for="state"
+                                           class="form-control input"
                                        id="floatingInput"
-                                       placeholder="name@example.com" disabled />
+                                       placeholder="name@example.com" />
                                 <label for="floatingInput">State</label>
                             </div>
                         </div>
@@ -153,10 +147,10 @@
                         <div class="col-md-5">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       value="@item.zipcode"
-                                       class="form-control"
+                                    asp-for="zipcode"
+                                           class="form-control input"
                                        id="floatingInput"
-                                       placeholder="name@example.com" disabled />
+                                       placeholder="name@example.com" />
                                 <label for="floatingInput">Zip Code</label>
                             </div>
                         </div>
@@ -173,20 +167,44 @@
 
                     </div>
 
-                    <div class="d-inline-flex justify-content-between">
-                        <p></p>
-                        <button style="background-color:#0dcaf0; color: white;" class="btn ml-auto">Edit</button>
+                    <div class="d-flex justify-content-end">
+                       <div class="m-2">
+                            <button type="button" class="btn ml-auto btn-info btn-edit">Edit</button>
+                            <button type="submit" id="btn" class="btn ml-auto btn-outline-info btn-save">Save</button>
+
+                       </div>
+                           
                     </div>
 
 
                 </div>
-            } 
-
+     
+            </form>
         </div>
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            // Disable all input fields initially
+            $('input, select,.btn-map').prop('disabled', true);
+            $('.btn-save').hide();
+
+            // Handle click event for the Edit button
+            $('.btn-edit').click(function () {
+                // Enable all input fields
+                $('input, select,.btn-map').prop('disabled', false);
+                $('.btn-save').show();
+                $('.btn-edit').hide();
+            });
+        });
+    </script>
+
+}
 <script>
+
+
     const phoneInputField = document.querySelector("#phone");
     const phoneInputField1 = document.querySelector("#phone1");
     const phoneInput = window.intlTelInput(phoneInputField, {
@@ -197,4 +215,5 @@
         utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
-</script>
+    </script>
+    

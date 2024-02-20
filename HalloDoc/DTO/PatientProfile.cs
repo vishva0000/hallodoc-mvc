@@ -1,4 +1,6 @@
-﻿namespace HalloDoc.DTO
+﻿using MimeKit.Encodings;
+
+namespace HalloDoc.DTO
 {
     public class PatientProfile
     {
@@ -14,5 +16,6 @@
         public string city { get; set; }
         public string state { get; set; }
         public string zipcode { get; set; }
+        public DateTime dob { get; set; }
     }
 }

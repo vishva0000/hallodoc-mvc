@@ -38,37 +38,41 @@
                 <div class="p-2">
 
                    
-                    <p>@Model.Name</p>
-                <p><span class="text-info">Testing Test</span> </p>
+                    <p>Patient Name</p>
+                    <p><span class="text-info">@Model.Name</span> </p>
                 <p>Check here for any files that you or the doctors of your subsequesnts requestors have attached for you to review</p>
-
-                    <form method="post" enctype="multipart/form-data">
+               
+                    <form asp-action="addDocument" asp-route-requestid="@Model.RequestId"  method="post" enctype="multipart/form-data">
                         <div class="row mb-3">                       
                     <div class="col-md-11 ">
                         <div class="d-flex"
                              onclick="document.getElementById('choose-file').click()"
                              style="cursor: pointer">
-                            <label class="col-8 col-md-10 col-lg-11 upload"
+                                    <label class="col-8 col-md-10 col-lg-11 upload bg-light"
                                    id="fileLabel">Select File</label>
                             <button type="button" class="col-4 col-md-2 col-lg-1 btn btn-info uploadbtn text-white">
                                 <img src="./Images/cloud-upload-icon.svg" alt="" />
                                 Upload
                             </button>
-                                    <input action="addDocument" name="file" type="file" style="display: none" id="choose-file" />
+                                    <input name="file" type="file" style="display: none" id="choose-file" />
+                                    
                         </div>
-
-
-
                             </div>
                     <div class="col-md-1">
                                     <button type="submit" class="btn submit">Save</button>
                             </div>
-                        
-                
-                    
+   
                  </div>
                     </form>
-                <table class="table">
+                    <div class="d-inline-flex w-100 p-2">
+                        <h4>Documents</h4>
+                        <div class="flex-grow-1 d-flex justify-content-end">
+                            <button class="btn btn-outline-info ">Download All</button>
+
+                        </div>
+                    </div>
+                 
+                <table class="table mt-3">
                     <thead class="bg-light">
                         <tr>
                             <th><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
@@ -81,6 +85,9 @@
                     <tbody>
                         @foreach (var item in Model.Document)
                         {
+                            <tr>
+
+                           
                         <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
 
                             <td>
@@ -91,9 +98,7 @@
                             <td>@Model.Name</td>
                             <td>@item.CreatedDate.ToShortDateString()</td>
                         <td class="text-info">
-                            <a href="@item.FileName" download="@item.FileName">
-
-                        
+                             <a asp-route-Download="@item.DocumentId" asp-action="Download">
                             <button class=" btn btn-outline-info">
 
                            
@@ -104,6 +109,7 @@
                             </button>
                             </a>
                         </td>
+                                </tr>
                         }
 
                     </tbody>

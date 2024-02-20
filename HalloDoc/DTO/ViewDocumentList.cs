@@ -5,6 +5,7 @@
         public List<FileData> Document { get; set; }
         public string Name { get; set; }
         public string ConfirmationNumber { get; set; }
+        public int RequestId { get; set; }
     }
 
     public class FileData

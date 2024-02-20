@@ -30,7 +30,11 @@
 
 
             </div>
+            <span class="text-danger">
+                @Html.ValidationMessage("Email")
 
+            </span>
+            
            @*  <div style="width:290px" class="input-group mb-3 border rounded">
 
 
@@ -111,6 +115,10 @@
                            placeholder="name@example.com" />
                     <label for="Password">Password</label>
                 </div>
+                <span class="text-danger">
+                    @Html.ValidationMessage("Password")
+
+                </span>
             </div>
             <div class="">
                 <div class="form-floating mb-3">
@@ -121,6 +129,10 @@
                            placeholder="" />
                     <label for="confirm">Confirm Password</label>
                 </div>
+                <span class="text-danger">
+                    @Html.ValidationMessage("ConfirmPassword")
+
+                </span>
             </div>
             <button type="submit"
                     class="btn blue-background text-light btn-lg btn-block w-100">
