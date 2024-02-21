@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\HalloDoc.bundle.scp.css"
     },
     {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\css\\admin.css",
+      "PackagePath": "staticwebassets\\css\\admin.css"
+    },
+    {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -261,6 +265,10 @@
       "PackagePath": "staticwebassets\\uploads\\Screenshot (10).png"
     },
     {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (17).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (17).png"
+    },
+    {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (19).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (19).png"
     },
@@ -279,6 +287,10 @@
     {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (3).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (3).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (36).png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot (36).png"
     },
     {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (4).png",

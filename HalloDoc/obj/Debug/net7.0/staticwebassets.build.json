@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NyLcJ1L34XkIrstOPQ5BfIEA0/rMeP1D2bSTYkVz8m0=",
+  "Hash": "k7SPirOUFk+1CLws/AkucFt+nxRZwa0ivnaAVieCzW0=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\postgreconnection\\HalloDoc\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\HalloDoc.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\css\\admin.css",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "css/admin.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\admin.css"
     },
     {
       "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\css\\site.css",
@@ -2159,6 +2176,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (10).png"
     },
     {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (17).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (17).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (17).png"
+    },
+    {
       "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (19).png",
       "SourceId": "HalloDoc",
       "SourceType": "Discovered",
@@ -2242,6 +2276,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (3).png"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (36).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (36).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (36).png"
     },
     {
       "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (4).png",

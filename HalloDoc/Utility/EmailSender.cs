@@ -1,18 +1,10 @@
-﻿using Castle.Core.Smtp;
-using MailKit.Net.Smtp;
-using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MimeKit;
 
 namespace HalloDoc.Utility
 {
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailToSend = new MimeMessage();
             emailToSend.From.Add(MailboxAddress.Parse("vishva.rami@etatvasoft.com"));
@@ -25,9 +17,8 @@ namespace HalloDoc.Utility
             {
                 emailClient.Connect("mail.etatvasoft.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
                 emailClient.Authenticate("vishva.rami@etatvasoft.com", "z,x061v4m97h");
-                emailClient.Send(emailToSend);
+                await emailClient.SendAsync(emailToSend);
                 emailClient.Disconnect(true);
-                return Task.CompletedTask;
             }
         }
     }

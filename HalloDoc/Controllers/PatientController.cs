@@ -21,7 +21,7 @@ namespace HalloDoc.Controllers
         public readonly IHostingEnvironment _environment;
         const string CookieUserEmail = "UserId";
         const string emailforreset = "EmailId";
-  
+
         IEmailSender _EmailSender;
 
 
@@ -113,7 +113,7 @@ namespace HalloDoc.Controllers
             data.PasswordHash = model.Password;
             context.Update(data);
             context.SaveChanges();
-            return RedirectToAction("PatientLogin","Patient");
+            return RedirectToAction("PatientLogin", "Patient");
         }
         [HttpGet]
         public IActionResult PatientRequest()
@@ -121,7 +121,7 @@ namespace HalloDoc.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult PatientRequest( PatientRequest model)
+        public IActionResult PatientRequest(PatientRequest model)
         {
             var dob = model.dob;
             int day = dob.Day;
@@ -185,17 +185,17 @@ namespace HalloDoc.Controllers
                 PhoneNumber = model.Phone,
                 Email = model.Email,
                 IntDate = day,
-                    StrMonth = mon,
-                    IntYear = year,
-                    Street = model.Street,
-                    State = model.State,
-                    City= model.City,
-                    ZipCode = model.Zipcode
+                StrMonth = mon,
+                IntYear = year,
+                Street = model.Street,
+                State = model.State,
+                City = model.City,
+                ZipCode = model.Zipcode
 
             };
             context.RequestClients.Add(insertrequestclient);
 
-            if(model.File != null)
+            if (model.File != null)
             {
                 //int lastRecord = context.Requests.OrderByDescending(m => m.RequestId).FirstOrDefault().RequestId;
                 //string path = _environment.WebRootPath;
@@ -238,11 +238,11 @@ namespace HalloDoc.Controllers
             context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-       
+
         public Boolean IsPatientPresent(string email)
         {
             var data = context.AspNetUsers.Where(a => a.Email == email).FirstOrDefault();
-            if (data==null)
+            if (data == null)
             {
                 return false;
             }
@@ -294,7 +294,7 @@ namespace HalloDoc.Controllers
 
             };
             context.RequestClients.Add(insertrequestclient);
-            if(model.P_File!= null)
+            if (model.P_File != null)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "uploads");
                 var filePath = Path.Combine(uploads, model.P_File.FileName);
@@ -312,7 +312,7 @@ namespace HalloDoc.Controllers
             }
 
 
-           
+
             context.SaveChanges();
             _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "CreateAccount", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
 
@@ -328,6 +328,8 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult BusinessRequest(BusinessRequest model)
         {
+            //if (ModelState.IsValid)
+            //{
             Request insertrequest = new Request()
             {
                 RequestTypeId = 1,
@@ -371,7 +373,7 @@ namespace HalloDoc.Controllers
             };
             context.Businesses.Add(insertbusiness);
 
-            RequestBusiness insertrequestbusiness = new RequestBusiness() 
+            RequestBusiness insertrequestbusiness = new RequestBusiness()
             {
                 Business = insertbusiness,
                 Request = insertrequest
@@ -380,7 +382,13 @@ namespace HalloDoc.Controllers
             };
             context.RequestBusinesses.Add(insertrequestbusiness);
             context.SaveChanges();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //return View(model);
+            //}
+
         }
         [HttpGet]
         public IActionResult ConciergeRequest()
@@ -455,14 +463,14 @@ namespace HalloDoc.Controllers
             if (ModelState.IsValid)
             {
 
-           
-            AspNetUser insertuser = new AspNetUser()
-            {
-                Email = model.Email,
-                PasswordHash = model.Password
-            };
-            context.AspNetUsers.Add(insertuser);
-            context.SaveChanges();
+
+                AspNetUser insertuser = new AspNetUser()
+                {
+                    Email = model.Email,
+                    PasswordHash = model.Password
+                };
+                context.AspNetUsers.Add(insertuser);
+                context.SaveChanges();
             }
             return View();
         }
@@ -471,7 +479,7 @@ namespace HalloDoc.Controllers
             string? UserEmail = Request.Cookies[CookieUserEmail];
             List<PatientDashboard> data = new();
             var details = context.Requests.Where(a => a.Email == UserEmail).Include(a => a.RequestWiseFiles);
-            
+
             foreach (var item in details)
             {
                 PatientDashboard dashboard = new PatientDashboard()
@@ -512,7 +520,7 @@ namespace HalloDoc.Controllers
             model.state = details.State;
             model.zipcode = details.ZipCode;
             //model.dob = DOB;
-           
+
             return View(model);
         }
         [HttpPost]
@@ -536,7 +544,7 @@ namespace HalloDoc.Controllers
             details.ZipCode = model.zipcode;
             details.StrMonth = mon;
             details.IntDate = day;
-            details.IntYear= year;
+            details.IntYear = year;
 
             context.Users.Update(details);
             context.SaveChanges();
@@ -561,7 +569,7 @@ namespace HalloDoc.Controllers
                     CreatedBy = name.FirstName,
                     CreatedDate = files.CreatedDate,
                     DocumentId = files.RequestWiseFileId
-                    
+
                 };
                 data.Add(FileDataList);
             }
@@ -571,41 +579,41 @@ namespace HalloDoc.Controllers
                 ConfirmationNumber = req.ConfirmationNumber,
                 Document = data,
                 RequestId = RequestID
-               
+
             };
             return View(doc);
         }
         public IActionResult Download(int Download)
         {
-            var data = context.RequestWiseFiles.Where(a=>a.RequestWiseFileId == Download).FirstOrDefault();
+            var data = context.RequestWiseFiles.Where(a => a.RequestWiseFileId == Download).FirstOrDefault();
             string filePath = data.FileName;
 
             if (filePath == null)
             {
                 return RedirectToAction("PatientDashboard", "Patient");
             }
-           
+
             return PhysicalFile(filePath, MimeTypes.GetMimeType(filePath), Path.GetFileName(filePath));
         }
-       
-        [HttpPost]
-        public void addDocument(IFormFile file,int requestid)
-        {
-            
-            
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, file.FileName);
-                
 
-                file.CopyTo(new FileStream(filePath, FileMode.Create));
+        [HttpPost]
+        public void addDocument(IFormFile file, int requestid)
+        {
+
+
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+            var filePath = Path.Combine(uploads, file.FileName);
+
+
+            file.CopyTo(new FileStream(filePath, FileMode.Create));
             RequestWiseFile insertfile = new RequestWiseFile()
             {
-                    RequestId = requestid,
-                    FileName = filePath,
-                    CreatedDate = DateTime.Now
+                RequestId = requestid,
+                FileName = filePath,
+                CreatedDate = DateTime.Now
 
-                };
-                context.RequestWiseFiles.Add(insertfile);
+            };
+            context.RequestWiseFiles.Add(insertfile);
             context.SaveChanges();
             RedirectToAction("ViewDocument", requestid);
         }
@@ -621,7 +629,7 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult RequestForMe(PatientRequest model )
+        public IActionResult RequestForMe(PatientRequest model)
         {
             string? UserEmail = Request.Cookies[CookieUserEmail];
 
@@ -631,7 +639,7 @@ namespace HalloDoc.Controllers
             var year = dob.Year;
             var email = model.Email;
 
-            var userid = context.Requests.Where(a=>a.Email == UserEmail).FirstOrDefault();
+            var userid = context.Requests.Where(a => a.Email == UserEmail).FirstOrDefault();
 
             Request insertrequest = new Request()
             {
@@ -687,7 +695,7 @@ namespace HalloDoc.Controllers
             context.RequestClients.Add(insertrequestclient);
             context.SaveChanges();
 
-            return RedirectToAction("PatientDashboardPage","Patient");
+            return RedirectToAction("PatientDashboardPage", "Patient");
 
         }
 

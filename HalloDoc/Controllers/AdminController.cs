@@ -8,5 +8,9 @@ namespace HalloDoc.Controllers
         {
             return View();
         }
+        public IActionResult test()
+        {
+            return View();
+        }
     }
 }
