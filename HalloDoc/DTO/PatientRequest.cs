@@ -18,7 +18,7 @@ namespace HalloDoc.DTO
 
         public DateTime dob { get; set; }
 
-        public IFormFile File { get; set; }
+        public List<IFormFile> File { get; set; }
 
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }

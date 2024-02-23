@@ -1,0 +1,122 @@
+﻿@model List<HalloDoc.DTO.AdminDTO.RequestTableData>
+
+
+
+@functions {
+    public string GetColor(int RequestTypeId)
+    {
+        switch (RequestTypeId)
+        {
+            case 1: return "green";
+            case 2: return "orange";
+            case 3: return "pink";
+            case 4: return "blue";
+            default: return "green";
+        }
+    }
+
+    public string showName(int Status)
+    {
+        switch (Status)
+        {
+            case 1: return "New";
+            case 2: return "Pending";
+            case 3: return "Active";
+            case 4: return "Conclude";
+            case 5: return "To close";
+            case 6: return "Unpaid";
+            default: return "Unknown";
+        }
+    }
+}
+
+
+
+    @if (Model.Count > 0)
+{
+    <div class="table-responsive d-none d-sm-block">
+        <table class="table " id="adminTable">
+
+
+
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Requestor</th>
+                    <th scope="col">Requested date</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col">Chat With</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var obj in Model)
+                {
+                    <tr class="align-middle table-@{
+                                        @GetColor(obj.RequestTypeId)
+}">
+                        <td scope="row">@obj.Name</td>
+                        <td></td>
+                        <td>@obj.Requestor</td>
+                        <td>@obj.RequestedDate.ToString("MMM,dd yyyy")</td>
+                        <td>
+                            <div>
+                                <span class="border border-white rounded p-2"><i class="bi bi-telephone p-2"></i>@obj.Phone</span>
+                            </div>
+
+                        </td>
+                        <td>@obj.Address</td>
+                        <td>@obj.Notes</td>
+                        <td><button class="btn btn-outline-secondary d-none d-md-block text-white">Provider</button></td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn text-white border border-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Assign Case</a></li>
+                                    <li><a class="dropdown-item" href="#">Cancel Case</a></li>
+                                    <li><a class="dropdown-item" asp-action="ViewCase">View Case</a></li>
+                                    <li><a class="dropdown-item" href="#">View Notes</a></li>
+                                    <li><a class="dropdown-item" href="#">Block Patient</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+@*
+<script>
+    $(document).ready(function () {
+
+        $('#adminTable').DataTable({
+            "initComplete": function (settings, json) {
+
+                $('#my-search-input').val(settings.oPreviousSearch.sSearch);
+
+                $('#my-search-input').on('keyup', function () {
+                    var searchValue = $(this).val();
+                    settings.oPreviousSearch.sSearch = searchValue;
+                    settings.oApi._fnReDraw(settings);
+                });
+            },
+            "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
+            "pageLength": 5,
+            language: {
+                oPaginate: {
+                    sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
+                    sPrevious: '<i class="bi bi-caret-left-fill text-info"></i>'
+                }
+            }
+        });
+        $('.dataTables_filter').hide();
+    });
+</script> *@

@@ -257,6 +257,18 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Patient\\Screenshot (1).png",
+      "PackagePath": "staticwebassets\\uploads\\Patient\\Screenshot (1).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Patient\\Screenshot (10).png",
+      "PackagePath": "staticwebassets\\uploads\\Patient\\Screenshot (10).png"
+    },
+    {
+      "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Patient\\Screenshot (11).png",
+      "PackagePath": "staticwebassets\\uploads\\Patient\\Screenshot (11).png"
+    },
+    {
       "Id": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (1).png",
       "PackagePath": "staticwebassets\\uploads\\Screenshot (1).png"
     },

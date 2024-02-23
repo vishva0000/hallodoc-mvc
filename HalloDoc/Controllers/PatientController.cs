@@ -91,25 +91,23 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult ForgetPassword(ForgetPassword model)
         {
-            CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(7);
-
-            Response.Cookies.Append(emailforreset, model.email, options);
-            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", "Please <a href=\"https://localhost:44301/Patient/ResetPassword\">login</a>");
+         
+            string ResetPassLink = "https://localhost:44301/Patient/ResetPassword?email="+model.email;
+            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
 
             return RedirectToAction("PatientLogin", "Patient");
         }
         [HttpGet]
-        public IActionResult ResetPassword()
+        public IActionResult ResetPassword(string email)
         {
+            TempData["email"] = email;
             return View();
         }
         [HttpPost]
         public IActionResult ResetPassword(ResetPassword model)
         {
-            string? UserEmail = Request.Cookies[emailforreset];
-
-            var data = context.AspNetUsers.Where(a => a.Email == UserEmail).FirstOrDefault();
+            var email = TempData["email"];
+            var data = context.AspNetUsers.Where(a => a.Email == email).FirstOrDefault();
             data.PasswordHash = model.Password;
             context.Update(data);
             context.SaveChanges();
@@ -161,6 +159,7 @@ namespace HalloDoc.Controllers
 
                 context.Users.Add(insertuser);
             }
+            
 
             Request insertrequest = new Request()
             {
@@ -218,20 +217,23 @@ namespace HalloDoc.Controllers
                 //    Ip = doctType,
                 //};
                 //context.Add(file);
-
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, model.File.FileName);
-                var file = model.File;
-
-                file.CopyTo(new FileStream(filePath, FileMode.Create));
-                RequestWiseFile insertfile = new RequestWiseFile()
+                foreach(var item in model.File)
                 {
-                    Request = insertrequest,
-                    FileName = filePath,
-                    CreatedDate = DateTime.Now
+                    var uploads = Path.Combine(_environment.WebRootPath, "uploads/Patient");
+                    var filePath = Path.Combine(uploads, item.FileName);
+                    var file = item;
 
-                };
-                context.RequestWiseFiles.Add(insertfile);
+                    file.CopyTo(new FileStream(filePath, FileMode.Create));
+                    RequestWiseFile insertfile = new RequestWiseFile()
+                    {
+                        Request = insertrequest,
+                        FileName = filePath,
+                        CreatedDate = DateTime.Now
+
+                    };
+                    context.RequestWiseFiles.Add(insertfile);
+                }
+               
 
             }
             context.RequestClients.Add(insertrequestclient);
@@ -296,7 +298,7 @@ namespace HalloDoc.Controllers
             context.RequestClients.Add(insertrequestclient);
             if (model.P_File != null)
             {
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads/Family");
                 var filePath = Path.Combine(uploads, model.P_File.FileName);
                 var file = model.P_File;
 
@@ -676,20 +678,23 @@ namespace HalloDoc.Controllers
 
             if (model.File != null)
             {
-
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-                var filePath = Path.Combine(uploads, model.File.FileName);
-                var file = model.File;
-
-                file.CopyTo(new FileStream(filePath, FileMode.Create));
-                RequestWiseFile insertfile = new RequestWiseFile()
+                foreach(var item in model.File)
                 {
-                    Request = insertrequest,
-                    FileName = filePath,
-                    CreatedDate = DateTime.Now
+                    var uploads = Path.Combine(_environment.WebRootPath, "uploads/Patient");
+                    var filePath = Path.Combine(uploads, item.FileName);
+                    var file = item;
 
-                };
-                context.RequestWiseFiles.Add(insertfile);
+                    file.CopyTo(new FileStream(filePath, FileMode.Create));
+                    RequestWiseFile insertfile = new RequestWiseFile()
+                    {
+                        Request = insertrequest,
+                        FileName = filePath,
+                        CreatedDate = DateTime.Now
+
+                    };
+                    context.RequestWiseFiles.Add(insertfile);
+                }
+             
 
             }
             context.RequestClients.Add(insertrequestclient);

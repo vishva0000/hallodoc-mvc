@@ -335,3 +335,19 @@ select#regionsearch {
     select#regionsearch:focus {
         border-color: #00ccff !important;
     }
+
+.table-green{
+    background-color:green;
+}
+.table-orange {
+    background-color: orange;
+}
+.table-pink{
+    background-color: pink;
+}
+.table-blue {
+    background-color: blue;
+}
+.table{
+    --bs-table-bg:none;
+}
