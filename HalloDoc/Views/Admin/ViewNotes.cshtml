@@ -1,0 +1,146 @@
+﻿@model HalloDoc.DTO.AdminDTO.ViewNotesData
+@{
+    Layout = "_Empty";
+}
+<div>
+
+
+<div class="">
+    <ul class="nav nav-underline">
+
+        <li class="nav-item m-2">
+            <a class="nav-link text-info " href="#">Dashboard</a>
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">Provider Location</a>
+
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">My Profile</a>
+
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">Providers</a>
+
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">Partners</a>
+
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">Access</a>
+
+        </li>
+        <li class="nav-item m-2">
+            <a class="nav-link text-dark" href="#">Records</a>
+
+        </li>
+
+    </ul>
+</div>
+    <div class="d-flex justify-content-center">
+        <div class="container">
+
+           
+            <div class="d-inline-flex justify-content-between w-100 mb-2">
+
+                <h2 class="m-2">Notes</h2>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+            <form asp-action="ViewNotes" method="post" asp-controller="Admin">
+                <div class="row">
+                    <br />
+                    <div class="col-md-6  ">
+                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
+                            <div class="m-2">
+                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
+                            </div>
+                            <div class="m-2">
+                                <p style="font-weight: bold" class="">Transfer Notes</p>
+                                @if (Model != null)
+                                    {
+                                        <p>@Model.transfer</p>
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
+                                
+                            </div>
+                        </div>
+                       
+                    </div>
+                   <div class="col-md-6  ">
+                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
+                            <div class="m-2">
+                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
+                            </div>
+                            <div class="m-2">
+                                <p style="font-weight: bold" class="">Physician Notes</p>
+                                @if (Model != null)
+                                {
+                                    <p>@Model.physicianNotes</p>
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </div>
+                        </div>
+                       
+                    </div>
+                   
+                   
+                </div>
+                <br />
+               <div class="row">
+                    <div class="col-md-6  ">
+                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
+                            <div class="m-2">
+                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
+                            </div>
+                            <div class="m-2">
+                                <p style="font-weight: bold" class="">Admin Notes</p>
+                                @if (Model != null)
+                                {
+                                    <p>@Model.adminNotes</p>
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+               </div>
+               <br />
+                <div class="row bg-white rounded-3">
+                 <div class="col-md-12 p-4 ">
+                        <div class="form-floating">
+                            <textarea class="form-control"
+                            asp-for="Notes"
+                                      placeholder="Leave a comment here"
+                                      id="floatingTextarea"
+                                      style="height: 250px"></textarea>
+                            <label for="floatingTextarea">Enter Brief Details Of Symptoms</label>
+                        </div>
+                        <br />
+                        <div class="w-100 d-flex justify-content-end">
+                            <button class="btn btn-info" type="submit">Save Changes</button>
+                        </div>
+                 </div>
+             </div>
+
+            </form>
+        </div>
+    </div>
+</div>

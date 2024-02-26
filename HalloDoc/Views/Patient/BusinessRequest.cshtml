@@ -4,8 +4,7 @@
 }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
-@using (Html.BeginForm())
-{
+
 <div class="d-flex justify-content-center">
     <div class="mt-2 shadow p-3 mb-5 bg-white rounded">
         <div class="d-flex justify-content-end">
@@ -25,10 +24,7 @@
                                        placeholder="name@example.com" />
                                 <label for="floatingInput">Your First Name</label>
                             </div>
-                          @*   <span class="text-danger">
-                                @Html.ValidationMessage("B_Firstmame")
-
-                            </span> *@
+                            <span asp-validation-for="B_Firstname" class="text-danger"> </span>
                         </div>
                     
                        
@@ -44,13 +40,10 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Your Last Name</label>
                         </div>
-                       @*  <span class="text-danger">
-                            @Html.ValidationMessage("B_Lirstmame")
-
-                        </span> *@
+                        <span asp-validation-for="B_Lastname" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
-                        <div class="mb-3">
+                        <div class="">
                             <input type="text"
                                 asp-for="B_Phone"
                                    class="form-control"
@@ -59,9 +52,10 @@
                                    style="height: 58px" />
                             <label for="phone"></label>
                         </div>
+                        <span asp-validation-for="B_Phone" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-floating mb-3">
+                        <div class="form-floating ">
                             <input type="email"
                                 asp-for="B_Email"
                                    class="form-control"
@@ -69,6 +63,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Your Email</label>
                         </div>
+                        <span asp-validation-for="B_Email" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -79,6 +74,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Business/Property Name</label>
                         </div>
+
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -102,6 +98,7 @@
                               rows="5"></textarea>
                     <label for="floatingTextarea">Enter Brief Details Of Symptoms</label>
                 </div>
+                <span asp-validation-for="P_symp" class="text-danger"> </span>
                 <br />
                 <div class="row">
                     <div class="col-md-6">
@@ -113,6 +110,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">First Name</label>
                         </div>
+                        <span asp-validation-for="P_Firstname" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -123,6 +121,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Last name</label>
                         </div>
+                        <span asp-validation-for="P_Lastname" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -133,6 +132,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Date of Birth</label>
                         </div>
+                        <span asp-validation-for="P_dob" class="text-danger"> </span>
                     </div>
                 </div>
 
@@ -147,6 +147,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Email</label>
                         </div>
+                        <span asp-validation-for="P_Email" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -158,6 +159,7 @@
                                    name="name" />
                             <label for="floatingInput">Phone Number</label>
                         </div>
+                        <span asp-validation-for="P_Phone" class="text-danger"> </span>
                     </div>
                 </div>
                 <h4>Patient Location</h4>
@@ -171,6 +173,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Street</label>
                         </div>
+                        <span asp-validation-for="P_Street" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -181,6 +184,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">City</label>
                         </div>
+                        <span asp-validation-for="P_City" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -191,6 +195,7 @@
                                    placeholder="name@example.com" />
                             <label for="floatingInput">State</label>
                         </div>
+                        <span asp-validation-for="P_State" class="text-danger"> </span>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
@@ -226,7 +231,7 @@
     </div>
 </div>
 
-}
+
 <script>
     const phoneInputField = document.querySelector("#phone");
     const phoneInputField1 = document.querySelector("#phone1");

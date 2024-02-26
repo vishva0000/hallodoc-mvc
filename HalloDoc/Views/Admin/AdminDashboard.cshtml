@@ -127,7 +127,7 @@
     <div class="row ps-2">
         <div class="row col-xl-6">
             <div class="col-sm-6">
-                <input id="patientsearch" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
+                <input id="myInput" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
             </div>
             <div class="col-sm-6">
                 <div class="">
@@ -164,13 +164,13 @@
                 <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #943db8;"></div><span>VIP</span>
             </div>
         </div>
-        <div>
+       
 
 
             <div id="partial_container" class="tableData">
             </div>
 
-        </div>
+     
     </div>
 
 
@@ -191,18 +191,105 @@
                 this.classList.add("active");
             })
         }
-        $('#NewState').on('click', function () {
-            console.log("Hello");
-            var status = 1;
-            $.ajax({
-                url: '@Url.Action("Table", "Admin")?reqStaus=' + status,
+                  $(document).ready(function(){
+        $.ajax({ 
+                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
                 type: 'get',
                 success: function (result) {
-                    console.log(result);
+                         console.log("function Success");
+                            $(".tableData").html(result);
+            }
+        });
+    });
+
+        $('#NewState').on('click', function () {
+        
+            var status = 1;
+            $.ajax({
+                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("New state Function Success");
                     $(".tableData").html(result);
                 }
             });
         });
+
+        $(document).ready(function () {
+            $("#myInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+        });
+
+        $('#PendingState').on('click', function () {
+           
+            var status = 2;
+            $.ajax({
+                url: '@Url.Action("PendingState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("Pending state Function Success");
+                    $(".tableData").html(result);
+                }
+            });
+        });
+
+        $('#ActiveState').on('click', function () {
+      
+            var status = 3;
+            $.ajax({
+                url: '@Url.Action("ActiveState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("Active state Function Success");
+                    $(".tableData").html(result);
+                }
+            });
+        });
+
+        $('#ConcludeState').on('click', function () {
+       
+            var status = 4;
+            $.ajax({
+                url: '@Url.Action("ConcludeState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("Conclude state Function Success");
+                    $(".tableData").html(result);
+                }
+            });
+        });
+
+        $('#ToCloseState').on('click', function () {
+           
+            var status = 5;
+            $.ajax({
+                url: '@Url.Action("ToCloseState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("To close state Function Success");
+                    $(".tableData").html(result);
+                }
+            });
+        });
+
+        $('#UnpaidState').on('click', function () {
+            
+            var status = 6;
+            $.ajax({
+                url: '@Url.Action("UnpaidState", "Admin")?reqStaus=' + status,
+                type: 'get',
+                success: function (result) {
+                    console.log("Unpaid state Function Success");
+                    $(".tableData").html(result);
+                }
+            });
+        });
+
 
 
     </script>

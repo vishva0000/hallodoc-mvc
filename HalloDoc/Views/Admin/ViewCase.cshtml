@@ -1,4 +1,4 @@
-﻿@model HalloDoc.DTO.AdminDTO.ViewCase
+﻿@model HalloDoc.DTO.AdminDTO.ViewCaseData
 @{
     Layout = "_Empty";
 }
@@ -51,9 +51,28 @@
             <div class="d-inline-flex justify-content-between w-100">
              
 
-                    <h2 class="m-2">
-                    New Request<span class="badge rounded-pill" style="background-color:#60bc60">Patient</span>
-                    </h2>
+                    
+                @if(Model.RequestTypeId == 2)
+                {
+                    <h2 class="m-2"> New Request<span class="badge rounded-pill" style="background-color:#60bc60">Patient</span></h2>
+                }
+                else if(Model.RequestTypeId == 3)
+                {
+                    <h2 class="m-2"> New Request<span class="badge rounded-pill" style="background-color:orange">Family/Friend</span></h2>
+
+                }
+                else if(Model.RequestTypeId == 4)
+                {
+                    <h2 class="m-2"> New Request<span class="badge rounded-pill" style="background-color:blue">Concierge</span></h2>
+
+                }
+                else
+                {
+                    <h2 class="m-2"> New Request<span class="badge rounded-pill" style="background-color:pink">Business</span></h2>
+
+                }
+
+                
                
                 <div class="ml-auto">
 
@@ -125,12 +144,6 @@
                             <label for="floatingInput">Phone number</label>
                         </div>
                     </div>
-                    
-                   
-
-                    
-
-
                 </div>
         <div class="row">
             <div class="col-md-6">
@@ -147,7 +160,7 @@
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn ml-auto btn-outline-info btn-edit p-3">Edit</button>
-
+                        <button type="submit" class="btn m-lg-auto btn-info btn-save p-3">Save</button>
             </div>
         </div>
 

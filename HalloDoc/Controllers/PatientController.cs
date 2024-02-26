@@ -292,7 +292,10 @@ namespace HalloDoc.Controllers
                 Location = model.P_Location,
                 IntDate = day,
                 StrMonth = mon,
-                IntYear = year
+                IntYear = year,
+                Street = model.P_Street,
+                State = model.P_State,
+                City = model.P_City
 
             };
             context.RequestClients.Add(insertrequestclient);
@@ -330,8 +333,7 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult BusinessRequest(BusinessRequest model)
         {
-            //if (ModelState.IsValid)
-            //{
+            
             Request insertrequest = new Request()
             {
                 RequestTypeId = 1,
@@ -361,7 +363,11 @@ namespace HalloDoc.Controllers
                 Location = model.P_Room,
                 IntDate = day,
                 StrMonth = mon,
-                IntYear = year
+                IntYear = year,
+                Street = model.P_Street,
+                State = model.P_State,
+                City = model.P_City
+               
 
             };
             context.RequestClients.Add(insertrequestclient);
@@ -385,12 +391,7 @@ namespace HalloDoc.Controllers
             context.RequestBusinesses.Add(insertrequestbusiness);
             context.SaveChanges();
             return RedirectToAction("Index", "Home");
-            //}
-            //else
-            //{
-            //return View(model);
-            //}
-
+            
         }
         [HttpGet]
         public IActionResult ConciergeRequest()
