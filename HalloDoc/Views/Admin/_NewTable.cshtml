@@ -14,20 +14,6 @@
             default: return "green";
         }
     }
-
-    public string showName(int Status)
-    {
-        switch (Status)
-        {
-            case 1: return "New";
-            case 2: return "Pending";
-            case 3: return "Active";
-            case 4: return "Conclude";
-            case 5: return "To close";
-            case 6: return "Unpaid";
-            default: return "Unknown";
-        }
-    }
 }
 
 
@@ -35,7 +21,7 @@
     @if (Model.Count > 0)
 {
     <div class="table-responsive d-none d-sm-block">
-        <table class="table " id="myTable">
+        <table class="table " id="adminTable">
 
 
             <thead>
@@ -54,33 +40,55 @@
             <tbody>
                 @foreach (var obj in Model)
                 {
-                    <tr class="align-middle table-@{
+                    <tr class=" align-middle table-@{
                                         @GetColor(obj.RequestTypeId)
 }">
-                        <td scope="row">@obj.Name</td>
-                        <td></td>
-                        <td>@obj.Requestor</td>
-                        <td>@obj.RequestedDate.ToString("MMM,dd yyyy")</td>
-                        <td>
+                        <td scope="row" class="text-white">
+                            <div class="d-inline-flex w-100">
+                                <div class="w-100">
+                                    @obj.Name
+                                </div>
+                                <div style="border:1px white solid " class="rounded">
+                                <button class="btn text-white">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </button>
+                                </div>
+                            </div>
+                           </td>
+                        <td class="text-white"></td>
+                        <td class="text-white">@obj.Requestor</td>
+                        <td class="text-white">@obj.RequestedDate.ToString("MMM,dd yyyy")</td>
+                        <td class="text-white">
                             <div>
                                 <span class="border border-white rounded p-2"><i class="bi bi-telephone p-2"></i>@obj.Phone</span>
                             </div>
 
                         </td>
-                        <td>@obj.Address</td>
-                        <td>@obj.Notes</td>
-                        <td><button class="btn btn-outline-secondary d-none d-md-block text-white">Provider</button></td>
-                        <td>
+                        <td class="text-white">@obj.Address</td>
+                       
+                            @if(obj.Notes== null)
+                            {
+                                <td class="text-white">-</td>
+                            }
+                            else
+                            {
+                                <td class="text-white">
+                                @obj.Notes
+                                </td>
+                            }
+                            
+                        <td class="text-white"><button style="border:1px white solid " class="btn rounded d-none d-md-block text-white">Provider</button></td>
+                        <td class="text-white">
                             <div class="dropdown">
                                 <button class="btn text-white border border-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Assign Case</a></li>
-                                    <li><a class="dropdown-item" href="#">Cancel Case</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase">View Case</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes">View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#">Block Patient</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i>  Assign Case</a></li>
+                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#model1"><i class="fa-regular fa-circle-xmark pe-2"></i> Cancel Case</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature"></i> View Case</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes"> <i class="fa-solid fa-book"></i> View Notes</a></li>
+                                    <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-ban"></i> Block Patient</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -91,8 +99,49 @@
     </div>
 }
 
+<!-- Modal -->
+<div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm Cancellation</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Patient Name : <span class="text-info">test test</span></p>
+                <div class="dropdown bg-light">
+                  
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Reason for cancellation</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <br />
+                <div class="form-floating">
+                    <textarea class="form-control"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea"
+                              style="height: 100px"></textarea>
+                    <label for="floatingTextarea">Provide Aditional notes</label>
+                </div>
 
-@*
+            </div>
+            <div class="modal-footer border-0">
+                <a asp-controller="Home" asp-action="SubmitRequest">
+                    <button style="background-color:#0dcaf0; color:white;" type="button" class="btn ">Confirm</button>
+
+                </a>
+                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
 
@@ -118,4 +167,7 @@
         });
         $('.dataTables_filter').hide();
     });
-</script> *@
+
+</script>
+
+

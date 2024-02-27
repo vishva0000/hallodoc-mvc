@@ -35,7 +35,7 @@
     @if (Model.Count > 0)
 {
     <div class="table-responsive d-none d-sm-block">
-        <table class="table " id="myTable">
+        <table class="table " id="adminTable">
 
 
             <thead>
@@ -58,15 +58,36 @@
                     <tr class="align-middle table-@{
                                                     @GetColor(obj.RequestTypeId)
 }">
-                        <td scope="row">@obj.Name</td>
-                        <td></td>
-                        <td>@obj.Region</td>
-                        <td>@obj.PhysicianName</td>
-                        <td>@obj.DateOfService.ToString("MMM,dd yyyy")</td>
-                        <td>@obj.Address</td>
-                        <td>@obj.Notes</td>
-                        <td><button class="btn btn-outline-secondary d-none d-md-block text-white">Provider</button></td>
-                        <td>
+                        <td scope="row" class="text-white">
+                            <div class="d-inline-flex w-100">
+                                <div class="w-100">
+                                    @obj.Name
+                                </div>
+                                <div style="border:1px white solid " class="rounded">
+                                    <button class="btn text-white">
+                                        <i class="fa-regular fa-envelope"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-white"></td>
+                        <td class="text-white">@obj.Region</td>
+                        <td class="text-white">@obj.PhysicianName</td>
+                        <td class="text-white">@obj.DateOfService.ToString("MMM,dd yyyy")</td>
+                        <td class="text-white">@obj.Address</td>
+
+                        @if (obj.Notes == null)
+                        {
+                            <td class="text-white">-</td>
+                        }
+                        else
+                        {
+                            <td class="text-white">
+                                @obj.Notes
+                            </td>
+                        }
+                        <td class="text-white"><button style="border:1px white solid " class="btn rounded d-none d-md-block text-white">Provider</button></td>
+                        <td class="text-white">
                             <div class="dropdown">
                                 <button class="btn text-white border border-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Action
@@ -91,7 +112,7 @@
 }
 
 
-@*
+
 <script>
     $(document).ready(function () {
 
@@ -117,4 +138,5 @@
         });
         $('.dataTables_filter').hide();
     });
-</script> *@
+
+</script>

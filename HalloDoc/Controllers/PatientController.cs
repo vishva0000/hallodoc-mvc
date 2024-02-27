@@ -189,6 +189,7 @@ namespace HalloDoc.Controllers
                 Street = model.Street,
                 State = model.State,
                 City = model.City,
+                Location = model.Room,
                 ZipCode = model.Zipcode
 
             };
@@ -301,19 +302,35 @@ namespace HalloDoc.Controllers
             context.RequestClients.Add(insertrequestclient);
             if (model.P_File != null)
             {
-                var uploads = Path.Combine(_environment.WebRootPath, "uploads/Family");
-                var filePath = Path.Combine(uploads, model.P_File.FileName);
-                var file = model.P_File;
+                //var uploads = Path.Combine(_environment.WebRootPath, "uploads/Family");
+                //var filePath = Path.Combine(uploads, model.P_File.FileName);
+                //var file = model.P_File;
 
-                file.CopyTo(new FileStream(filePath, FileMode.Create));
-                RequestWiseFile insertfile = new RequestWiseFile()
+                //file.CopyTo(new FileStream(filePath, FileMode.Create));
+                //RequestWiseFile insertfile = new RequestWiseFile()
+                //{
+                //    Request = insertrequest,
+                //    FileName = filePath,
+                //    CreatedDate = DateTime.Now
+
+                //};
+                //context.RequestWiseFiles.Add(insertfile);
+                foreach (var item in model.P_File)
                 {
-                    Request = insertrequest,
-                    FileName = filePath,
-                    CreatedDate = DateTime.Now
+                    var uploads = Path.Combine(_environment.WebRootPath, "uploads/Family");
+                    var filePath = Path.Combine(uploads, item.FileName);
+                    var file = item;
 
-                };
-                context.RequestWiseFiles.Add(insertfile);
+                    file.CopyTo(new FileStream(filePath, FileMode.Create));
+                    RequestWiseFile insertfile = new RequestWiseFile()
+                    {
+                        Request = insertrequest,
+                        FileName = filePath,
+                        CreatedDate = DateTime.Now
+
+                    };
+                    context.RequestWiseFiles.Add(insertfile);
+                }
             }
 
 

@@ -19,23 +19,14 @@ namespace HalloDoc.Controllers
         }
         public IActionResult AdminDashboard()
         {
-            List<RequestTableData> data = new();
-            var details = db.RequestClients.Include(a => a.Request);
-            foreach (var item in details)
-            {
-                RequestTableData request = new RequestTableData()
-                {
-                    Name = item.FirstName + " " + item.LastName,
-                    Requestor = item.Request.FirstName,
-                    Phone = item.PhoneNumber,
-                    Address = item.Street + " " + item.City + " " + item.State,
+            AdminDashboard data = new AdminDashboard();
+            data.New = db.Requests.Where(a => a.Status == 1).Count();
+            data.Pending = db.Requests.Where(a => a.Status == 2).Count();
+            data.Active = db.Requests.Where(a => a.Status == 5 || a.Status == 6).Count();
+            data.Conclude = db.Requests.Where(a => a.Status == 8).Count();
+            data.ToClose = db.Requests.Where(a => a.Status == 13 || a.Status == 3 || a.Status == 8).Count();
+            data.UnPaid = db.Requests.Where(a => a.Status == 8).Count();
 
-
-                };
-                data.Add(request);
-            }
-
-            //return PartialView("_Table");
             return View(data);
            
         }
@@ -81,52 +72,179 @@ namespace HalloDoc.Controllers
         public List<RequestTableData> RequestsTable(int status)
         {
             List<Request> r;
-           if (status == 1)
+            List<RequestTableData> data = new();
+
+            if (status == 1)
             {
                 r = db.Requests.Where(a => a.Status == 1).ToList();
+              
+
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
            else if(status == 2)
             {
                 r = db.Requests.Where(a => a.Status == 2).ToList();
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
            else if(status == 3)
             {
                 r = db.Requests.Where(a => a.Status == 5 || a.Status == 6).ToList();
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
            else if(status == 4)
             {
                 r = db.Requests.Where(a => a.Status == 8).ToList();
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
            else if(status == 5)
             {
                 r = db.Requests.Where(a => a.Status == 13 || a.Status == 3 || a.Status==8).ToList();
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
            else if(status == 6)
             {
                 r = db.Requests.Where(a => a.Status == 8).ToList();
+                var details = db.Requests;
+
+                foreach (var item in r)
+                {
+
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
             else
             {
                 r = db.Requests.Where(a => a.Status == status).ToList();
-            }
-            List<RequestTableData> data = new();
-             
-            var details = db.Requests;
+                var details = db.Requests;
 
-            foreach (var item in r)
-            {
+                foreach (var item in r)
+                {
 
-                RequestTableData request = new RequestTableData();
-                
-                request.RequestId = item.RequestId;
-                request.RequestTypeId = item.RequestTypeId;
-                request.Requestor = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
-                request.Name = item.FirstName + " " + item.LastName;
-                request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
-                request.Phone = item.PhoneNumber;
-                request.RequestedDate = item.CreatedDate;
-                data.Add(request);
+                    RequestTableData request = new RequestTableData();
+
+                    request.RequestId = item.RequestId;
+                    request.RequestTypeId = item.RequestTypeId;
+                    request.Requestor = item.FirstName + " " + item.LastName;
+                    request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
+                    request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                    request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
+                    request.RequestedDate = item.CreatedDate;
+                    //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
+                    //var phyid = item.PhysicianId;
+                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
+                    //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
+                    data.Add(request);
+                }
             }
+            
 
             return data;
         }
@@ -176,15 +294,28 @@ namespace HalloDoc.Controllers
         {
             var data = db.RequestNotes.Where(a => a.RequestId == Requestid).FirstOrDefault();
 
-
+            TempData["requestid"]=Requestid;
             if (data != null)
             {
                 ViewNotesData notesdata = new ViewNotesData();
                 
                 notesdata.adminNotes = data.AdminNotes;
                 notesdata.physicianNotes = data.PhysicianNotes;
+
+                return View(notesdata);
             }
             return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult ViewNotes(ViewNotesData model)
+        {
+            var requid = (int)TempData["requestid"];
+            var data = db.RequestNotes.Where(a=>a.RequestId == requid).FirstOrDefault();
+            data.AdminNotes = model.Notes;
+            db.RequestNotes.Update(data);
+            db.SaveChanges();
+            return View();
         }
     }
 }

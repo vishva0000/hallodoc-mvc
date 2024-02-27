@@ -7,5 +7,7 @@
         public string transfer { get; set; }
         public string adminNotes { get; set; }
         public string physicianNotes { get; set; }
+
+        
     }
 }
