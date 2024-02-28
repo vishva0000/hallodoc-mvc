@@ -17,89 +17,250 @@
 }
 
 
-
     @if (Model.Count > 0)
 {
+    var type = Model[0].status;
+
     <div class="table-responsive d-none d-sm-block">
+       
         <table class="table " id="adminTable">
-
-
             <thead>
                 <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Date Of Birth</th>
-                    <th scope="col">Requestor</th>
-                    <th scope="col">Requested date</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Notes</th>
-                    <th scope="col">Chat With</th>
-                    <th scope="col">Actions</th>
+                   
+                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
+                        {
+                            <th scope="col">Date Of Birth</th>
+
+                        }
+                    @if (type == 5)
+                        {
+                            <th scope="col">Region</th>
+
+                        }
+                    @if (type == 1 || type == 2 || type == 3 )
+                        {
+                            <th scope="col">Requestor</th>
+
+                        }
+                    @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                    {
+                        <th scope="col">Physician Name</th>
+                    }
+                    @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                    {
+                        <th scope="col">Date of service</th>
+                    }
+                    @if (type == 1 )
+                        {
+                            <th scope="col">Requested date</th>
+
+                        }
+                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 6)
+                        {
+                            <th scope="col">Phone</th>
+
+                        }
+                   
+                             <th scope="col">Address</th>
+
+                    @if (type == 1 || type == 2 || type == 3 || type == 5)
+                        {
+                            <th scope="col">Notes</th>
+
+                        }
+                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                        {
+                            <th scope="col">Chat With</th>
+
+                        }
+                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
+                        {
+                            <th scope="col">Actions</th>
+
+                        }
                 </tr>
             </thead>
+            @foreach (var obj in Model)
+            {
             <tbody>
-                @foreach (var obj in Model)
-                {
+               
                     <tr class=" align-middle table-@{
-                                        @GetColor(obj.RequestTypeId)
-}">
+                                                    @GetColor(obj.RequestTypeId) }">
+
                         <td scope="row" class="text-white">
                             <div class="d-inline-flex w-100">
                                 <div class="w-100">
                                     @obj.Name
                                 </div>
                                 <div style="border:1px white solid " class="rounded">
-                                <button class="btn text-white">
-                                    <i class="fa-regular fa-envelope"></i>
-                                </button>
+                                    <button class="btn text-white">
+                                        <i class="fa-regular fa-envelope"></i>
+                                    </button>
                                 </div>
                             </div>
-                           </td>
-                        <td class="text-white"></td>
-                        <td class="text-white">@obj.Requestor</td>
-                        <td class="text-white">@obj.RequestedDate.ToString("MMM,dd yyyy")</td>
-                        <td class="text-white">
-                            <div>
-                                <span class="border border-white rounded p-2"><i class="bi bi-telephone p-2"></i>@obj.Phone</span>
-                            </div>
-
                         </td>
-                        <td class="text-white">@obj.Address</td>
-                       
-                            @if(obj.Notes== null)
+                        
+                        @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
+                        {
+                            <td class="text-white"></td>
+
+                        }
+                        @if (type == 5)
+                        {
+                            <td class="text-white"></td>
+
+                        }
+                        @if (type == 1 || type == 2 || type == 3)
+                        {
+                            <td class="text-white">@obj.Requestor</td>
+
+                        }
+                        @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                        {
+                            <td class="text-white">@obj.PhysicianName</td>
+                        }
+                        @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                        {
+                            <td class="text-white">@obj.DateOfService.ToString("MMM,dd yyyy")</td>
+                        }
+                        @if (type == 1)
+                        {
+                            <td class="text-white">@obj.RequestedDate.ToString("MMM,dd yyyy")</td>
+
+                        }
+                        @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 6)
+                        {
+                            <td class="text-white">
+                                <div>
+                                    <span class="border border-white rounded p-2"><i class="bi bi-telephone p-2"></i>@obj.Phone</span>
+                                </div>
+
+                            </td>
+
+                        }
+                        
+                             <td class="text-white">@obj.Address</td>
+
+                        @if (type == 1 || type == 2 || type == 3 || type == 5)
+                        {
+                            @if (obj.Notes == null)
                             {
                                 <td class="text-white">-</td>
                             }
                             else
                             {
                                 <td class="text-white">
-                                @obj.Notes
+                                    @obj.Notes
                                 </td>
                             }
-                            
-                        <td class="text-white"><button style="border:1px white solid " class="btn rounded d-none d-md-block text-white">Provider</button></td>
+
+                        }
+                        @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                        { 
+                            <td class="text-white"><button style="border:1px white solid " class="btn rounded d-none d-md-block text-white">Provider</button></td>
+
+                        }                        
                         <td class="text-white">
                             <div class="dropdown">
                                 <button class="btn text-white border border-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i>  Assign Case</a></li>
-                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#model1"><i class="fa-regular fa-circle-xmark pe-2"></i> Cancel Case</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature"></i> View Case</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes"> <i class="fa-solid fa-book"></i> View Notes</a></li>
-                                    <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-ban"></i> Block Patient</a></li>
+                                    @if(type == 1)
+                                    {
+                                        <li class="">
+                                            <button class="btn" data-toggle="modal" data-target="#model2">
+                                                <i class="fa-regular fa-file-lines me-2 ms-1"></i>  Assign Case
+                                            </button>
+                                        </li>
+
+                                    }
+                                 
+                                    @if(type == 1)
+                                    {
+                                        <li>
+                                            <button class="btn cancel-case" data-toggle="modal" data-target="#model1" data-id="@obj.RequestId">
+                                                <i class="fa-regular fa-circle-xmark pe-2"></i> Cancel Case
+                                            </button>
+                                        </li>
+
+
+                                    }
+                                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature"></i> View Case</a></li>
+
+
+                                    }
+                                    @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-arrow-up"></i> View Uploads</a></li>
+
+
+                                    }
+                                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
+                                    {
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes"> <i class="fa-solid fa-book"></i> View Notes</a></li>
+
+                                    }
+                                    @if (type == 3 || type == 4 || type == 5)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-circle-check"></i> Orders</a></li>
+
+                                    }
+                                    @if ( type == 5)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
+
+                                    }
+                                    @if (type == 3 || type == 4 || type == 5)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i> Doctors Note</a></li>
+
+                                    }
+                                   
+                                    @if (type == 2)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-import"></i> Transfer</a></li>
+
+                                    }
+                                    @if (type == 2 || type == 5)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark"></i> Clear case</a></li>
+
+                                    }
+                                    @if (type == 3 || type == 4 || type == 5)
+                                    {
+                                        <li><a class="dropdown-item" href="#"> <i class="fa-regular fa-file-lines"></i>Encounter</a></li>
+                                    }
+                                    @if (type == 2)
+                                    {
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i> Send Agreement</a></li>
+
+                                    }
+                                    @if (type == 1)
+                                    {
+                                        <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-ban"></i> Block Patient</a></li>
+
+                                    }
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                }
+                
             </tbody>
+            }
         </table>
+       
     </div>
 }
+else
+{
+    <p>No data found</p>
+}
 
-<!-- Modal -->
+<!-- Cancel case  Modal -->
 <div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -109,8 +270,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form class="cancelcaseform">
             <div class="modal-body">
-                <p>Patient Name : <span class="text-info">test test</span></p>
+                <input type="number"
+                    hidden
+                    name="req_id"
+                    id="reqestid"
+                    />
+                <p>Patient Name : <span id="Name" class="text-info"></span></p>
                 <div class="dropdown bg-light">
                   
                     <select class="form-select" aria-label="Default select example">
@@ -125,23 +292,103 @@
                     <textarea class="form-control"
                               placeholder="Leave a comment here"
                               id="floatingTextarea"
+                              name="cancelNote"
                               style="height: 100px"></textarea>
                     <label for="floatingTextarea">Provide Aditional notes</label>
                 </div>
-
             </div>
             <div class="modal-footer border-0">
-                <a asp-controller="Home" asp-action="SubmitRequest">
-                    <button style="background-color:#0dcaf0; color:white;" type="button" class="btn ">Confirm</button>
+               
+                    <button id="cancelcasesubmit" style="background-color:#0dcaf0; color:white;" type="submit" class="btn ">Confirm</button>
 
-                </a>
+               
                 <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Assign case  Modal -->
+<div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Assign Request</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form>
+            <div class="modal-body">
+                <p style="font-size: 15px">To assign this request, search and select another Physician.</p>
+              
+                <div class="dropdown bg-light">
+                  
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Narrow Search by Region</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <br />
+                <div class="dropdown bg-light">
+                  
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Select Physician</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <br />
+                <div class="form-floating">
+                    <textarea class="form-control"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea"
+                              name="cancellationNote"
+                              style="height: 100px"></textarea>
+                    <label for="floatingTextarea">Description</label>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                    <button style="background-color:#0dcaf0; color:white;" type="submit" class="btn">Submit</button>               
+                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".cancel-case", OpenModelPopUp);
+
+    });
+
+    function OpenModelPopUp() {
+        var name = $(this).closest('tr').find('td').first().text();
+        var reqid = $(this).data("id");
+        $('#Name').html(name);
+        $('#reqestid').val(reqid);
+        $('model1').modal();
+    }
+
+    $('#cancelcasesubmit').on('click', function () {
+      
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("CancleCase", "Admin")',
+            data: $('form.cancelcaseform').serialize(),
+            success: function (result) {
+               alert("Case Cancelled")
+            }
+        });
+    });
+
+</script>
+@* 
 <script>
     $(document).ready(function () {
 
@@ -169,5 +416,9 @@
     });
 
 </script>
+
+ *@
+
+
 
 

@@ -20,6 +20,9 @@ header {
     margin-bottom: 40px;
 }
 
+.underline{
+    border: 1px solid black;
+}
 .dark_mode_btn {
     border: 2px solid #01BCE9;
     border-radius: 5px;
