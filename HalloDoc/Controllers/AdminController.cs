@@ -49,7 +49,8 @@ namespace HalloDoc.Controllers
         {
             List<Request> r;
             List<RequestTableData> data = new();
-
+            var phy = db.Physicians;
+           
             if (status == 1)
             {
                 r = db.Requests.Where(a => a.Status == 1).ToList();
@@ -85,6 +86,12 @@ namespace HalloDoc.Controllers
                 {
 
                     RequestTableData request = new RequestTableData();
+                    if(item.PhysicianId != null)
+                    {
+                        var phyid = item.PhysicianId;
+                        request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName +" "+ db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().LastName;
+
+                    }
                     request.status = 2;
                     request.RequestId = item.RequestId;
                     request.RequestTypeId = item.RequestTypeId;
@@ -95,7 +102,6 @@ namespace HalloDoc.Controllers
                     request.RequestedDate = item.CreatedDate;
                     //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                     //var phyid = item.PhysicianId;
-                    //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
                     //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
                     data.Add(request);
                 }
@@ -405,15 +411,15 @@ namespace HalloDoc.Controllers
             return data;
         }
         
-        public void CancleCase(int req_id, string cancelNote)
+        public void CancelCase(cancelcase model)
         {
             RequestStatusLog data = new RequestStatusLog();
-            data.RequestId = req_id;
-            data.Notes = cancelNote;
+            data.RequestId = model.req_id;
+            data.Notes = model.cancelNote;
             data.Status = 3;
             data.CreatedDate = DateTime.Now;
 
-            var requestTuple = db.Requests.Where(a => a.RequestId == req_id).FirstOrDefault();
+            var requestTuple = db.Requests.Where(a => a.RequestId == model.req_id).FirstOrDefault();
             requestTuple.Status = 3;
 
             db.Requests.Update(requestTuple);
@@ -421,6 +427,49 @@ namespace HalloDoc.Controllers
 
             db.SaveChanges();
            
+        }
+        
+        public void AssignCase(int assign_req_id, string phy_region, string phy_id, string assignNote)
+        {
+            var phyid = int.Parse(phy_id);
+            RequestStatusLog data = new RequestStatusLog();
+            data.RequestId = assign_req_id;
+            data.Notes = assignNote;
+            data.Status = 2;
+            data.CreatedDate = DateTime.Now;
+            data.PhysicianId = phyid;
+
+
+            var requestTuple = db.Requests.Where(a => a.RequestId == assign_req_id).FirstOrDefault();
+            requestTuple.Status = 2;
+            requestTuple.PhysicianId = phyid;
+            db.Requests.Update(requestTuple);
+            db.RequestStatusLogs.Add(data);
+
+            db.SaveChanges();
+           
+        }
+
+        public IActionResult FetchRegions()
+        {
+            var regions = db.Regions.Select(r => new
+            {
+                regionid = r.RegionId,
+                name = r.Name
+            }).ToList();
+
+            return Ok(regions);
+        }
+        
+        public IActionResult FetchPhysician(int selectregionid)
+        {
+            var physicians = db.Physicians.Where(r=>r.RegionId == selectregionid).Select(r => new
+            {
+                physicianid = r.PhysicianId,
+                name = r.FirstName + " " + r.LastName
+            }).ToList();
+
+            return Ok(physicians);
         }
         
         [HttpGet]
