@@ -241,7 +241,11 @@
                                     }
                                     @if (type == 1)
                                     {
-                                        <li><a class="dropdown-item" href="#"> <i class="fa-solid fa-ban"></i> Block Patient</a></li>
+                                        <li>
+                                            <button class="btn block-case" data-toggle="modal" data-target="#model3" data-blockid="@obj.RequestId">
+                                                <i class="fa-solid fa-ban"></i> Block Patient
+                                            </button>
+                                         </li>
 
                                     }
                                 </ul>
@@ -361,10 +365,47 @@ else
     </div>
 </div>
 
+
+<!-- Block case  Modal -->
+<div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm Block</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="blockcaseform">
+            <div class="modal-body">
+                    <p>Patient Name : <span id="blockName" class="text-info"></span></p>
+                    <input type="number"
+                           hidden
+                           name="block_req_id"
+                           id="blockreqid" />
+                <div class="form-floating">
+                    <textarea class="form-control"
+                              placeholder="Leave a comment here"
+                              id="floatingTextarea"
+                              name="blocknote"
+                              style="height: 100px"></textarea>
+                    <label for="floatingTextarea">Reason for Block Request</label>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                    <button style="background-color:#0dcaf0; color:white;" id="blockcasesubmit" type="submit" class="btn">Confirm</button>               
+                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $(document).on("click", ".cancel-case", OpenCancelcase);
         $(document).on("click", ".assign-case", OpenAssigncase);
+        $(document).on('click', ".block-case", OpenBlockcase);
       
         $.ajax({
             url: './FetchRegions',
@@ -391,6 +432,13 @@ else
         $('model2').model();
     }
 
+    function OpenBlockcase(){
+        var name = $(this).closest('tr').find('td').first().text();
+        var reqid = $(this).data("blockid");
+        $('#blockName').html(name);
+        $('#blockreqid').val(reqid);
+        $('model3').modal();
+    }
    
     $('#cancelcasesubmit').on('click', function () {
       
@@ -414,6 +462,20 @@ else
             success: function (result) {
                 // console.log("assign case success");
                 alert("Assign case success");
+            }
+            
+        });
+    });  
+    
+    $('#blockcasesubmit').on('click', function () {
+      
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("BlockCase", "Admin")',
+            data: $('form.blockcaseform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+                alert("Block case success");
             }
             
         });

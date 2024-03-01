@@ -55,7 +55,7 @@
                 </div>
             </div>
             <br />
-            <form asp-action="ViewNotes" method="post" asp-controller="Admin">
+           
                 <div class="row">
                     <br />
                     <div class="col-md-6  ">
@@ -67,9 +67,13 @@
                                 <p style="font-weight: bold" class="">Transfer Notes</p>
                                 @if (Model != null)
                                     {
-                                        <p>@Model.transfer</p>
-                                    }
-                                    else
+                                     @if(Model.transfer!= null)
+                                        {
+                                    <p>@Model.transfer</p>
+                                     }
+                                
+                                }
+                                else
                                     {
                                         <p>-</p>
                                     }
@@ -87,7 +91,10 @@
                                 <p style="font-weight: bold" class="">Physician Notes</p>
                                 @if (Model != null)
                                 {
+                                @if (Model.physicianNotes != null)
+                                {
                                     <p>@Model.physicianNotes</p>
+                                }
                                 }
                                 else
                                 {
@@ -111,7 +118,11 @@
                                 <p style="font-weight: bold" class="">Admin Notes</p>
                                 @if (Model != null)
                                 {
+                                @if (Model.adminNotes != null)
+                                {
                                     <p>@Model.adminNotes</p>
+                                }
+                                   
                                 }
                                 else
                                 {
@@ -123,11 +134,12 @@
                     </div>
                </div>
                <br />
+            <form asp-action="ViewNotes" method="post" asp-controller="Admin">
                 <div class="row bg-white rounded-3">
                  <div class="col-md-12 p-4 ">
                         <div class="form-floating">
                             <textarea class="form-control"
-                            asp-for="Notes"
+                            asp-for="Additional"
                                       placeholder="Leave a comment here"
                                       id="floatingTextarea"
                                       style="height: 250px"></textarea>

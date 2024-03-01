@@ -449,6 +449,35 @@ namespace HalloDoc.Controllers
             db.SaveChanges();
            
         }
+        public void BlockCase( int block_req_id, string blocknote)
+        {
+            
+            RequestStatusLog data = new RequestStatusLog();
+            data.RequestId = block_req_id;
+            data.Notes = blocknote;
+            data.Status = 8;
+            data.CreatedDate = DateTime.Now;
+        
+
+
+            var requestTuple = db.Requests.Where(a => a.RequestId == block_req_id).FirstOrDefault();
+            requestTuple.Status = 8;
+
+            
+            BlockRequest blockrequest = new BlockRequest();
+            blockrequest.RequestId = block_req_id.ToString();
+            blockrequest.PhoneNumber = db.RequestClients.Where(a => a.RequestId == block_req_id).FirstOrDefault().PhoneNumber;
+            blockrequest.Email = db.RequestClients.Where(a => a.RequestId == block_req_id).FirstOrDefault().Email;
+            blockrequest.Reason = blocknote;
+            blockrequest.CreatedDate = DateTime.Now;
+
+            db.Requests.Update(requestTuple);
+            db.RequestStatusLogs.Add(data);
+            db.BlockRequests.Add(blockrequest);
+
+            db.SaveChanges();
+           
+        }
 
         public IActionResult FetchRegions()
         {
@@ -516,30 +545,40 @@ namespace HalloDoc.Controllers
         [HttpGet]
         public ActionResult ViewNotes(int Requestid)
         {
-            var data = db.RequestNotes.Where(a => a.RequestId == Requestid).FirstOrDefault();
-
-            TempData["requestid"]=Requestid;
+            TempData["Requestid"] = Requestid;
+            var data = db.RequestNotes.Where(a=>a.RequestId == Requestid).FirstOrDefault();
+            ViewNotesData notes = new ViewNotesData();
             if (data != null)
             {
-                ViewNotesData notesdata = new ViewNotesData();
-                
-                notesdata.adminNotes = data.AdminNotes;
-                notesdata.physicianNotes = data.PhysicianNotes;
-
-                return View(notesdata);
+               
+                notes.physicianNotes = data.PhysicianNotes;
+                notes.adminNotes = data.AdminNotes;
             }
-            return View(data);
+            return View(notes);
+            
         }
 
         [HttpPost]
         public ActionResult ViewNotes(ViewNotesData model)
         {
-            var requid = (int)TempData["requestid"];
+            var requid = (int)TempData["Requestid"];
             var data = db.RequestNotes.Where(a=>a.RequestId == requid).FirstOrDefault();
-            data.AdminNotes = model.Notes;
-            db.RequestNotes.Update(data);
+            if(data != null)
+            {
+                data.AdminNotes = model.Additional;
+                db.RequestNotes.Update(data);
+            }
+            else
+            {
+                RequestNote reqnote = new RequestNote();
+                reqnote.RequestId = requid;
+                reqnote.CreatedBy = "admin";
+                reqnote.CreatedDate = DateTime.Now;
+                reqnote.AdminNotes = model.Additional;
+                db.RequestNotes.Add(reqnote);
+            }
             db.SaveChanges();
-            return View();
+            return RedirectToAction("AdminDashboard", "Admin");
         }
     }
 }
