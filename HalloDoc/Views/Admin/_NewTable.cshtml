@@ -22,27 +22,27 @@
     var type = Model[0].status;
 
     <div class="table-responsive d-none d-sm-block">
-       
+
         <table class="table " id="adminTable">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
-                   
+
                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
-                        {
-                            <th scope="col">Date Of Birth</th>
+                    {
+                        <th scope="col">Date Of Birth</th>
 
-                        }
+                    }
                     @if (type == 5)
-                        {
-                            <th scope="col">Region</th>
+                    {
+                        <th scope="col">Region</th>
 
-                        }
-                    @if (type == 1 || type == 2 || type == 3 )
-                        {
-                            <th scope="col">Requestor</th>
+                    }
+                    @if (type == 1 || type == 2 || type == 3)
+                    {
+                        <th scope="col">Requestor</th>
 
-                        }
+                    }
                     @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                     {
                         <th scope="col">Physician Name</th>
@@ -51,42 +51,43 @@
                     {
                         <th scope="col">Date of service</th>
                     }
-                    @if (type == 1 )
-                        {
-                            <th scope="col">Requested date</th>
+                    @if (type == 1)
+                    {
+                        <th scope="col">Requested date</th>
 
-                        }
+                    }
                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 6)
-                        {
-                            <th scope="col">Phone</th>
+                    {
+                        <th scope="col">Phone</th>
 
-                        }
-                   
-                             <th scope="col">Address</th>
+                    }
+
+                    <th scope="col">Address</th>
 
                     @if (type == 1 || type == 2 || type == 3 || type == 5)
-                        {
-                            <th scope="col">Notes</th>
+                    {
+                        <th scope="col">Notes</th>
 
-                        }
+                    }
                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
-                        {
-                            <th scope="col">Chat With</th>
+                    {
+                        <th scope="col">Chat With</th>
 
-                        }
+                    }
                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
-                        {
-                            <th scope="col">Actions</th>
+                    {
+                        <th scope="col">Actions</th>
 
-                        }
+                    }
                 </tr>
             </thead>
             @foreach (var obj in Model)
             {
-            <tbody>
-               
+                <tbody>
+
                     <tr class=" align-middle table-@{
-                                                                                @GetColor(obj.RequestTypeId) }">
+                                                                                    @GetColor(obj.RequestTypeId)
+ }">
 
                         <td scope="row" class="text-white">
                             <div class="d-inline-flex w-100">
@@ -100,7 +101,7 @@
                                 </div>
                             </div>
                         </td>
-                        
+
                         @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
                         {
                             <td class="text-white"></td>
@@ -139,8 +140,8 @@
                             </td>
 
                         }
-                        
-                             <td class="text-white">@obj.Address</td>
+
+                        <td class="text-white">@obj.Address</td>
 
                         @if (type == 1 || type == 2 || type == 3 || type == 5)
                         {
@@ -157,17 +158,17 @@
 
                         }
                         @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
-                        { 
+                        {
                             <td class="text-white"><button style="border:1px white solid " class="btn rounded d-none d-md-block text-white">Provider</button></td>
 
-                        }                        
+                        }
                         <td class="text-white">
                             <div class="dropdown">
                                 <button class="btn text-white border border-white" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
-                                    @if(type == 1)
+                                    @if (type == 1)
                                     {
                                         <li class="">
                                             <button class="btn assign-case" data-toggle="modal" id="assigncasebtn" data-target="#model2" data-assreqid="@obj.RequestId">
@@ -176,8 +177,8 @@
                                         </li>
 
                                     }
-                                 
-                                    @if(type == 1)
+
+                                    @if (type == 1)
                                     {
                                         <li>
                                             <button class="btn cancel-case" data-toggle="modal" data-target="#model1" data-id="@obj.RequestId">
@@ -195,7 +196,7 @@
                                     }
                                     @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                                     {
-                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-arrow-up"></i> View Uploads</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ViewUploads"><i class="fa-solid fa-file-arrow-up"></i> View Uploads</a></li>
 
 
                                     }
@@ -209,7 +210,7 @@
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-circle-check"></i> Orders</a></li>
 
                                     }
-                                    @if ( type == 5)
+                                    @if (type == 5)
                                     {
                                         <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
 
@@ -219,7 +220,7 @@
                                         <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i> Doctors Note</a></li>
 
                                     }
-                                   
+
                                     @if (type == 2)
                                     {
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-import"></i> Transfer</a></li>
@@ -245,18 +246,18 @@
                                             <button class="btn block-case" data-toggle="modal" data-target="#model3" data-blockid="@obj.RequestId">
                                                 <i class="fa-solid fa-ban"></i> Block Patient
                                             </button>
-                                         </li>
+                                        </li>
 
                                     }
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                
-            </tbody>
+
+                </tbody>
             }
         </table>
-       
+
     </div>
 }
 else
@@ -275,39 +276,38 @@ else
                 </button>
             </div>
             <form class="cancelcaseform">
-            <div class="modal-body">
-                <input type="number"
-                    hidden
-                    name="req_id"
-                    id="reqestid"
-                    />
-                <p>Patient Name : <span id="Name" class="text-info"></span></p>
-                <div class="dropdown bg-light">
-                  
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Reason for cancellation</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
+                <div class="modal-body">
+                    <input type="number"
+                           hidden
+                           name="req_id"
+                           id="reqestid" />
+                    <p>Patient Name : <span id="Name" class="text-info"></span></p>
+                    <div class="dropdown bg-light">
+
+                        <select class="form-select" aria-label="Default select example" required>
+                            <option selected>Reason for cancellation</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <br />
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="cancelNote"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Provide Aditional notes</label>
+                    </div>
                 </div>
-                <br />
-                <div class="form-floating">
-                    <textarea class="form-control"
-                              placeholder="Leave a comment here"
-                              id="floatingTextarea"
-                              name="cancelNote"
-                              style="height: 100px"></textarea>
-                    <label for="floatingTextarea">Provide Aditional notes</label>
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-               
+                <div class="modal-footer border-0">
+
                     <button id="cancelcasesubmit" style="background-color:#0dcaf0; color:white;" type="submit" class="btn ">Confirm</button>
 
-               
-                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
-            </div>
+
+                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                </div>
             </form>
         </div>
     </div>
@@ -324,42 +324,42 @@ else
                 </button>
             </div>
             <form class="assigncaseform">
-            <div class="modal-body">
-                <p style="font-size: 15px">To assign this request, search and select another Physician.</p>
+                <div class="modal-body">
+                    <p style="font-size: 15px">To assign this request, search and select another Physician.</p>
                     <input type="number"
                            hidden
                            name="assign_req_id"
                            id="assignreqid" />
-                <div class="dropdown bg-light">
+                    <div class="dropdown bg-light">
 
-                        <select class="form-select regionDropDown" name="phy_region" aria-label="Default select example">
-                        <option>Narrow Search by Region</option>
-                       
-                    </select>
+                        <select class="form-select regionDropDown" name="phy_region" aria-label="Default select example" required>
+                            <option>Narrow Search by Region</option>
+
+                        </select>
+                    </div>
+                    <br />
+                    <div class="dropdown bg-light">
+
+                        <select class="form-select" id="physicianselect" name="phy_id" aria-label="Default select example" required>
+
+                            <option selected>Select Physician</option>
+
+                        </select>
+                    </div>
+                    <br />
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="assignNote"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
                 </div>
-                <br />
-                <div class="dropdown bg-light">
-                  
-                    <select class="form-select" id="physicianselect" name="phy_id" aria-label="Default select example">
-                        
-                        <option selected>Select Physician</option>
-                        
-                    </select>
+                <div class="modal-footer border-0">
+                    <button style="background-color:#0dcaf0; color:white;" id="assigncasesubmit" type="submit" class="btn">Submit</button>
+                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
                 </div>
-                <br />
-                <div class="form-floating">
-                    <textarea class="form-control"
-                              placeholder="Leave a comment here"
-                              id="floatingTextarea"
-                              name="assignNote"
-                              style="height: 100px"></textarea>
-                    <label for="floatingTextarea">Description</label>
-                </div>
-            </div>
-            <div class="modal-footer border-0">
-                    <button style="background-color:#0dcaf0; color:white;" id="assigncasesubmit" type="submit" class="btn">Submit</button>               
-                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
-            </div>
             </form>
         </div>
     </div>
@@ -377,25 +377,25 @@ else
                 </button>
             </div>
             <form class="blockcaseform">
-            <div class="modal-body">
+                <div class="modal-body">
                     <p>Patient Name : <span id="blockName" class="text-info"></span></p>
                     <input type="number"
                            hidden
                            name="block_req_id"
                            id="blockreqid" />
-                <div class="form-floating">
-                    <textarea class="form-control"
-                              placeholder="Leave a comment here"
-                              id="floatingTextarea"
-                              name="blocknote"
-                              style="height: 100px"></textarea>
-                    <label for="floatingTextarea">Reason for Block Request</label>
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="blocknote"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Reason for Block Request</label>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer border-0">
-                    <button style="background-color:#0dcaf0; color:white;" id="blockcasesubmit" type="submit" class="btn">Confirm</button>               
-                <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
-            </div>
+                <div class="modal-footer border-0">
+                    <button style="background-color:#0dcaf0; color:white;" id="blockcasesubmit" type="submit" class="btn">Confirm</button>
+                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                </div>
             </form>
         </div>
     </div>
@@ -406,7 +406,7 @@ else
         $(document).on("click", ".cancel-case", OpenCancelcase);
         $(document).on("click", ".assign-case", OpenAssigncase);
         $(document).on('click', ".block-case", OpenBlockcase);
-      
+
         $.ajax({
             url: './FetchRegions',
             method: 'GET',
@@ -432,16 +432,16 @@ else
         $('model2').model();
     }
 
-    function OpenBlockcase(){
+    function OpenBlockcase() {
         var name = $(this).closest('tr').find('td').first().text();
         var reqid = $(this).data("blockid");
         $('#blockName').html(name);
         $('#blockreqid').val(reqid);
         $('model3').modal();
     }
-   
+
     $('#cancelcasesubmit').on('click', function () {
-      
+
         $.ajax({
             method: "POST",
             url: '@Url.Action("CancelCase", "Admin")',
@@ -449,12 +449,12 @@ else
             success: function (result) {
                 console.log("cancel case success");
             }
-            
+
         });
-    }); 
-    
+    });
+
     $('#assigncasesubmit').on('click', function () {
-      
+
         $.ajax({
             method: "POST",
             url: '@Url.Action("AssignCase", "Admin")',
@@ -463,12 +463,12 @@ else
                 // console.log("assign case success");
                 alert("Assign case success");
             }
-            
+
         });
-    });  
-    
+    });
+
     $('#blockcasesubmit').on('click', function () {
-      
+
         $.ajax({
             method: "POST",
             url: '@Url.Action("BlockCase", "Admin")',
@@ -477,18 +477,17 @@ else
                 // console.log("assign case success");
                 alert("Block case success");
             }
-            
+
         });
-    }); 
-    
-    $('.regionDropDown').change(function ()
-    {
+    });
+
+    $('.regionDropDown').change(function () {
         var selectregionid = $(this).val();
         var physicianselect = $("#physicianselect");
         physicianselect.empty().append("<option> Select a physician </option>");
         if (selectregionid) {
             $.ajax({
-                url: './FetchPhysician?selectregionid='+ selectregionid,
+                url: './FetchPhysician?selectregionid=' + selectregionid,
                 method: 'GET',
                 success: function (response) {
                     response.forEach(function (res) {
@@ -501,7 +500,7 @@ else
     });
 
 </script>
-@* 
+@*
 <script>
     $(document).ready(function () {
 

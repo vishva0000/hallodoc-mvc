@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld05vdGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/postgreconnection/HalloDoc/Views/Admin/ViewUploads.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld1VwbG9hZHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/postgreconnection/HalloDoc/Views/Admin/_ActiveTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FjdGl2ZVRhYmxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

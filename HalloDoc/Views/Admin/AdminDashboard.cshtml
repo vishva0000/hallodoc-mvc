@@ -113,7 +113,7 @@
 </div>
 <div class="d-flex justify-content-between m-3">
     <div class="p-2">
-        <h4>Patients(New)</h4>
+        <h4>Patients(<span id="state-name"></span>)</h4>
     </div>
     <div class="p-2">
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-regular fa-paper-plane"></i> <span class="btntext m-0"> Send Link</span></button>
@@ -229,6 +229,8 @@
         }
                  
         $(document).ready(function(){
+            var text = "New";
+            $('#state-name').text(text);
             var status = 1;
         $.ajax({ 
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -255,7 +257,9 @@
         // }
        
         $('#NewState').on('click', function () {
-
+            var text = "New";
+            $('#state-name').text(text);
+           
             var status = 1;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -282,6 +286,7 @@
         });
 
         $('#patient-req').on('click', function () {
+
             var requestType = 2
             $.ajax({
                 method: "GET",
@@ -340,7 +345,8 @@
 
       
         $('#PendingState').on('click', function () {
-           
+            var text = "Pending";
+            $('#state-name').text(text);
             var status = 2;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -355,7 +361,9 @@
         });
 
         $('#ActiveState').on('click', function () {
-      
+          
+            var text = "Active";
+            $('#state-name').text(text);
             var status = 3;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -370,7 +378,8 @@
         });
 
         $('#ConcludeState').on('click', function () {
-       
+            var text = "Conclude";
+            $('#state-name').text(text);
             var status = 4;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -385,7 +394,8 @@
         });
 
         $('#ToCloseState').on('click', function () {
-           
+            var text = "To close";
+            $('#state-name').text(text);
             var status = 5;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
@@ -400,7 +410,8 @@
         });
 
         $('#UnpaidState').on('click', function () {
-            
+            var text = "Unpaid";
+            $('#state-name').text(text);
             var status = 6;
             $.ajax({
                 url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,

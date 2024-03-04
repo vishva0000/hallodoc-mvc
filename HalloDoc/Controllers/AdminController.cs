@@ -501,6 +501,10 @@ namespace HalloDoc.Controllers
             return Ok(physicians);
         }
         
+        public IActionResult ViewUploads()
+        {
+            return View();
+        }
         [HttpGet]
         public ActionResult ViewCase(int reqId)
         {
