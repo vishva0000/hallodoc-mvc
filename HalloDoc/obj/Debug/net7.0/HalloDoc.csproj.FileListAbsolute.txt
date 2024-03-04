@@ -46,3 +46,7 @@ D:\postgreconnection\HalloDoc\bin\Debug\net7.0\MailKit.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\MimeKit.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\BusinessLayer.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\DataLayer.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\BusinessLayer.pdb
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\DataLayer.pdb

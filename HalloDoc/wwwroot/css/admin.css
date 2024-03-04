@@ -349,7 +349,7 @@ select#regionsearch {
     background-color: pink;
 }
 .table-blue {
-    background-color: blue;
+    background-color: #007fc7;
 }
 .table{
     --bs-table-bg:none;

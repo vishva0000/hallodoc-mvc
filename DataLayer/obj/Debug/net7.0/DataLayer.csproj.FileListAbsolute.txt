@@ -1,0 +1,14 @@
+D:\postgreconnection\DataLayer\bin\Debug\net7.0\DataLayer.deps.json
+D:\postgreconnection\DataLayer\bin\Debug\net7.0\DataLayer.runtimeconfig.json
+D:\postgreconnection\DataLayer\bin\Debug\net7.0\DataLayer.dll
+D:\postgreconnection\DataLayer\bin\Debug\net7.0\DataLayer.pdb
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.csproj.AssemblyReference.cache
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.AssemblyInfoInputs.cache
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.AssemblyInfo.cs
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.csproj.CoreCompileInputs.cache
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.dll
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\refint\DataLayer.dll
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.pdb
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\DataLayer.genruntimeconfig.cache
+D:\postgreconnection\DataLayer\obj\Debug\net7.0\ref\DataLayer.dll

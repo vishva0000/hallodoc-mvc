@@ -1,11 +1,8 @@
-﻿@model HalloDoc.DTO.AdminDTO.AdminDashboard
+﻿@model DataLayer.DTO.AdminDTO.AdminDashboarddata
 @{
     Layout = "_Empty";
 }
-@@@* section Style{
 
-    <link rel="stylesheet" href="/css/admin.css" asp-append-version="true" />
-} *@
 
 <div class="p-2 container-fluid">
 </div>
@@ -173,7 +170,7 @@
             <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
                 <button class="btn filter" id="business-req">
                     <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #e36478;"></div><span>Business</span>
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: pink;"></div><span>Business</span>
 
                     </div>
                 </button>
@@ -216,7 +213,7 @@
     <script>
         var globalstate = 1;
         var states = document.querySelectorAll(".AdminState");
-       
+        var requesttype = 0;
 
         for (var i = 0; i < states.length; i++) {
             states[i].addEventListener("click", function () {
@@ -232,9 +229,10 @@
             var text = "New";
             $('#state-name').text(text);
             var status = 1;
-        $.ajax({ 
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+        $.ajax({
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                          console.log("function Success");
                             $(".tableData").html(result);
@@ -262,8 +260,9 @@
            
             var status = 1;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("New state Function Success");
                     $(".tableData").html(result);
@@ -275,8 +274,9 @@
 
         $('#all-req').on('click', function () {
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + globalstate,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requesttype },
                 success: function (result) {
                     console.log("All request filter Function Success");
                     $(".tableData").html(result);
@@ -290,8 +290,8 @@
             var requestType = 2
             $.ajax({
                 method: "GET",
-                url: "/Admin/filters",
-                data: { status: globalstate, requesttype: requestType },
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requestType },
                 success: function (result) {
                     console.log("patient request filter Function Success");
                     $(".tableData").html(result);
@@ -304,8 +304,8 @@
             var requestType = 3
             $.ajax({
                 method: "GET",
-                url: "/Admin/filters",
-                data: { status: globalstate, requesttype: requestType },
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requestType },
                 success: function (result) {
                     console.log("Family request filter Function Success");
                     $(".tableData").html(result);
@@ -318,8 +318,8 @@
             var requestType = 1
             $.ajax({
                 method: "GET",
-                url: "/Admin/filters",
-                data: { status: globalstate, requesttype: requestType },
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requestType },
                 success: function (result) {
                     console.log("Business request filter Function Success");
                     $(".tableData").html(result);
@@ -332,8 +332,8 @@
             var requestType = 4
             $.ajax({
                 method: "GET",
-                url: "/Admin/filters",
-                data: { status: globalstate, requesttype: requestType },
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requestType },
                 success: function (result) {
                     console.log("Concierge request filter Function Success");
                     $(".tableData").html(result);
@@ -349,8 +349,9 @@
             $('#state-name').text(text);
             var status = 2;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("Pending state Function Success");
                     $(".tableData").html(result);
@@ -366,8 +367,9 @@
             $('#state-name').text(text);
             var status = 3;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("Active state Function Success");
                     $(".tableData").html(result);
@@ -382,8 +384,9 @@
             $('#state-name').text(text);
             var status = 4;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("Conclude state Function Success");
                     $(".tableData").html(result);
@@ -398,8 +401,9 @@
             $('#state-name').text(text);
             var status = 5;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("To close state Function Success");
                     $(".tableData").html(result);
@@ -414,8 +418,9 @@
             $('#state-name').text(text);
             var status = 6;
             $.ajax({
-                url: '@Url.Action("NewState", "Admin")?reqStaus=' + status,
-                type: 'get',
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     console.log("Unpaid state Function Success");
                     $(".tableData").html(result);
