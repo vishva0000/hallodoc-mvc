@@ -14,9 +14,11 @@ using Microsoft.AspNetCore.Identity;
 using MimeKit;
 using System.Globalization;
 using BusinessLayer.Repository.Interface;
+using BusinessLayer.Repository.Implementation;
 
 namespace HalloDoc.Controllers
 {
+    
     public class PatientController : Controller
     {
         public HallodocContext context;
@@ -26,14 +28,16 @@ namespace HalloDoc.Controllers
         public readonly IBusinessRequest businessRequestService;
         public readonly IConciergeRequest conciergeRequestService;
         public readonly IRequestForMe requestForMeService;
+        public readonly IJwtService jwtService;
         const string CookieUserEmail = "UserId";
+    
         const string emailforreset = "EmailId";
 
         IEmailSender _EmailSender;
 
 
 
-        public PatientController(HallodocContext context, IHostingEnvironment environment, IEmailSender emailSender, IPatientRequest patientRequest, IFamilyRequest familyRequest, IBusinessRequest businessRequest, IConciergeRequest conciergeRequest, IRequestForMe requestForMe)
+        public PatientController(HallodocContext context, IHostingEnvironment environment, IEmailSender emailSender, IPatientRequest patientRequest, IFamilyRequest familyRequest, IBusinessRequest businessRequest, IConciergeRequest conciergeRequest, IRequestForMe requestForMe, IJwtService jwt)
         {
             this.context = context;
             this.patientRequestService = patientRequest;
@@ -43,6 +47,7 @@ namespace HalloDoc.Controllers
             this.businessRequestService = businessRequest;
             this.conciergeRequestService = conciergeRequest;
             this.requestForMeService = requestForMe;
+            this.jwtService = jwt;
         }
 
         [HttpGet]
@@ -55,9 +60,6 @@ namespace HalloDoc.Controllers
         {
             if (ModelState.IsValid)
             {
-
-
-
                 var email = model.Email;
                 var password = model.Password;
                 CookieOptions options = new CookieOptions();
@@ -73,7 +75,25 @@ namespace HalloDoc.Controllers
                     {
                         if (user.PasswordHash == password)
                         {
-                            return RedirectToAction("PatientDashboardPage", "Patient");
+                            
+                            
+                            if (user.Id== "8ffb187a-c8c5-4650-aebc-6e6275920709")
+                            {
+                                string token = jwtService.GenerateToken(user.Email, "admin");
+
+                                HttpContext.Session.SetString("jwttoken", token);
+                                HttpContext.Session.SetString("userid", email);
+                                return RedirectToAction("AdminDashboard", "Admin");
+                            }
+                            else
+                            {
+                                string token = jwtService.GenerateToken(user.Email, "user");
+
+                                HttpContext.Session.SetString("jwttoken", token);
+                                HttpContext.Session.SetString("userid", email);
+                                return RedirectToAction("PatientDashboardPage", "Patient");
+                            }
+                           
                         }
                         else
                         {
@@ -93,6 +113,12 @@ namespace HalloDoc.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
         [HttpGet]
         public IActionResult ForgetPassword()
         {
@@ -104,7 +130,7 @@ namespace HalloDoc.Controllers
         {
          
             string ResetPassLink = "https://localhost:44301/Patient/ResetPassword?email="+model.email;
-            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
+            //_EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
 
             return RedirectToAction("PatientLogin", "Patient");
         }
@@ -209,6 +235,7 @@ namespace HalloDoc.Controllers
             }
             return View();
         }
+        [Auth("user")]
         public IActionResult PatientDashboardPage()
         {
             string? UserEmail = Request.Cookies[CookieUserEmail];
@@ -229,6 +256,7 @@ namespace HalloDoc.Controllers
             return View(data);
             //return View();
         }
+        [Auth("user")]
         [HttpGet]
         public IActionResult PatientProfile()
         {
@@ -258,6 +286,7 @@ namespace HalloDoc.Controllers
 
             return View(model);
         }
+        [Auth("user")]
         [HttpPost]
         public IActionResult PatientProfile(PatientProfile model)
         {
@@ -440,6 +469,11 @@ namespace HalloDoc.Controllers
             context.RequestClients.Add(insertrequestclient);
             context.SaveChanges();
 
+            return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
             return View();
         }
     }

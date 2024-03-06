@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5EYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/postgreconnection/HalloDoc/Views/Admin/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/postgreconnection/HalloDoc/Views/Admin/test.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cdGVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/postgreconnection/HalloDoc/Views/Home/SubmitRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdWJtaXRSZXF1ZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/postgreconnection/HalloDoc/Views/Patient/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/postgreconnection/HalloDoc/Views/Patient/BusinessRequest.cshtml]

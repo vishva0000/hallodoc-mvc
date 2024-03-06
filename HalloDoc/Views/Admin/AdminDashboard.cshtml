@@ -229,17 +229,16 @@
             var text = "New";
             $('#state-name').text(text);
             var status = 1;
-        $.ajax({
+            $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
-                         console.log("function Success");
-                            $(".tableData").html(result);
-                        globalstate = 1;
-
-            }
-        });
+                    console.log("onload New state Function Success");
+                    $(".tableData").html(result);
+                   
+                }
+            });
     });
        
         // let filter = document.querySelectorAll(".filter");
@@ -399,6 +398,7 @@
         $('#ToCloseState').on('click', function () {
             var text = "To close";
             $('#state-name').text(text);
+            console.log("to close ajax");
             var status = 5;
             $.ajax({
                 method: "GET",

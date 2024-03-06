@@ -75,7 +75,7 @@ namespace BusinessLayer.Repository.Implementation
             };
             db.RequestClients.Add(insertrequestclient);
            db.SaveChanges();
-            _EmailSender.SendEmailAsync("tatva.dotnet.vishvarami@outlook.com", "Hello", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
+            //_EmailSender.SendEmailAsync("tatva.dotnet.vishvarami@outlook.com", "Hello", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
 
         }
     }

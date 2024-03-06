@@ -50,3 +50,12 @@ D:\postgreconnection\HalloDoc\bin\Debug\net7.0\BusinessLayer.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\DataLayer.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\BusinessLayer.pdb
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\DataLayer.pdb
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+D:\postgreconnection\HalloDoc\obj\Debug\net7.0\HalloDoc.MvcApplicationPartsAssemblyInfo.cs

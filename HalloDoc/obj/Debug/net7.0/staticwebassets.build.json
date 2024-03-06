@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pzApKPuZhd0Iv0Lp754O36q0gOLMsA+0ueUQqx3L2DI=",
+  "Hash": "HHiHEbpUNd0XfH94CGYp4VI8jpxHy1FYmj/ItktwF9g=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -2429,6 +2429,57 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (5).png"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (69).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (69).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (69).png"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (70).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (70).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (70).png"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (74).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (74).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (74).png"
     }
   ]
 }

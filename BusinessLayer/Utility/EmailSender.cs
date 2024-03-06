@@ -23,13 +23,22 @@ namespace BusinessLayer.Utility
         //    return Task.CompletedTask;
         //}
 
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string email, string subject, string message, List<string>? files)
         {
             var emailToSend = new MimeMessage();
             emailToSend.From.Add(MailboxAddress.Parse("vishva.rami@etatvasoft.com"));
             emailToSend.To.Add(MailboxAddress.Parse(email));
             emailToSend.Subject = subject;
-            emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message };
+            BodyBuilder builder = new BodyBuilder();
+            builder.TextBody = message;
+            string path = "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads";
+            foreach(string item in files)
+            {
+                string fullpath = Path.Combine(path, item);
+                builder.Attachments.Add(fullpath);
+            }
+            emailToSend.Body = builder.ToMessageBody();
+            //emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message };
 
 
             using (var emailClient = new MailKit.Net.Smtp.SmtpClient())

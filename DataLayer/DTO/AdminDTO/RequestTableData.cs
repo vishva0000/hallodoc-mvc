@@ -7,6 +7,7 @@
         public int RequestTypeId { get; set; }
         public string? Name { get; set; }   
         public DateTime Dob { get; set; }
+      
         public string PhysicianName { get; set; }
         public string? Requestor { get; set; }
         public DateTime RequestedDate { get; set; }

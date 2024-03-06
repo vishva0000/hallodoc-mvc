@@ -14,6 +14,12 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HallodocContext>(options => options.UseNpgsql(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddSingleton<BusinessLayer.Utility.IEmailSender, EmailSender>();
 builder.Services.AddTransient<IAdminDashboard, AdminDashboard>();
 builder.Services.AddTransient<IRequestTable, RequestTable>();
@@ -22,6 +28,9 @@ builder.Services.AddTransient<IFamilyRequest, FamilyRequest>();
 builder.Services.AddTransient<IBusinessRequest, BusinessRequest>();
 builder.Services.AddTransient<IConciergeRequest, ConciergeRequest>();
 builder.Services.AddTransient<IRequestForMe, RequestForMe>();
+builder.Services.AddTransient<IViewUploads, ViewUploads>();
+builder.Services.AddTransient<IJwtService, JwtService>();
+
 
 
 var app = builder.Build();
@@ -38,7 +47,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

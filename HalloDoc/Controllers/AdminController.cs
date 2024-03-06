@@ -4,23 +4,34 @@ using DataLayer.DTO.AdminDTO;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Collections;
+using BusinessLayer.Utility;
+using BusinessLayer.Repository.Implementation;
 
 namespace HalloDoc.Controllers
 {
+    [Auth("admin")]
     public class AdminController : Controller
     {
         public HallodocContext db;
+        public readonly IHostingEnvironment _environment;
         private readonly IAdminDashboard adminDashboardService;
         private readonly IRequestTable requestTableService;
+        private readonly IViewUploads viewUploadsService;
+        private readonly IEmailSender emailSenderService;
 
 
-        public AdminController(HallodocContext context, IAdminDashboard adminDashboard, IRequestTable requestTable)
+        public AdminController(HallodocContext context, IHostingEnvironment environment, IAdminDashboard adminDashboard, IRequestTable requestTable, IViewUploads viewUploads, IEmailSender emailSender)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
+            _environment = environment;
             this.requestTableService = requestTable;
-
+            this.viewUploadsService = viewUploads;
+            this.emailSenderService = emailSender;
         }
         public IActionResult AdminDashboard()
         {
@@ -72,10 +83,64 @@ namespace HalloDoc.Controllers
 
             return Ok(physicians);
         }
-        
-        public IActionResult ViewUploads()
+        [HttpGet]
+        public IActionResult ViewUploads(int viewid)
         {
-            return View();
+            ViewUploadsModel details = viewUploadsService.Uploadedfilesdata(viewid);
+
+           
+            return View(details);
+        }
+        public IActionResult Downloadfile(int docid)
+        {
+            var data = db.RequestWiseFiles.Where(a => a.RequestWiseFileId == docid).FirstOrDefault();
+            string filePath = data.FileName;
+
+            if (filePath == null)
+            {
+                return RedirectToAction("PatientDashboard", "Patient");
+            }
+
+            return PhysicalFile(filePath, MimeTypes.GetMimeType(filePath), Path.GetFileName(filePath));
+        }
+        public void DeleteFile(int fileid)
+        {
+            var data = db.RequestWiseFiles.Where(a => a.RequestWiseFileId == fileid).FirstOrDefault();
+            data.IsDeleted = new BitArray(new bool[1] { true });
+
+            db.RequestWiseFiles.Update(data);
+            db.SaveChanges();
+
+        }
+        public void SendDocumentEmail(int id, List<string> files)
+        {
+            emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "files", "message", files);
+        }
+
+        [HttpPost]
+        public void addFiles(List<IFormFile> file, int reqid)
+        {
+
+            foreach(var item in file)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, item.FileName);
+
+
+                item.CopyTo(new FileStream(filePath, FileMode.Create));
+                RequestWiseFile insertfile = new RequestWiseFile()
+                {
+                    RequestId = reqid,
+                    FileName = filePath,
+                    CreatedDate = DateTime.Now                   
+
+
+                };
+                db.RequestWiseFiles.Add(insertfile);
+            }
+           
+            db.SaveChanges();
+            RedirectToAction("ViewUploads", reqid);
         }
         [HttpGet]
         public ActionResult ViewCase(int reqId)
@@ -155,6 +220,11 @@ namespace HalloDoc.Controllers
             }
             db.SaveChanges();
             return RedirectToAction("AdminDashboard", "Admin");
+        }
+
+        public IActionResult Orders()
+        {
+            return View();
         }
     }
 }

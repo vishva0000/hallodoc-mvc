@@ -102,7 +102,7 @@ namespace BusinessLayer.Repository.Implementation
 
 
             db.SaveChanges();
-            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "CreateAccount", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
+            //_EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "CreateAccount", "Please <a href=\"https://localhost:44301/Patient/CreatePatient\">login</a>");
 
 
         }
