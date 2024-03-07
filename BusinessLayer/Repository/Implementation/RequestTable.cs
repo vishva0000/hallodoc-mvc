@@ -449,5 +449,25 @@ namespace BusinessLayer.Repository.Implementation
 
             db.SaveChanges();
         }
+
+        public void TransferCase(int transfer_req_id, string phy_region, string phy_id, string transferNote)
+        {
+            var phyid = int.Parse(phy_id);
+            RequestStatusLog data = new RequestStatusLog();
+            data.RequestId = transfer_req_id;
+            data.Notes = transferNote;
+            data.Status = 2;
+            data.CreatedDate = DateTime.Now;
+            data.PhysicianId = phyid;
+
+
+            var requestTuple = db.Requests.Where(a => a.RequestId == transfer_req_id).FirstOrDefault();
+            requestTuple.Status = 2;
+            requestTuple.PhysicianId = phyid;
+            db.Requests.Update(requestTuple);
+            db.RequestStatusLogs.Add(data);
+
+            db.SaveChanges();
+        }
     }
 }

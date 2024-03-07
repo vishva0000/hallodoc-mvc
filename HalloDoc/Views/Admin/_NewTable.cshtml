@@ -205,7 +205,7 @@
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
                                     {
-                                        <li><a  class="dropdown-item" href="#"><i class="fa-solid fa-file-circle-check"></i> Orders</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="AdminOrders" asp-route-ordreqid="@obj.RequestId"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
 
                                     }
                                     @if (type == 5)
@@ -221,7 +221,13 @@
 
                                     @if (type == 2)
                                     {
-                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-file-import"></i> Transfer</a></li>
+                                        <li>
+                                            <button class="btn transfer-case" data-toggle="modal" data-target="#model4" data-transreqid="@obj.RequestId">
+                                               <i class="fa-solid fa-file-import"></i> Transfer
+                                            </button>
+
+                                        </li>
+
 
                                     }
                                     @if (type == 2 || type == 5)
@@ -338,7 +344,7 @@ else
                     <br />
                     <div class="dropdown bg-light">
 
-                        <select class="form-select" id="physicianselect" name="phy_id" aria-label="Default select example" required>
+                        <select class="form-select physicianselect"  name="phy_id" aria-label="Default select example" required>
 
                             <option selected>Select Physician</option>
 
@@ -399,11 +405,67 @@ else
     </div>
 </div>
 
+<!-- Transfer case  Modal -->
+<div class="modal fade" id="model4" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Transfer Request</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="transfercaseform">
+                <div class="modal-body">
+                    <p>To transfer this request, search and select another physician.</p>
+                    <input type="number"
+                           hidden
+                           name="transfer_req_id"
+                           id="transreqid" />
+                    <div class="dropdown bg-light">
+
+                        <select class="form-select regionDropDown" name="phy_region" aria-label="Default select example" required>
+                            <option>Narrow Search by Region</option>
+
+                        </select>
+                    </div>
+                    <br />
+                    <div class="dropdown bg-light">
+
+                        <select class="form-select physicianselect"  name="phy_id" aria-label="Default select example" required>
+
+                            <option selected>Select Physician</option>
+
+                        </select>
+                    </div>
+
+                    <br />
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="transferNote"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer border-0">
+                    <button style="background-color:#0dcaf0; color:white;" id="transfercasesubmit" type="submit" class="btn">Submit</button>
+                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function () {
         $(document).on("click", ".cancel-case", OpenCancelcase);
         $(document).on("click", ".assign-case", OpenAssigncase);
         $(document).on('click', ".block-case", OpenBlockcase);
+        $(document).on('click', ".transfer-case", OpenTransfercase);
 
         $.ajax({
             url: './FetchRegions',
@@ -428,6 +490,12 @@ else
         var requestid = $(this).data("assreqid");
         $('#assignreqid').val(requestid);
         $('model2').model();
+    }
+
+    function OpenTransfercase() {
+        var requestid = $(this).data("transreqid");
+        $('#transreqid').val(requestid);
+        $('model4').model();
     }
 
     function OpenBlockcase() {
@@ -479,17 +547,35 @@ else
         });
     });
 
+
+     $('#transfercasesubmit').on('click', function () {
+
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("TransferCase", "Admin")',
+            data: $('form.transfercaseform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+                alert("Block case success");
+            }
+
+        });
+    });
+
     $('.regionDropDown').change(function () {
         var selectregionid = $(this).val();
-        var physicianselect = $("#physicianselect");
+        var physicianselect = $(".physicianselect");
         physicianselect.empty().append("<option> Select a physician </option>");
+        console.log("before url");
         if (selectregionid) {
             $.ajax({
                 url: './FetchPhysician?selectregionid=' + selectregionid,
                 method: 'GET',
                 success: function (response) {
+                    console.log(response);
+
                     response.forEach(function (res) {
-                        $('#physicianselect').append("<option value='" + res.physicianid + "'>" + res.name + "</option>");
+                        $('.physicianselect').append("<option value='" + res.physicianid + "'>" + res.name + "</option>");
                     });
                 }
             });

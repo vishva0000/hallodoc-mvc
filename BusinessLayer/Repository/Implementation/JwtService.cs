@@ -30,7 +30,8 @@ namespace BusinessLayer.Repository.Implementation
                 Subject = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, role),
+                    new Claim(ClaimTypes.Role, role), 
+                    //new Claim(ClaimTypes., role),
 
                 }),
                 //Expires = DateTime.UtcNow.AddMinutes(double.Parse(Configuration["jwt:expiryDays"])),
@@ -56,6 +57,7 @@ namespace BusinessLayer.Repository.Implementation
                     ValidateIssuerSigningKey = true,
                     //IssuerSigningKey = new SymmetricSecurityKey(key),                    
                     IssuerSigningKey = key,
+                    
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero

@@ -57,6 +57,13 @@ namespace HalloDoc.Controllers
           
            
         }
+        
+        public void TransferCase(int transfer_req_id, string phy_region, string phy_id, string transferNote)
+        {
+
+            requestTableService.TransferCase(transfer_req_id, phy_region, phy_id, transferNote);
+           
+        }
         public void BlockCase( int block_req_id, string blocknote)
         {
             requestTableService.BlockCase(block_req_id, blocknote);           
@@ -71,6 +78,17 @@ namespace HalloDoc.Controllers
             }).ToList();
 
             return Ok(regions);
+        } 
+        
+        public IActionResult FetchProfession()
+        {
+            var profession = db.HealthProfessionalTypes.Select(r => new
+            {
+                typeid = r.HealthProfessionalId,
+                name = r.ProfessionName
+            }).ToList();
+
+            return Ok(profession);
         }
         
         public IActionResult FetchPhysician(int selectregionid)
@@ -82,7 +100,33 @@ namespace HalloDoc.Controllers
             }).ToList();
 
             return Ok(physicians);
+        } 
+        
+        public IActionResult FetchBusiness(int businessid)
+        {
+            var business = db.HealthProfessionals.Where(r=>r.Profession == businessid).Select(r => new
+            {
+                businessid = r.VendorId,
+                name = r.VendorName
+            }).ToList();
+
+            return Ok(business);
         }
+        public IActionResult BusinessDetails(int businessid)
+        {
+            var business = db.HealthProfessionals.Where(r=>r.Profession == businessid).Select(r => new
+            {
+                businessid = r.VendorId,
+                name = r.VendorName,
+                contact = r.BusinessContact,
+                email = r.Email,
+                fax= r.FaxNumber
+            }).ToList();
+
+            return Ok(business);
+        }
+
+
         [HttpGet]
         public IActionResult ViewUploads(int viewid)
         {
@@ -221,10 +265,32 @@ namespace HalloDoc.Controllers
             db.SaveChanges();
             return RedirectToAction("AdminDashboard", "Admin");
         }
-
-        public IActionResult Orders()
+        [HttpGet]
+        public ActionResult AdminOrders(int ordreqid)
         {
+            TempData["orderReqId"] = ordreqid;
             return View();
+        }
+        [HttpPost]
+        public ActionResult AdminOrders(OrderData model)
+        {
+           
+
+            OrderDetail data = new OrderDetail();
+            
+            data.VendorId = model.VendorId;
+            data.RequestId = (int)TempData["orderReqId"];
+            data.FaxNumber = model.Fax;
+            data.Email = model.Email;
+            data.BusinessContact = model.Contact;
+            data.Prescription = model.Prescription;
+            data.CreatedDate = DateTime.Now;
+            data.NoOfRefill = int.Parse(model.NoOfRefill);
+
+            db.OrderDetails.Add(data);
+            db.SaveChanges();
+
+            return RedirectToAction("AdminDashboard");
         }
     }
 }
