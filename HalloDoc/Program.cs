@@ -29,6 +29,7 @@ builder.Services.AddTransient<IBusinessRequest, BusinessRequest>();
 builder.Services.AddTransient<IConciergeRequest, ConciergeRequest>();
 builder.Services.AddTransient<IRequestForMe, RequestForMe>();
 builder.Services.AddTransient<IViewUploads, ViewUploads>();
+builder.Services.AddTransient<ICreateRequest, CreateRequest>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 
 

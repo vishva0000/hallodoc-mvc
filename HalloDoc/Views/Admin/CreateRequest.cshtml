@@ -1,0 +1,246 @@
+﻿@model DataLayer.DTO.AdminDTO.CreateRequestData
+@{
+    Layout = "_Empty";
+}
+
+<div>
+    <div class="">
+        <ul class="nav nav-underline">
+
+            <li class="nav-item m-2">
+                <a class="nav-link text-info " href="#">Dashboard</a>
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">Provider Location</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link" href="#">My Profile</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link" href="#">Providers</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link" href="#">Partners</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link" href="#">Access</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link" href="#">Records</a>
+
+            </li>
+
+        </ul>
+    </div>
+
+
+  <div class=" d-flex justify-content-center">
+      <div>
+            <div class="d-inline-flex justify-content-between w-100 mb-2">
+
+                <h2 class="m-2">Submit Information</h2>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="mt-2 shadow p-3 mb-5 bg-white rounded">
+                        
+                        <form asp-action="CreateRequest" method="post">
+                            <div class="container-fluid">
+                                <h4>Patient</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text"
+                                                       asp-for="FirstName"
+                                                       class="form-control"
+                                                       id="floatingInput"
+                                                       placeholder="name@example.com" />
+                                                <label for="floatingInput">First Name</label>
+                                            </div>
+                                            <span asp-validation-for="FirstName" class="text-danger"> </span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   asp-for="LastName"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Last Name</label>
+                                        </div>
+                                        <span asp-validation-for="LastName" class="text-danger"> </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                  asp-for="Phone"
+                                                   id="mobile_code"
+                                                   class="form-control"
+                                                   placeholder="Phone Number"
+                                                   name="name" />
+                                            <label for="floatingInput">Phone Number</label>
+                                        </div>
+                                        <span asp-validation-for="Phone" class="text-danger"> </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating ">
+                                            <input type="email"
+                                                   asp-for="Email"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Email</label>
+                                        </div>
+                                        <span asp-validation-for="Email" class="text-danger"> </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="date"
+                                            asp-for="Dob"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Date of Birth</label>
+                                        </div>
+                                        <span asp-validation-for="Dob" class="text-danger"> </span>
+                                    </div>
+                                 
+                                </div>
+
+                                <h4>Location</h4>
+                              
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   class="form-control"
+                                                   asp-for="Street"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Street</label>
+                                        </div>
+                                        <span asp-validation-for="Street" class="text-danger"> </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   asp-for="City"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">City</label>
+                                        </div>
+                                        <span asp-validation-for="City" class="text-danger"> </span>
+                                    </div>
+                                   <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   asp-for="State"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">State</label>
+                                        </div>
+                                        <span asp-validation-for="State" class="text-danger"> </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   asp-for="Zipcode"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Zip Code <span class="text-muted">(Optional)</span></label>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text"
+                                                   asp-for="Room"
+                                                   class="form-control"
+                                                   id="floatingInput"
+                                                   placeholder="name@example.com" />
+                                            <label for="floatingInput">Room # <span class="text-muted">(Optional)</span></label>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-6">
+                                        
+                                       <div>
+                                           <button class="btn btn-outline-info" type="button"> Verify</button>
+                                            <button class="btn btn-outline-info align-items-center" type="button">
+                                                <span><i class="bi bi-geo-alt"></i></span>
+                                                <span class="">Map</span></button>
+                                       </div>
+                                    </div>
+                                   
+                                </div>
+
+                                <h4>Notes</h4>
+                                <div class="row">
+                                    <div class="form-floating">
+                                        <textarea class="form-control"
+                                                  asp-for="Adminnotes"
+                                                  placeholder="Leave a comment here"
+                                                  id="floatingTextarea"
+                                                  style="height: 150px"
+                                                  rows="5"></textarea>
+                                        <label class="ms-2" for="floatingTextarea">Admin Note <span class="text-muted">(Optional)</span></label>
+                                    </div>
+                                </div>
+                            
+
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-info text-white m-2">Save</button>
+                                    <a asp-controller="Home" asp-action="Index">
+                                        <button type="button" class="btn btn-outline-info m-2">Cancle</button>
+
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+      </div>
+      
+      
+  </div>
+
+
+</div>
+
+
+
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInputField1 = document.querySelector("#phone1");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+        const phoneInput1 = window.intlTelInput(phoneInputField1, {
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    </script>

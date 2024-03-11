@@ -468,6 +468,25 @@ namespace BusinessLayer.Repository.Implementation
             db.RequestStatusLogs.Add(data);
 
             db.SaveChanges();
+        } 
+        
+        public void ClearCase(int clear_req_id)
+        {
+            var data = db.Requests.Where(a => a.RequestId == clear_req_id).FirstOrDefault();
+
+            data.Status = 10;
+
+            RequestStatusLog requstatuslog = new RequestStatusLog();
+
+            requstatuslog.Status = 10;
+            requstatuslog.RequestId = clear_req_id;
+            requstatuslog.PhysicianId = data.PhysicianId;
+            requstatuslog.CreatedDate = DateTime.Now;
+
+
+            db.Requests.Update(data);
+            db.RequestStatusLogs.Add(requstatuslog);
+            db.SaveChanges();
         }
     }
 }

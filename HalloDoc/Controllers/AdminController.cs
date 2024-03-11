@@ -21,10 +21,17 @@ namespace HalloDoc.Controllers
         private readonly IAdminDashboard adminDashboardService;
         private readonly IRequestTable requestTableService;
         private readonly IViewUploads viewUploadsService;
+        private readonly ICreateRequest createRequestService;
         private readonly IEmailSender emailSenderService;
 
 
-        public AdminController(HallodocContext context, IHostingEnvironment environment, IAdminDashboard adminDashboard, IRequestTable requestTable, IViewUploads viewUploads, IEmailSender emailSender)
+        public AdminController(HallodocContext context, 
+            IHostingEnvironment environment, 
+            IAdminDashboard adminDashboard, 
+            IRequestTable requestTable, 
+            IViewUploads viewUploads, 
+            IEmailSender emailSender, 
+            ICreateRequest createRequest)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -32,6 +39,7 @@ namespace HalloDoc.Controllers
             this.requestTableService = requestTable;
             this.viewUploadsService = viewUploads;
             this.emailSenderService = emailSender;
+            this.createRequestService = createRequest;
         }
         public IActionResult AdminDashboard()
         {
@@ -44,6 +52,22 @@ namespace HalloDoc.Controllers
         {
             List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype);
             return PartialView("_NewTable", data);
+        }
+        [HttpGet]
+        public IActionResult CreateRequest()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateRequest(CreateRequestData model)
+        {
+            if (ModelState.IsValid)
+            {
+                createRequestService.AdminRequest(model);
+
+            }
+            return View();
+            //return RedirectToAction("AdminDashboard", "Admin");
         }
         public void CancelCase(cancelcase model)
         {
@@ -68,6 +92,10 @@ namespace HalloDoc.Controllers
         {
             requestTableService.BlockCase(block_req_id, blocknote);           
         }
+         public void ClearCase( int clear_req_id)
+         {
+            requestTableService.ClearCase(clear_req_id);           
+         }
 
         public IActionResult FetchRegions()
         {

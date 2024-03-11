@@ -114,7 +114,12 @@
     </div>
     <div class="p-2">
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-regular fa-paper-plane"></i> <span class="btntext m-0"> Send Link</span></button>
-        <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-solid fa-notes-medical"></i> <span class="btntext m-0">Create Request</span></button>
+       
+        <button class="admin_btn p-2 fs-6 fw-semibold mx-1">
+            <a asp-action="CreateRequest" asp-controller="Admin" class="text-decoration-none text-white">
+                <i class="fa-solid fa-notes-medical"></i> <span class="btntext m-0">Create Request</span>
+            </a>
+            </button>
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-solid fa-share"></i> <span class="btntext m-0">Export</span></button>
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-solid fa-share"></i> <span class="btntext m-0">Export All</span></button>
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-solid fa-headset"></i> <span class="btntext m-0">Request DTY Support</span></button>
@@ -125,7 +130,7 @@
     <div class="row ps-2">
         <div class="row col-xl-6">
             <div class="col-sm-6">
-                <input id="my-search-input" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
+                <input id="my-search-input" oninput="SearchInTable()" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
             </div>
             <div class="col-sm-6">
                 <div class="">
@@ -236,6 +241,7 @@
                 success: function (result) {
                     console.log("onload New state Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
                    
                 }
             });
@@ -267,6 +273,7 @@
                     $(".tableData").html(result);
                     globalstate = 1;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
@@ -279,6 +286,7 @@
                 success: function (result) {
                     console.log("All request filter Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
                    
                 }
             });
@@ -294,6 +302,7 @@
                 success: function (result) {
                     console.log("patient request filter Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
 
                 }
             });
@@ -308,6 +317,7 @@
                 success: function (result) {
                     console.log("Family request filter Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
 
                 }
             });
@@ -322,6 +332,7 @@
                 success: function (result) {
                     console.log("Business request filter Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
 
                 }
             });
@@ -336,6 +347,7 @@
                 success: function (result) {
                     console.log("Concierge request filter Function Success");
                     $(".tableData").html(result);
+                    setupPagination(5);
 
                 }
             });
@@ -356,6 +368,7 @@
                     $(".tableData").html(result);
                     globalstate = 2;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
@@ -374,6 +387,7 @@
                     $(".tableData").html(result);
                     globalstate = 3;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
@@ -391,6 +405,7 @@
                     $(".tableData").html(result);
                     globalstate = 4;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
@@ -409,6 +424,7 @@
                     $(".tableData").html(result);
                     globalstate = 5;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
@@ -426,11 +442,90 @@
                     $(".tableData").html(result);
                     globalstate = 6;
                     console.log(globalstate);
+                    setupPagination(5);
                 }
             });
         });
 
+        function setupPagination(items) {
+            const itemsPerPage = items;
+            let currentPage = 1;
+            let totalPages = Math.ceil($('.requestTable').length / itemsPerPage);
+          
+            const maxPageButtons = 3;
+            let startPage = 1;
+
+            function showRowsForPage(page) {
+
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                
+                // console.log("startindex=" +startIndex);
+                // console.log("endindex="+endIndex);
+                $('.requestTable').hide();
+
+                 $('.requestTable').slice(startIndex, endIndex).show();
+                
 
 
+                // console.log($('.requestTable'));
+            }
+
+            function generatePaginationButtons() {
+                $('#page-buttons').empty();
+                let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+                for (let i = startPage; i <= endPage; i++) {
+                    const buttonClass = (i === currentPage) ? 'page-button btn btn-outline-info ms-2 current-page' : 'page-button btn-outline-info ms-2  btn ';
+                    $('#page-buttons').append(`<button class="${buttonClass}" data-page="${i}">${i}</button>`);
+                }
+            }
+            function navigateToPage(page) {
+                currentPage = page;
+                startPage = Math.max(currentPage - Math.floor(maxPageButtons / 2), 1);
+                showRowsForPage(currentPage);
+                generatePaginationButtons();
+                updateButtonStates();
+            }
+
+            $('#next-button').on('click', function () {
+                if (currentPage < totalPages) {
+                    navigateToPage(currentPage + 1);
+                }
+            });
+
+            $('#prev-button').on('click', function () {
+                if (currentPage > 1) {
+                    navigateToPage(currentPage - 1);
+                }
+            });
+
+            $('#first-button').on('click', function () {
+                navigateToPage(1);
+            });
+
+            $('#last-button').on('click', function () {
+                navigateToPage(totalPages);
+            });
+
+            $(document).on('click', '.page-button', function () {
+                const page = $(this).data('page');
+                navigateToPage(page)
+                    ;
+            });
+
+            function updateButtonStates() {
+                $('#prev-button').prop('disabled', currentPage === 1);
+                $('#next-button').prop('disabled', currentPage === totalPages);
+            }
+
+            // Initialize page with first set of rows and pagination buttons
+            showRowsForPage(currentPage);
+            generatePaginationButtons();
+            updateButtonStates();
+        }
+
+        function SearchInTable() {
+            console.log("input search");
+        }
     </script>
 }

@@ -135,7 +135,7 @@ namespace BusinessLayer.Repository.Implementation
 
 
             }
-            db.RequestClients.Add(insertrequestclient);
+         
             db.SaveChanges();
         }
     }
