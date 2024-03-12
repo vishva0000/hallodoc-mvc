@@ -45,6 +45,7 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a=>a.RequestId == item.RequestId).FirstOrDefault().Email;
 
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
@@ -83,6 +84,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
@@ -106,6 +109,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -130,6 +135,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -149,6 +156,7 @@ namespace BusinessLayer.Repository.Implementation
                         request.RequestTypeId = item.RequestTypeId;
                         request.Name = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().FirstName + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().LastName;
                         request.Address = request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
 
                         data.Add(request);
                     }
@@ -171,6 +179,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -195,6 +205,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -225,6 +237,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -249,6 +263,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -273,6 +289,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -297,6 +315,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -321,6 +341,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -345,6 +367,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -369,6 +393,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Location + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Street + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().City + " " + db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().State;
                         request.Phone = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
+                        request.Email = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault().Email;
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName;
@@ -487,6 +513,11 @@ namespace BusinessLayer.Repository.Implementation
             db.Requests.Update(data);
             db.RequestStatusLogs.Add(requstatuslog);
             db.SaveChanges();
+        }
+
+        public void SendAgreementMail(int arg_req_id, string argPhone, string argEmail)
+        {
+
         }
     }
 }

@@ -175,7 +175,8 @@
             <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
                 <button class="btn filter" id="business-req">
                     <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: pink;"></div><span>Business</span>
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: pink;"></div>
+                        <span>Business</span>
 
                     </div>
                 </button>
@@ -183,7 +184,8 @@
             <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
                 <button class="btn filter" id="concierge-req">
                     <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #007fc7;"></div><span>Concierge</span>
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #007fc7;"></div>
+                        <span>Concierge</span>
 
                     </div>
                 </button>
@@ -191,7 +193,8 @@
             <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
                 <button class="btn filter">
                     <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #943db8;"></div><span>VIP</span>
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #943db8;"></div>
+                        <span>VIP</span>
 
                     </div>
                 </button>
@@ -205,7 +208,14 @@
 
      
     </div>
+    <div class="points">
+        <div class="border border-1 rounded-5 m-1 patient-point" style="width: 15px; height:15px; background-color: #60bc60;"></div>
+        <div class="border border-1 rounded-5 m-1 family-point" style="width: 15px; height:15px; background-color: #ee9125;"></div>
+        <div class="border border-1 rounded-5 m-1 business-point" style="width: 15px; height:15px; background-color: pink;"></div>
+        <div class="border border-1 rounded-5 m-1 concierge-point" style="width: 15px; height:15px; background-color: #007fc7;"></div>
+        <div class="border border-1 rounded-5 m-1 vip-point" style="width: 15px; height:15px; background-color: #943db8;"></div>
 
+    </div>
 
 
 </div>
@@ -245,6 +255,14 @@
                    
                 }
             });
+
+            $(document).on('click', ".send-agreement", OpenSendAgreement);
+            $(document).on("click", ".cancel-case", OpenCancelcase);
+            $(document).on("click", ".assign-case", OpenAssigncase);
+            $(document).on('click', ".block-case", OpenBlockcase);
+            $(document).on('click', ".transfer-case", OpenTransfercase);
+            $(document).on('click', ".clear-case", OpenClearcase);
+            $(".points").hide();
     });
        
         // let filter = document.querySelectorAll(".filter");
@@ -509,8 +527,7 @@
 
             $(document).on('click', '.page-button', function () {
                 const page = $(this).data('page');
-                navigateToPage(page)
-                    ;
+                navigateToPage(page);
             });
 
             function updateButtonStates() {
@@ -527,5 +544,83 @@
         function SearchInTable() {
             console.log("input search");
         }
+
+        function OpenCancelcase() {
+            var name = $(this).closest('tr').find('td').first().text();
+            var reqid = $(this).data("id");
+            $('#Name').html(name);
+            $('#reqestid').val(reqid);
+            $('model1').modal();
+            console.log("cancel model")
+        }
+
+        function OpenAssigncase() {
+            var requestid = $(this).data("assreqid");
+            $('#assignreqid').val(requestid);
+            console.log("assign");
+        }
+
+        function OpenTransfercase() {
+            var requestid = $(this).data("transreqid");
+            $('#transreqid').val(requestid);
+            console.log("transfer");
+
+        }
+
+        function OpenBlockcase() {
+            var name = $(this).closest('tr').find('td').first().text();
+            var reqid = $(this).data("blockid");
+            $('#blockName').html(name);
+            $('#blockreqid').val(reqid);
+            console.log("block case");
+            // $('model3').modal();
+        }
+
+        function OpenClearcase() {
+            var reqid = $(this).data("clearid");
+            $('#clearreqid').val(reqid);
+            console.log("clear case");
+        }
+
+
+        function OpenSendAgreement() {
+            var reqid = $(this).data("argreqid");
+            $('#argreqid').val(reqid);
+            var reqtype = $(this).data("reqtype");
+
+            var phone = $(this).data("phone");
+            $('#argPhone').val(phone);
+
+
+            var email = $(this).data("email");
+            $('#argEmail').val(email);
+
+
+            $('#requesttypetext').empty();
+            if (reqtype == 2) {
+                
+                let element = $('.patient-point').clone();
+                $('#requesttypetext').append(element);
+                $('#requesttypetext').append("<p> Patient </p>");
+            }
+            else if (reqtype == 3) {
+                let element = $('.family-point').clone();
+                $('#requesttypetext').append(element);
+                $('#requesttypetext').append("<p> Family / Friend </p>");
+            }
+            else if (reqtype == 4) {
+                let element = $('.concierge-point').clone();
+                $('#requesttypetext').append(element);
+                $('#requesttypetext').append("<p> Concierge</p>");
+            }
+            else if (reqtype == 1) {
+                let element = $('.business-point').clone();
+                $('#requesttypetext').append(element);
+                $('#requesttypetext').append("<p> Business</p>");
+            }
+            
+
+        }
+
     </script>
 }

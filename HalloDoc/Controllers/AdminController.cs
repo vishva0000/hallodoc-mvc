@@ -10,6 +10,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Collections;
 using BusinessLayer.Utility;
 using BusinessLayer.Repository.Implementation;
+using Castle.Core.Smtp;
 
 namespace HalloDoc.Controllers
 {
@@ -22,15 +23,16 @@ namespace HalloDoc.Controllers
         private readonly IRequestTable requestTableService;
         private readonly IViewUploads viewUploadsService;
         private readonly ICreateRequest createRequestService;
-        private readonly IEmailSender emailSenderService;
+        private readonly BusinessLayer.Utility.IEmailSender emailSenderService;
+       
 
 
         public AdminController(HallodocContext context, 
             IHostingEnvironment environment, 
             IAdminDashboard adminDashboard, 
             IRequestTable requestTable, 
-            IViewUploads viewUploads, 
-            IEmailSender emailSender, 
+            IViewUploads viewUploads,
+            BusinessLayer.Utility.IEmailSender emailSender,
             ICreateRequest createRequest)
         {
             this.db = context;
@@ -39,6 +41,7 @@ namespace HalloDoc.Controllers
             this.requestTableService = requestTable;
             this.viewUploadsService = viewUploads;
             this.emailSenderService = emailSender;
+           
             this.createRequestService = createRequest;
         }
         public IActionResult AdminDashboard()
@@ -96,6 +99,14 @@ namespace HalloDoc.Controllers
          {
             requestTableService.ClearCase(clear_req_id);           
          }
+        //public void SendAgreement()
+        public void SendAgreement(int arg_req_id, string argPhone, string argEmail)
+        {
+            string url = "https://localhost:44301/Patient/ReviewAgreement/" + arg_req_id;
+            //_EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
+            //emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "Review Agreement", "Please <a href=\"https://localhost:44301/Patient/ReviewAgreement\">Review Agreement</a>");
+            emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "Review Agreement", url);
+        }
 
         public IActionResult FetchRegions()
         {
@@ -186,7 +197,7 @@ namespace HalloDoc.Controllers
         }
         public void SendDocumentEmail(int id, List<string> files)
         {
-            emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "files", "message", files);
+            //emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "files", "message", files);
         }
 
         [HttpPost]
@@ -319,6 +330,11 @@ namespace HalloDoc.Controllers
             db.SaveChanges();
 
             return RedirectToAction("AdminDashboard");
+        }
+
+        public ActionResult Encounter()
+        {
+            return View();
         }
     }
 }

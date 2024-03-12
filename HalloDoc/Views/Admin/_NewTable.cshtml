@@ -180,7 +180,7 @@
                                     {
                                         <li>
                                             <button class="btn cancel-case dropdown-item" data-toggle="modal" data-target="#model1" data-id="@obj.RequestId">
-                                                <i class="fa-regular fa-circle-xmark pe-2"></i> Cancel Case
+                                                <i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Cancel Case
                                             </button>
                                         </li>
 
@@ -188,34 +188,34 @@
                                     }
                                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature"></i> View Case</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature  me-2 ms-1"></i> View Case</a></li>
 
 
                                     }
                                     @if (type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ViewUploads" asp-route-viewid="@obj.RequestId"><i class="fa-solid fa-file-arrow-up"></i> View Uploads</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ViewUploads" asp-route-viewid="@obj.RequestId"><i class="fa-solid fa-file-arrow-up  me-2 ms-1"></i> View Uploads</a></li>
 
 
                                     }
                                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes"> <i class="fa-solid fa-book"></i> View Notes</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-Requestid="@obj.RequestId" asp-action="ViewNotes"> <i class="fa-solid fa-book  me-2 ms-1"></i> View Notes</a></li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="AdminOrders" asp-route-ordreqid="@obj.RequestId"><i class="fa-solid fa-file-circle-check"></i>Orders</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="AdminOrders" asp-route-ordreqid="@obj.RequestId"><i class="fa-solid fa-file-circle-check  me-2 ms-1"></i>Orders</a></li>
 
                                     }
                                     @if (type == 5)
                                     {
-                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark"></i> Close Case</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Close Case</a></li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
                                     {
-                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines"></i> Doctors Note</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-file-lines  me-2 ms-1"></i> Doctors Note</a></li>
 
                                     }
 
@@ -223,7 +223,7 @@
                                     {
                                         <li>
                                             <button class="btn transfer-case dropdown-item" data-toggle="modal" data-target="#model4" data-transreqid="@obj.RequestId">
-                                               <i class="fa-solid fa-file-import"></i> Transfer
+                                                <i class="fa-solid fa-file-import  me-2 ms-1"></i> Transfer
                                             </button>
 
                                         </li>
@@ -234,48 +234,37 @@
                                     {
                                         <li>
                                             <button class="btn clear-case dropdown-item" data-toggle="modal" data-target="#model5" data-clearid="@obj.RequestId">
-                                                <i class="fa-regular fa-circle-xmark"></i> Clear case
+                                                <i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Clear case
                                             </button>
                                             </li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
                                     {
-                                        <li><a class="dropdown-item" href="#"> <i class="fa-regular fa-file-lines"></i>Encounter</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Encounter"> <i class="fa-regular fa-file-lines  me-2 ms-1"></i>Encounter</a></li>
                                     }
                                     @if (type == 2)
                                     {
                                         <li>
-                                            <button class="btn  dropdown-item" data-toggle="modal" data-target="#model6" data-transreqid="@obj.RequestId">
-                                                <i class="fa-solid fa-file-import"></i> Send Agreement
+                                            <button class="btn  dropdown-item send-agreement" 
+                                            data-toggle="modal" data-target="#model6" 
+                                            data-argreqid="@obj.RequestId" 
+                                            data-reqtype="@obj.RequestTypeId"
+                                            data-phone="@obj.Phone"
+                                            data-email="@obj.Email"
+                                            >
+                                                <i class="fa-solid fa-file-import  me-2 ms-1"></i> Send Agreement
                                             </button>
 
                                         </li>
-
 
                                     }
-                                   @*  @if (type == 2)
-                                    {
-                                    
-
-                                        <li>
-                                            <button class="btn send-agreement dropdown-item " data-toggle="modal" data-target="#model6" data-agreeementid="@obj.RequestId" data-reqtype="@obj.RequestTypeId">
-                                              <p>
-                                                    <i class="fa-regular fa-file-lines"></i>
-                                                    <span>
-                                                        Send Agreement
-                                                    </span> 
-                                              </p>  
-                                            </button>
-                                           
-                                        </li>
-
-                                    } *@
+                                  
                                     @if (type == 1)
                                     {
                                         <li>
-                                            <button class="btn block-case" data-toggle="modal" data-target="#model3" data-blockid="@obj.RequestId" >
-                                                <i class="fa-solid fa-ban"></i> Block Patient
+                                            <button class="btn block-case dropdown-item" data-toggle="modal" data-target="#model3" data-blockid="@obj.RequestId">
+                                                <i class="fa-solid fa-ban  me-2 ms-1"></i> Block Patient
                                             </button>
                                         </li>
 
@@ -546,20 +535,20 @@ else
                 </div>
                 <form class="Agreementform">
                     <div class="modal-body">
-                        <div id="requesttypetext">
+                        <div id="requesttypetext" class="d-inline-flex">
 
                         </div>
                         <p>To transfer this request, search and select another physician.</p>
                         <input type="number"
                                hidden
-                               name="transfer_req_id"
-                               id="transreqid" />
+                               name="arg_req_id"
+                               id="argreqid" />
                     <div>
                         <div class="form-floating mb-3">
                             <input type="text"
-                                
+                                    name="argPhone"
                                    class="form-control"
-                                   id="floatingInput"
+                                   id="argPhone"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Phone Number</label>
                         </div>
@@ -569,17 +558,14 @@ else
                     <div class="form-floating mb-3">
                         <input type="text"
                                class="form-control"
-                               id="floatingInput"
+                               name="argEmail"
+                               id="argEmail"
                                placeholder="name@example.com" />
                         <label for="floatingInput">Email</label>
                     </div>
-
-
-                     
-
                     </div>
                     <div class="modal-footer border-0">
-                        <button  id="transfercasesubmit" type="submit" class="btn btn-info text-white">Send</button>
+                    <button id="sendAgrsubmit" type="submit" class="btn btn-info text-white">Send</button>
                         <button  class="btn btn-outline-info " data-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -591,14 +577,7 @@ else
 
 <script>
     $(document).ready(function () {
-        $(document).on('click', ".send-agreement", OpenSendAgreement);
-
-        $(document).on("click", ".cancel-case", OpenCancelcase);
-        $(document).on("click", ".assign-case", OpenAssigncase);
-        $(document).on('click', ".block-case", OpenBlockcase);
-        $(document).on('click', ".transfer-case", OpenTransfercase);
-        $(document).on('click', ".clear-case", OpenClearcase);
-
+      
         $.ajax({
             url: './FetchRegions',
             method: 'GET',
@@ -611,46 +590,7 @@ else
         });
     });
 
-    function OpenCancelcase() {
-        var name = $(this).closest('tr').find('td').first().text();
-        var reqid = $(this).data("id");
-        $('#Name').html(name);
-        $('#reqestid').val(reqid);
-        $('model1').modal();
-        console.log("cancel model")
-    }
-
-    function OpenAssigncase() {
-        var requestid = $(this).data("assreqid");
-        $('#assignreqid').val(requestid);
-        console.log("assign");
-    }
-
-    function OpenTransfercase() {
-        var requestid = $(this).data("transreqid");
-        $('#transreqid').val(requestid);
-        console.log("transfer");
-
-    }
-
-    function OpenBlockcase() {
-        var name = $(this).closest('tr').find('td').first().text();
-        var reqid = $(this).data("blockid");
-        $('#blockName').html(name);
-        $('#blockreqid').val(reqid);
-        // $('model3').modal();
-    }
-
-    function OpenClearcase(){
-        var reqid = $(this).data("clearid");
-        $('#clearreqid').val(reqid);
-    }
-    
-   
-    function OpenSendAgreement(){
-        console.log("desi girl")
-    }
-
+  
     $('#cancelcasesubmit').on('click', function () {
 
         $.ajax({
@@ -720,7 +660,21 @@ else
 
         });
     });
+    
+    $("#sendAgrsubmit").on('click', function () {
+        console.log("send arg");
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("SendAgreement", "Admin")',
+            data: $('form.Agreementform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+                console.log("CLear case success");
+            }
 
+        });
+    });
+   
     $('.regionDropDown').change(function () {
         var selectregionid = $(this).val();
         var physicianselect = $(".physicianselect");

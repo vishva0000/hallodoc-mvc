@@ -51,13 +51,14 @@ namespace HalloDoc.Controllers
         }
 
         [HttpGet]
-        public IActionResult PatientLogin()
+        public IActionResult PatientLogin(string returnurl)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult PatientLogin(PatientLogin model)
+        public IActionResult PatientLogin(PatientLogin model, string returnurl)
         {
+            ModelState.Remove("returnurl");
             if (ModelState.IsValid)
             {
                 var email = model.Email;
@@ -76,13 +77,17 @@ namespace HalloDoc.Controllers
                         if (user.PasswordHash == password)
                         {
                             
-                            
+
                             if (user.Id== "8ffb187a-c8c5-4650-aebc-6e6275920709")
                             {
                                 string token = jwtService.GenerateToken(user.Email, "admin");
 
                                 HttpContext.Session.SetString("jwttoken", token);
                                 HttpContext.Session.SetString("userid", email);
+                                if (!string.IsNullOrEmpty(returnurl))
+                                {
+                                    return Redirect(returnurl);
+                                }
                                 return RedirectToAction("AdminDashboard", "Admin");
                             }
                             else
@@ -91,6 +96,10 @@ namespace HalloDoc.Controllers
 
                                 HttpContext.Session.SetString("jwttoken", token);
                                 HttpContext.Session.SetString("userid", email);
+                                if (!string.IsNullOrEmpty(returnurl))
+                                {
+                                    return Redirect(returnurl);
+                                }
                                 return RedirectToAction("PatientDashboardPage", "Patient");
                             }
                            
@@ -130,7 +139,7 @@ namespace HalloDoc.Controllers
         {
          
             string ResetPassLink = "https://localhost:44301/Patient/ResetPassword?email="+model.email;
-            //_EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
+            _EmailSender.SendEmailAsync("vishva.rami@etatvasoft.com", "ResetPassword", ResetPassLink);
 
             return RedirectToAction("PatientLogin", "Patient");
         }
@@ -381,10 +390,73 @@ namespace HalloDoc.Controllers
             context.SaveChanges();
             RedirectToAction("ViewDocument", requestid);
         }
-
-        public IActionResult ReviewAgreement()
+        [Auth("user")]
+        [Route("[controller]/[action]/{reqid}")]
+        public IActionResult ReviewAgreement(string reqid)
         {
-            return View();
+            TempData["agreeID"]=reqid;
+            int id = int.Parse(reqid);
+
+            string? UserEmail = Request.Cookies[CookieUserEmail];
+            int userid1 =(int)context.Requests.Where(a => a.RequestId== id).FirstOrDefault().UserId;
+            int userid2 = context.Users.Where(a=>a.Email==UserEmail).FirstOrDefault().UserId;
+           
+            if (userid1 == userid2)
+            {
+                var status = context.Requests.Where(a => a.RequestId == id).FirstOrDefault().Status;
+                if (status == 2)
+                {
+                    return View();
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public void Agree()
+        {
+            var id = (string)TempData["agreeID"];
+            int reqid = int.Parse(id);
+            var data = context.Requests.Where(a => a.RequestId == reqid).FirstOrDefault();
+            data.Status = 4;
+
+            RequestStatusLog statuslog = new RequestStatusLog();
+            statuslog.Status = 4;
+            statuslog.RequestId = reqid;
+            statuslog.CreatedDate = DateTime.Now;
+
+
+            context.Requests.Update(data);
+            context.RequestStatusLogs.Add(statuslog);
+            context.SaveChanges();
+            RedirectToAction("PatientDashboardPage", "Patient");
+
+        }
+        public void CancelAgreement(string cancelnote)
+        {
+            var id = (string)TempData["agreeID"];
+            int reqid = int.Parse(id);
+            var data = context.Requests.Where(a => a.RequestId == reqid).FirstOrDefault();
+            data.Status = 3;
+
+            RequestStatusLog statuslog = new RequestStatusLog();
+            statuslog.Status = 3;
+            statuslog.RequestId = reqid;
+            statuslog.Notes = cancelnote;
+            statuslog.CreatedDate = DateTime.Now;
+
+            context.Requests.Update(data);
+            context.RequestStatusLogs.Add(statuslog);
+            context.SaveChanges();
+            RedirectToAction("PatientDashboardPage", "Patient");
+
         }
         [HttpGet]
         public IActionResult RequestForMe()
