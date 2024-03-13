@@ -31,9 +31,5 @@ public partial class RequestNote
 
     public string? AdministrativeNotes { get; set; }
 
-    public virtual AspNetUser CreatedByNavigation { get; set; } = null!;
-
-    public virtual AspNetUser? ModifiedByNavigation { get; set; }
-
     public virtual Request Request { get; set; } = null!;
 }

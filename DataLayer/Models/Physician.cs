@@ -78,6 +78,8 @@ public partial class Physician
 
     public virtual AspNetUser? CreatedByNavigation { get; set; }
 
+    public virtual ICollection<EncounterForm> EncounterForms { get; set; } = new List<EncounterForm>();
+
     public virtual AspNetUser? ModifiedByNavigation { get; set; }
 
     public virtual ICollection<PhysicianNotification> PhysicianNotifications { get; set; } = new List<PhysicianNotification>();

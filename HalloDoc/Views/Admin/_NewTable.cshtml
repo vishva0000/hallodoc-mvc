@@ -102,7 +102,7 @@
 
                         @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
                         {
-                            <td class="text-white"></td>
+                            <td class="text-white">@obj.Dob.ToString("MMM,dd yyyy")</td>
 
                         }
                         @if (type == 5)
@@ -241,7 +241,7 @@
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Encounter"> <i class="fa-regular fa-file-lines  me-2 ms-1"></i>Encounter</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Encounter" asp-route-encreqid="@obj.RequestId"> <i class="fa-regular fa-file-lines  me-2 ms-1"></i>Encounter</a></li>
                                     }
                                     @if (type == 2)
                                     {

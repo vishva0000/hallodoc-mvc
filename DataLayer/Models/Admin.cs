@@ -51,6 +51,8 @@ public partial class Admin
 
     public virtual ICollection<EmailLog> EmailLogs { get; set; } = new List<EmailLog>();
 
+    public virtual ICollection<EncounterForm> EncounterForms { get; set; } = new List<EncounterForm>();
+
     public virtual AspNetUser? ModifiedByNavigation { get; set; }
 
     public virtual ICollection<RequestStatusLog> RequestStatusLogs { get; set; } = new List<RequestStatusLog>();

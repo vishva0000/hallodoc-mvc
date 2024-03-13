@@ -77,8 +77,12 @@ namespace HalloDoc.Controllers
                         if (user.PasswordHash == password)
                         {
                             
-
-                            if (user.Id== "8ffb187a-c8c5-4650-aebc-6e6275920709")
+                            var d = context.AspNetUsers
+                                .Where(context => context.Email == email)
+                                .Include(a=>a.Roles)
+                                .Where(a=>a.Roles.Select(b=>b.Name).Contains("admin"))
+                                .FirstOrDefault();
+                            if (d is not null)
                             {
                                 string token = jwtService.GenerateToken(user.Email, "admin");
 
@@ -90,6 +94,7 @@ namespace HalloDoc.Controllers
                                 }
                                 return RedirectToAction("AdminDashboard", "Admin");
                             }
+                                //Console.WriteLine("Admin");
                             else
                             {
                                 string token = jwtService.GenerateToken(user.Email, "user");
@@ -102,6 +107,32 @@ namespace HalloDoc.Controllers
                                 }
                                 return RedirectToAction("PatientDashboardPage", "Patient");
                             }
+                                //Console.WriteLine("User");
+
+                            //if (user.Id== "8ffb187a-c8c5-4650-aebc-6e6275920709")
+                            //{
+                            //    string token = jwtService.GenerateToken(user.Email, "admin");
+
+                            //    HttpContext.Session.SetString("jwttoken", token);
+                            //    HttpContext.Session.SetString("userid", email);
+                            //    if (!string.IsNullOrEmpty(returnurl))
+                            //    {
+                            //        return Redirect(returnurl);
+                            //    }
+                            //    return RedirectToAction("AdminDashboard", "Admin");
+                            //}
+                            //else
+                            //{
+                            //    string token = jwtService.GenerateToken(user.Email, "user");
+
+                            //    HttpContext.Session.SetString("jwttoken", token);
+                            //    HttpContext.Session.SetString("userid", email);
+                            //    if (!string.IsNullOrEmpty(returnurl))
+                            //    {
+                            //        return Redirect(returnurl);
+                            //    }
+                            //    return RedirectToAction("PatientDashboardPage", "Patient");
+                            //}
                            
                         }
                         else

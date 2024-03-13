@@ -31,6 +31,7 @@ builder.Services.AddTransient<IRequestForMe, RequestForMe>();
 builder.Services.AddTransient<IViewUploads, ViewUploads>();
 builder.Services.AddTransient<ICreateRequest, CreateRequest>();
 builder.Services.AddTransient<IJwtService, JwtService>();
+builder.Services.AddTransient<IEncounterform, Encounterform>();
 
 
 

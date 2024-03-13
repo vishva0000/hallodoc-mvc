@@ -11,6 +11,9 @@ using System.Collections;
 using BusinessLayer.Utility;
 using BusinessLayer.Repository.Implementation;
 using Castle.Core.Smtp;
+using System.Globalization;
+using NPOI.SS.Formula.Functions;
+using static BusinessLayer.Utility.Export;
 
 namespace HalloDoc.Controllers
 {
@@ -24,6 +27,7 @@ namespace HalloDoc.Controllers
         private readonly IViewUploads viewUploadsService;
         private readonly ICreateRequest createRequestService;
         private readonly BusinessLayer.Utility.IEmailSender emailSenderService;
+        private readonly IEncounterform encounterformService;
        
 
 
@@ -33,7 +37,8 @@ namespace HalloDoc.Controllers
             IRequestTable requestTable, 
             IViewUploads viewUploads,
             BusinessLayer.Utility.IEmailSender emailSender,
-            ICreateRequest createRequest)
+            ICreateRequest createRequest,
+            IEncounterform encounterform)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -41,8 +46,8 @@ namespace HalloDoc.Controllers
             this.requestTableService = requestTable;
             this.viewUploadsService = viewUploads;
             this.emailSenderService = emailSender;
-           
             this.createRequestService = createRequest;
+            this.encounterformService = encounterform;
         }
         public IActionResult AdminDashboard()
         {
@@ -71,6 +76,21 @@ namespace HalloDoc.Controllers
             }
             return View();
             //return RedirectToAction("AdminDashboard", "Admin");
+        }
+
+        public FileResult ExportCurrent(int reqStaus, int requesttype)
+        {
+            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype);           
+            var file = ExcelHelper.CreateFile(data);
+            return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "requests.xlsx");
+        }
+
+        public FileResult ExportALLReq()
+        {
+            List<RequestTableData> data = requestTableService.requestTableData(0, 0);
+           
+            var file = ExcelHelper.CreateFile(data);
+            return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "requests.xlsx");
         }
         public void CancelCase(cancelcase model)
         {
@@ -332,9 +352,26 @@ namespace HalloDoc.Controllers
             return RedirectToAction("AdminDashboard");
         }
 
-        public ActionResult Encounter()
+        [HttpGet]
+        public ActionResult Encounter(int encreqid)
         {
+            TempData["encreqid"] = encreqid;
+            EncounterFormData model = encounterformService.encounterformdata(encreqid);
+
+            return View(model);
+
+        }
+        [HttpPost]
+        public ActionResult Encounter(EncounterFormData model)
+        {
+
+            var id = (int)TempData["encreqid"];
+
+            encounterformService.encounterSaveChanges(model, id);
+
             return View();
         }
+
+        
     }
 }

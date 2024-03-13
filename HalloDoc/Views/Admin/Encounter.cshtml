@@ -1,9 +1,498 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DataLayer.DTO.AdminDTO.EncounterFormData
 @{
     Layout = "_Empty";
 }
-<div>
-    
+
+<div style="height: 100%" class="bg-light">
+    <div class="">
+        <ul class="nav nav-underline">
+
+            <li class="nav-item m-2">
+                <a class="nav-link text-info " href="#">Dashboard</a>
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">Provider Location</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">My Profile</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">Providers</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">Partners</a>
+
+            </li>
+            <li class="nav-item m-2">
+                <a class="nav-link text-dark" href="#">Access</a>
+
+            </li>
+            <li class="nav-item m-2 ">
+                <a class="nav-link text-dark" href="#">Records</a>
+
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="container">
+
+            <div class="d-inline-flex justify-content-between w-100">
+
+                <h2 class="m-2">Encounter Form</h2>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+            <form asp-action="Encounter" method="post" asp-controller="Admin">
+
+
+                <div class="bg-white rounded shadow">
+                    <br />
+
+                    <div class="d-flex justify-content-center">
+                        <h1 style="font-weight: 900;  " class="text-info font-weight-bold">Medical Report-Confidential</h1>
+                    </div>
+                    <div class="row mt-2 p-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Firstname"
+                                       class="form-control input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">First Name</label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Lastname"
+                                       class="form-control input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Last Name</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Location"
+                                       class="form-control input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Location</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="date"
+                                       asp-for="DOB"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Date of Birth</label>
+                            </div>
+                        </div>   
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="date"
+                                       asp-for="DateOfService"
+                                       class="form-control"
+                                       id="floatingInput"
+                                       placeholder="name@example.com" />
+                                <label  for="floatingInput">Date of Service</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Phone"
+                                       id="mobile_code"
+                                       class="form-control"
+                                       placeholder="Phone Number"
+                                       name="name" />
+                                <label for="floatingInput">Phone Number</label>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Email"
+                                       class="form-control input"
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Email</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="HistoryOfIllness"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">History of Present Illness or Injury</label>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="MedicalHistroy"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Medical History</label>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="MedicalHistroy"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Medications</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Allergies"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Allergies</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Allergies"></span>
+
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Temp"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Temp</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="HR"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">HR</label>
+                            </div>
+                        </div><div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="RR"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">RR</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div  class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="BloodPressureSystolic"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Blood Pressure(Systolic)</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="BloodPressureDiastolic"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Blood Pressure(Diastolic)</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="O2"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">O2</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Pain"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Pain</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Heent"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Heent</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="CV"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">CV</label>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Chest"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Chest</label>
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="ABD"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">ABD</label>
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Extr"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Extr</label>
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Skin"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Skin</label>
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Neuro"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Neuro</label>
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Other"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Other</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Diagnosis"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Diagnosis</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Diagnosis"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="TreatmentPlan"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Treatment Plan</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="TreatmentPlan"></span>
+
+                            </div>
+                        </div> 
+                        
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="MedicationDispensed"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Medication Dispensed</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="MedicationDispensed"></span>
+
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Procedures"
+                                       class="form-control input"
+                                       id="fax"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Procedures</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="Procedures"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <div class="form-floating">
+                                <textarea class="form-control"
+                                          asp-for="FollowUp"
+                                          placeholder="Leave a comment here"
+                                          id="floatingTextarea"
+                                          style="height: 100px"></textarea>
+                                <label for="floatingTextarea">Follow Up</label>
+                            </div>
+                            <div>
+                                <span class="text-danger" asp-validation-for="FollowUp"></span>
+
+                            </div>
+                        </div>
+                      
+                        <div class="col-md-12">
+                            <div class="w-100">
+                                <br />
+                                <div class=" d-flex justify-content-end">
+                                    <button class="btn btn-info text-white m-2" type="submit">Save Changes</button>
+                                    <button style="background-color:#5E1675" type="button" class="btn text-white m-2" data-toggle="modal" data-target="#finalize">Finalize</button>
+                                    <button class="btn btn-outline-info m-2">Cancel</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Finalize Modal -->
+<div class="modal fade" id="finalize" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirm Cancellation</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="cancelcaseform">
+                <div class="modal-body">
+                    <input type="number"
+                           hidden
+                           name="req_id"
+                           id="reqestid" />
+                    <p>Patient Name : <span id="Name" class="text-info"></span></p>
+                    <div class="dropdown bg-light">
+
+                        <select class="form-select" aria-label="Default select example" required>
+                            <option selected>Reason for cancellation</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <br />
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="cancelNote"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Provide Aditional notes</label>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+
+                    <button id="cancelcasesubmit" style="background-color:#0dcaf0; color:white;" type="submit" class="btn ">Confirm</button>
+
+
+                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

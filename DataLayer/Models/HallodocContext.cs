@@ -35,6 +35,8 @@ public partial class HallodocContext : DbContext
 
     public virtual DbSet<EmailLog> EmailLogs { get; set; }
 
+    public virtual DbSet<EncounterForm> EncounterForms { get; set; }
+
     public virtual DbSet<HealthProfessional> HealthProfessionals { get; set; }
 
     public virtual DbSet<HealthProfessionalType> HealthProfessionalTypes { get; set; }
@@ -301,6 +303,30 @@ public partial class HallodocContext : DbContext
             entity.HasOne(d => d.Admin).WithMany(p => p.EmailLogs)
                 .HasForeignKey(d => d.AdminId)
                 .HasConstraintName("fk_emaillog_adminid");
+        });
+
+        modelBuilder.Entity<EncounterForm>(entity =>
+        {
+            entity.HasKey(e => e.EncounterFormId).HasName("EncounterForm_pkey");
+
+            entity.ToTable("EncounterForm");
+
+            entity.Property(e => e.Abd).HasColumnName("ABD");
+            entity.Property(e => e.Cv).HasColumnName("CV");
+            entity.Property(e => e.Hr).HasColumnName("HR");
+            entity.Property(e => e.Rr).HasColumnName("RR");
+
+            entity.HasOne(d => d.Admin).WithMany(p => p.EncounterForms)
+                .HasForeignKey(d => d.AdminId)
+                .HasConstraintName("EncounterForm_AdminId_fkey");
+
+            entity.HasOne(d => d.Physician).WithMany(p => p.EncounterForms)
+                .HasForeignKey(d => d.PhysicianId)
+                .HasConstraintName("EncounterForm_PhysicianId_fkey");
+
+            entity.HasOne(d => d.Request).WithMany(p => p.EncounterForms)
+                .HasForeignKey(d => d.RequestId)
+                .HasConstraintName("EncounterForm_RequestId_fkey");
         });
 
         modelBuilder.Entity<HealthProfessional>(entity =>
@@ -631,15 +657,6 @@ public partial class HallodocContext : DbContext
             entity.Property(e => e.StrMonth)
                 .HasMaxLength(20)
                 .HasColumnName("strMonth");
-
-            entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.RequestNoteCreatedByNavigations)
-                .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("RequestNotes_CreatedBy_fkey");
-
-            entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.RequestNoteModifiedByNavigations)
-                .HasForeignKey(d => d.ModifiedBy)
-                .HasConstraintName("RequestNotes_ModifiedBy_fkey");
 
             entity.HasOne(d => d.Request).WithMany(p => p.RequestNotes)
                 .HasForeignKey(d => d.RequestId)
