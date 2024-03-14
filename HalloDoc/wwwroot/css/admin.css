@@ -63,6 +63,11 @@ header {
         background-color: #00ccff !important;
     }
 
+.filter-btn{
+    display: inline-flex;
+}
+
+
 @media (min-width: 600px) {
     #create_new_req_icon {
         display: none;
@@ -71,6 +76,10 @@ header {
     #logout_btn_icon {
         display: none;
     }
+
+    /*.filter-btn {
+        display: inline-flex;
+    }*/
 }
 
 @media (max-width: 600px) {
@@ -92,6 +101,10 @@ header {
         height: 45px;
         width: 45px;
         padding: 0px !important;
+    }
+
+    .filter-btn {
+        display: block;
     }
 }
 
@@ -206,7 +219,22 @@ header {
         cursor: pointer;
     }
 
+.viewCaseBtn {
+    border: 2px solid #906cb6;
+    background-color: #efeef4;
+    color: #906cb6;
+    transform: translateY(-20px);
+    z-index: 2 !important;
+}
 
+
+.accordion-button {
+    z-index: 0 !important;
+}
+
+.accordian-back {
+    background-color: #e7f1ff;
+}
 
 #UnpaidState {
     background-color: #f1edf5;

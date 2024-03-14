@@ -371,7 +371,10 @@ namespace HalloDoc.Controllers
 
             return View();
         }
-
+        public ActionResult Closecase()
+        {
+            return View();
+        }
         
     }
 }

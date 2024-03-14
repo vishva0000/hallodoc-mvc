@@ -41,8 +41,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 1;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -90,8 +90,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 2;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -122,8 +122,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 3;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -154,8 +154,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 4;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -184,7 +184,7 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 5;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Email = patient.Email;
 
@@ -210,8 +210,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 6;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -242,8 +242,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = item.Status;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -312,8 +312,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 2;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -344,8 +344,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 3;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -376,8 +376,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 4;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -410,8 +410,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 5;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -443,8 +443,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = 6;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
@@ -475,8 +475,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.status = status;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
-                        request.Requestor = item.FirstName + " " + item.LastName;
-                        request.Name = patient.FirstName + " " + patient.LastName;
+                        request.Requestor = item.FirstName + ", " + item.LastName;
+                        request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.Phone = patient.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;

@@ -21,7 +21,7 @@
 {
     var type = Model[0].status;
 
-    <div class="table-responsive d-none d-sm-block">
+    <div class="table-responsive d-none d-lg-block">
 
         <table class="table" id="adminTable">
             <thead>
@@ -85,7 +85,9 @@
             {
                 <tbody>
 
-                    <tr class=" requestTable align-middle table-@{ @GetColor(obj.RequestTypeId) }">
+                    <tr class=" requestTable align-middle table-@{
+                            @GetColor(obj.RequestTypeId)
+ }">
 
                         <td scope="row" class="text-white">
                             <div class="d-inline-flex w-100">
@@ -210,7 +212,7 @@
                                     }
                                     @if (type == 5)
                                     {
-                                        <li><a class="dropdown-item" href="#"><i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Close Case</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Closecase"><i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Close Case</a></li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
@@ -236,7 +238,7 @@
                                             <button class="btn clear-case dropdown-item" data-toggle="modal" data-target="#model5" data-clearid="@obj.RequestId">
                                                 <i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Clear case
                                             </button>
-                                            </li>
+                                        </li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
@@ -246,20 +248,19 @@
                                     @if (type == 2)
                                     {
                                         <li>
-                                            <button class="btn  dropdown-item send-agreement" 
-                                            data-toggle="modal" data-target="#model6" 
-                                            data-argreqid="@obj.RequestId" 
-                                            data-reqtype="@obj.RequestTypeId"
-                                            data-phone="@obj.Phone"
-                                            data-email="@obj.Email"
-                                            >
+                                            <button class="btn  dropdown-item send-agreement"
+                                                    data-toggle="modal" data-target="#model6"
+                                                    data-argreqid="@obj.RequestId"
+                                                    data-reqtype="@obj.RequestTypeId"
+                                                    data-phone="@obj.Phone"
+                                                    data-email="@obj.Email">
                                                 <i class="fa-solid fa-file-import  me-2 ms-1"></i> Send Agreement
                                             </button>
 
                                         </li>
 
                                     }
-                                  
+
                                     @if (type == 1)
                                     {
                                         <li>
@@ -273,19 +274,366 @@
                             </div>
                         </td>
                     </tr>
-                    
+
                 </tbody>
             }
         </table>
-        <div id="pagination" class="d-flex flex-row-reverse p-3">
-            <div class="d-flex">
-                <button id="first-button" class="btn btn-info ">First</button>
-                <button id="prev-button" class=" btn btn-light" disabled><i class="fa-solid fa-arrow-rotate-left"></i> </button>
-                <!-- Pagination buttons container -->
-                <div id="page-buttons"></div>
-                <button id="next-button" class="btn  btn-light "> <i class="fa-solid fa-arrow-rotate-right"></i> </button>
-                <button id="last-button" class="btn  btn-info">Last</button>
+
+    </div>
+
+    <div class="d-lg-none">
+        <br>
+        @foreach (var item in Model)
+        {
+            var acoid = item.RequestId;
+            <div class="accordion " id="accordionExample">
+
+                <div class="accordion-item accordian-back ">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button accordian-back collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#id-@acoid" aria-expanded="false" aria-controls="collapseTwo">
+                            <div class="container-fluid">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <p> @item.Name</p>
+                                        <p>@item.Address</p>
+                                    </div>
+                                    <div class="col ">
+                                        <div class="float-end">
+
+                                    
+                                        @if (item.RequestTypeId == 2)
+                                        {
+                                            <div class="d-flex justify-content-end">
+                                                <p>Patient </p>
+                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #60bc60;"></div>
+
+                                            </div>
+                                        }
+                                        @if (item.RequestTypeId == 3)
+                                        {
+                                                <div class="d-flex justify-content-end">
+                                                <p>Family/Friend</p>
+                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #ee9125;"></div>
+
+
+                                            </div>
+                                        }@if (item.RequestTypeId == 4)
+                                        {
+                                                <div class="d-flex justify-content-end">
+                                                <p>Concierge</p>
+                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: pink;"></div>
+                                            </div>
+                                        }@if (item.RequestTypeId == 1)
+                                        {
+                                                <div class="d-flex justify-content-end">
+                                                <p>Business</p>
+                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #007fc7;"></div>
+
+
+                                            </div>
+                                        }
+
+                                        <a class="btn btn-outline-info " style="border-radius:30px">Map Location</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                @if (item.status == 1)
+                                {
+                                    <div class="d-flex">
+                                        <i class="bi bi-clock text-info mt-1 me-2"></i>
+
+                                        <p class="mt-2">
+                                            <span class="text-muted">Wait Time:</span>  @item.RequestedDate.ToString("MMM,dd yyyy")
+                                        </p>
+                                    </div>
+                                }
+
+
+                            </div>
+
+
+
+                        </button>
+                    </h2>
+
+                    <div id="id-@acoid" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="d-flex justify-content-end d-inline">
+                            <a class="rounded-pill me-3 viewCaseBtn px-4 py-2 viewCase fw-bolder text-decoration-none">
+                                View Case
+                            </a>
+                        </div>
+                        <div class="accordion-body">
+                            <div>
+                                @if (item.status == 1 || item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-calendar3 "></i>
+                                        </div>
+                                        <p class="mt-1"><span class="text-muted">Date of birth:</span> @item.Dob.ToShortDateString()</p>
+                                    </div>
+                                }
+
+
+                                <div class="d-flex">
+                                    <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                         class="border-info d-flex justify-content-center me-2">
+                                        <i class="bi bi-envelope"></i>
+                                    </div>
+                                    <p><span class="text-muted">Email:</span>  @item.Email</p>
+
+                                </div>
+                                @if (item.status == 1 || item.status == 2 || item.status == 3 || item.status == 4)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-telephone"></i>
+                                        </div>
+                                        <p><span class="text-muted">Patient:</span> @item.Phone</p>
+                                    </div>
+                                }
+
+                                @if (item.status == 2 || item.status == 3 || item.status == 5)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                        <p><span class="text-muted">Transfer:</span> Transfer note</p>
+                                    </div>
+                                }
+
+                                @if (item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5 || item.status == 6)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-calendar3 "></i>
+                                        </div>
+                                        <p><span class="text-muted">Date of service:</span> - </p>
+                                    </div>
+                                }
+
+                                @if (item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5 || item.status == 6)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                        <p><span class="text-muted">Physician:</span> @item.PhysicianName</p>
+                                    </div>
+                                }
+                                @if (item.status == 5)
+                                {
+                                    <div class="d-flex">
+                                        <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                             class="border-info d-flex justify-content-center me-2">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                        <p><span class="text-muted">Region :</span> Region</p>
+                                    </div>
+                                }
+
+                                <div class="d-flex">
+                                    <div style="border: 2px solid; border-radius:1000px; width:33px; height:33px"
+                                         class="border-info d-flex justify-content-center me-2">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <p><span class="text-muted">Requestor:</span> @item.Requestor</p>
+                                </div>
+                            </div>
+
+
+                            @* BUTTONS *@
+
+
+
+                            <div class="row">
+
+
+                                @if (item.status == 1)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; background-color:#5E1675;"
+                                                class="btn text-white w-100 p-2 assign-case "
+                                                data-toggle="modal" data-target="#model2" data-assreqid="@item.RequestId">
+                                            Assign Case
+                                        </button>
+                                    </div>
+
+                                }
+
+                                @if (item.status == 2)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; background-color:#ee9125;"
+                                                class="btn text-white w-100 p-2 send-agreement"
+                                                data-toggle="modal" data-target="#model6"
+                                                data-argreqid="@item.RequestId"
+                                                data-reqtype="@item.RequestTypeId"
+                                                data-phone="@item.Phone"
+                                                data-email="@item.Email">
+                                            Send Agreement
+                                        </button>
+                                    </div>
+
+                                }
+                                @if (item.status == 5)
+                                {
+                                    <div class="col-6 p-2">
+                                        <a asp-controller="Admin" asp-action="Closecase" class="text-decoration-none">
+                                            <button style="border-radius:30px; "
+                                                    class="btn btn-danger text-white w-100 p-2">
+                                                Close case
+                                            </button>
+                                        </a>
+                                    </div>
+                                }
+
+                                @if (item.status == 1)
+                                {
+                                    <div class="col-6 p-2">
+
+                                        <button style="border-radius:30px; "
+                                                data-toggle="modal" data-target="#model1" data-id="@item.RequestId"
+                                                class="btn btn-danger cancel-case text-white w-100 p-2 ">
+                                            Cancel Case
+                                        </button>
+
+                                    </div>
+                                }
+
+                                @if (item.status == 1 || item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5 || item.status == 6)
+                                {
+                                    <div class="col-6 p-2">
+                                        <a class="text-decoration-none" asp-controller="Admin" asp-route-Requestid="@item.RequestId" asp-action="ViewNotes">
+                                            <button style="border-radius:30px; "
+                                                    class="btn btn-success text-white w-100 p-2 ">
+                                                View Notes
+                                            </button>
+                                        </a>
+                                    </div>
+                                }
+                                @if (item.status == 5 || item.status == 3 || item.status == 4)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; background-color:#114232;" class="btn  text-white w-100 p-2">Doctors Note</button>
+                                    </div>
+                                }
+                                @if (item.status == 2)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; "
+                                                data-toggle="modal" data-target="#model4" data-transreqid="@item.RequestId"
+                                                class="btn btn-primary transfer-case text-white w-100 p-2 ">
+                                            Transfer
+                                        </button>
+
+                                    </div>
+                                }
+                                @if (item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5 || item.status == 6)
+                                {
+                                    <div class="col-6 p-2">
+                                        <a class="text-decoration-none" asp-controller="Admin" asp-action="ViewUploads" asp-route-viewid="@item.RequestId">
+                                        <button style="border-radius:30px; "
+                                                class="btn btn-success text-white w-100 p-2 ">
+                                            View Uploads
+                                        </button>
+                                        </a>
+                                    </div>
+                                }
+
+                                @if (item.status == 5 || item.status == 3 || item.status == 4)
+                                {
+                                    <div class="col-6 p-2">
+                                        <a class="text-decoration-none" asp-controller="Admin" asp-action="Encounter" asp-route-encreqid="@item.RequestId">
+                                        <button style="border-radius:30px; "
+                                                class="btn btn-success text-white w-100 p-2 ">
+                                            Encounter
+                                        </button>
+                                        </a>
+                                    </div>
+                                }
+                                @if (item.status == 2 || item.status == 5)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; background-color:#ee9125;"
+                                                data-toggle="modal" data-target="#model5" data-clearid="@item.RequestId"
+                                                class="btn text-white w-100 p-2 ">
+                                            Clear Case
+                                        </button>
+                                    </div>
+
+                                }
+                                @if (item.status == 3 || item.status == 4)
+                                {
+                                    <div class="col-6 p-2" >
+                                        <a class="text-decoration-none" asp-controller="Admin" asp-action="AdminOrders" asp-route-ordreqid="@item.RequestId">
+                                        <button style="border-radius:30px; background-color:#ee9125;"
+                                                class="btn text-white w-100 p-2 ">
+                                            Orders
+                                        </button>
+                                        </a>
+                                    </div>
+
+                                }
+                                @if (item.status == 1)
+                                {
+                                    <div class="col-6 p-2">
+                                        <button style="border-radius:30px; "
+                                                data-toggle="modal" data-target="#model3" data-blockid="@item.RequestId"
+                                                class="btn btn-danger block-case text-white w-100 p-2">
+                                            Block Patient
+                                        </button>
+                                    </div>
+                                }
+
+                                <div class="col-6 p-2">
+                                    <button style="border-radius:30px; " class="btn btn-success text-white w-100 p-2 ">Email</button>
+
+                                </div>
+
+
+
+
+                            </div>
+                            @if (item.status == 5 || item.status == 3 || item.status == 4 || item.status == 6)
+                            {
+                                <div class="row ">
+                                    <p>Chat with: </p>
+                                    <div>
+                                        <button class="btn btn-outline-info">Patient</button>
+                                        <button class="btn btn-outline-info">Provider</button>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+        }
+        <br>
+
+    </div>
+
+    <div id="pagination" class="d-flex flex-row-reverse p-3">
+        <div class="d-flex">
+            <button class="btn btn-info first-button ">First</button>
+            <button class=" btn btn-light prev-button" disabled><i class="fa-solid fa-arrow-rotate-left"></i> </button>
+            <!-- Pagination buttons container -->
+            <div class="page-buttons"></div>
+            <button class="btn  btn-light  next-button"> <i class="fa-solid fa-arrow-rotate-right"></i> </button>
+            <button class="btn  btn-info last-button">Last</button>
         </div>
     </div>
 }
@@ -369,7 +717,7 @@ else
                     <br />
                     <div class="dropdown bg-light">
 
-                        <select class="form-select physicianselect"  name="phy_id" aria-label="Default select example" required>
+                        <select class="form-select physicianselect" name="phy_id" aria-label="Default select example" required>
 
                             <option selected>Select Physician</option>
 
@@ -457,7 +805,7 @@ else
                     <br />
                     <div class="dropdown bg-light">
 
-                        <select class="form-select physicianselect"  name="phy_id" aria-label="Default select example" required>
+                        <select class="form-select physicianselect" name="phy_id" aria-label="Default select example" required>
 
                             <option selected>Select Physician</option>
 
@@ -473,7 +821,7 @@ else
                                   style="height: 100px" required></textarea>
                         <label for="floatingTextarea">Description</label>
                     </div>
-                   
+
                 </div>
                 <div class="modal-footer border-0">
                     <button style="background-color:#0dcaf0; color:white;" id="transfercasesubmit" type="submit" class="btn">Submit</button>
@@ -489,10 +837,10 @@ else
 <div class="modal fade" id="model5" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        
+
             <form class="clearcaseform">
                 <div class="modal-body">
-                   <br />
+                    <br />
                     <input type="number"
                            hidden
                            name="clear_req_id"
@@ -506,15 +854,15 @@ else
                         <br />
                         <h4 class="my-3">Confirmation for clear case</h4>
                         <p class="text-center my-3">
-                           Are sure you want to clear this request? Once clear this request then you are not able to see this request.
+                            Are sure you want to clear this request? Once clear this request then you are not able to see this request.
                         </p>
                     </div>
-                   <br />
-                   <div class="d-flex justify-content-center">
+                    <br />
+                    <div class="d-flex justify-content-center">
                         <button id="clearcasesubmit" type="submit" class="btn btn-info text-white m-2">Clear</button>
                         <button type="button" class="btn btn-outline-info m-2" data-dismiss="modal">Cancel</button>
-                   </div>
-                   <br />
+                    </div>
+                    <br />
                 </div>
             </form>
         </div>
@@ -525,36 +873,35 @@ else
 <!-- Send Agreement Modal -->
 <div class="modal fade" id="model6" tabindex="-1" role="dialog" aria-labelledby="model6" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-       
-            <div class="modal-content">
-                <div style="background-color:#0dcaf0; color:white;" class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"> Send Agreement</h5>
-                    <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form class="Agreementform">
-                    <div class="modal-body">
-                        <div id="requesttypetext" class="d-inline-flex">
 
-                        </div>
-                        <p>To transfer this request, search and select another physician.</p>
-                        <input type="number"
-                               hidden
-                               name="arg_req_id"
-                               id="argreqid" />
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"> Send Agreement</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="Agreementform">
+                <div class="modal-body">
+                    <div id="requesttypetext" class="d-inline-flex">
+                    </div>
+                    <p>To transfer this request, search and select another physician.</p>
+                    <input type="number"
+                           hidden
+                           name="arg_req_id"
+                           id="argreqid" />
                     <div>
                         <div class="form-floating mb-3">
                             <input type="text"
-                                    name="argPhone"
+                                   name="argPhone"
                                    class="form-control"
                                    id="argPhone"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Phone Number</label>
                         </div>
-                       
+
                     </div>
-             
+
                     <div class="form-floating mb-3">
                         <input type="text"
                                class="form-control"
@@ -563,21 +910,21 @@ else
                                placeholder="name@example.com" />
                         <label for="floatingInput">Email</label>
                     </div>
-                    </div>
-                    <div class="modal-footer border-0">
+                </div>
+                <div class="modal-footer border-0">
                     <button id="sendAgrsubmit" type="submit" class="btn btn-info text-white">Send</button>
-                        <button  class="btn btn-outline-info " data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-     
+                    <button class="btn btn-outline-info " data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 
 
 <script>
     $(document).ready(function () {
-      
+
         $.ajax({
             url: './FetchRegions',
             method: 'GET',
@@ -590,7 +937,7 @@ else
         });
     });
 
-  
+
     $('#cancelcasesubmit').on('click', function () {
 
         $.ajax({
@@ -633,7 +980,7 @@ else
     });
 
 
-     $('#transfercasesubmit').on('click', function () {
+    $('#transfercasesubmit').on('click', function () {
 
         $.ajax({
             method: "POST",
@@ -646,7 +993,7 @@ else
 
         });
     });
-    
+
     $('#clearcasesubmit').on('click', function () {
 
         $.ajax({
@@ -660,7 +1007,7 @@ else
 
         });
     });
-    
+
     $("#sendAgrsubmit").on('click', function () {
         console.log("send arg");
         $.ajax({
@@ -674,7 +1021,7 @@ else
 
         });
     });
-   
+
     $('.regionDropDown').change(function () {
         var selectregionid = $(this).val();
         var physicianselect = $(".physicianselect");
@@ -697,7 +1044,7 @@ else
     });
 
 </script>
-@* 
+@*
 <script>
     $(document).ready(function () {
 

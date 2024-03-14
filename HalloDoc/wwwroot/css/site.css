@@ -261,4 +261,9 @@ input {
     background-color: #0dcaf0;
     color: white;
 }
+
+.accordion-button::after {
+    display:none;
+}
+
 /* media */

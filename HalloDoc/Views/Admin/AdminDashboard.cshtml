@@ -8,37 +8,40 @@
 </div>
 <div>
     <div class="">
-        <ul class="nav nav-underline">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <li class="nav-item m-2">
-                <a class="nav-link text-info " href="#">Dashboard</a>
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">Provider Location</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link" href="#">My Profile</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link" href="#">Providers</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link" href="#">Partners</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link" href="#">Access</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link" href="#">Records</a>
-
-            </li>
-
-        </ul>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline">
+                    <li class="nav-item active">
+                        <a class="nav-link text-info" href="#">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Profile</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Providers</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Access</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
+                  
+                </ul>
+                
+            </div>
+        </nav>
+     
     </div>
 
 </div>
@@ -108,7 +111,7 @@
         </div>
     </div>
 </div>
-<div class="d-flex justify-content-between m-3">
+<div class="d-xs-block d-sm-flex justify-content-between m-3">
     <div class="p-2">
         <h4>Patients(<span id="state-name"></span>)</h4>
     </div>
@@ -145,8 +148,49 @@
             </div>
         </div>
 
+        <div class="row col-xl-6 ">
+            <div class="filter-btn ">
+                <button class="btn filter  " id="all-req">
+                    <div class="filter-btn">
+                        <span>All</span>
+                    </div>
+                </button>
+                <button class="btn filter " id="patient-req">
+                    <div class=" filter-btn">
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #60bc60;"></div>
+                        <span>Patient</span>
+                    </div>
+                </button>
+                <button class="btn filter" id="family-req">
+                    <div class="filter-btn">
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #ee9125;"></div>
+                        <span>Family/Friend</span>
+                    </div>
+                </button>
+                <button class="btn filter" id="business-req">
+                    <div class="filter-btn">
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: pink;"></div>
+                        <span>Business</span>
 
-        <div class="col-xl-6 d-flex justify-content-xl-end justify-content-center gap-2 gap-sm-3 gap-xl-4 p-0 ">
+                    </div>
+                </button>
+                <button class="btn filter" id="concierge-req">
+                    <div class="filter-btn">
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #007fc7;"></div>
+                        <span>Concierge</span>
+
+                    </div>
+                </button>
+                <button class="btn filter">
+                    <div class="filter-btn">
+                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #943db8;"></div>
+                        <span>VIP</span>
+
+                    </div>
+                </button>
+            </div>
+        </div>
+        @* <div class="col-xl-6 d-flex justify-content-xl-end justify-content-center gap-2 gap-sm-3 gap-xl-4 p-0 ">
             <div class="d-none d-xxl-flex align-items-center justify-content-center ">
 
                 <button class="btn filter " id="all-req">
@@ -200,7 +244,7 @@
                 </button>
             </div>
         </div>
-
+ *@
 
 
         <div id="partial_container" class="tableData">
@@ -251,7 +295,8 @@
                 success: function (result) {
                     console.log("onload New state Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -292,7 +337,9 @@
                     $(".tableData").html(result);
                     globalstate = 1;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
+
                 }
             });
         });
@@ -306,7 +353,8 @@
                 success: function (result) {
                     console.log("All request filter Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -322,7 +370,8 @@
                 success: function (result) {
                     console.log("patient request filter Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -337,7 +386,8 @@
                 success: function (result) {
                     console.log("Family request filter Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -352,7 +402,8 @@
                 success: function (result) {
                     console.log("Business request filter Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -367,7 +418,8 @@
                 success: function (result) {
                     console.log("Concierge request filter Function Success");
                     $(".tableData").html(result);
-                    setupPagination(5);
+                    setupPagination(5, '.requestTable');
+                    setupPagination(5, '.accordion');
 
                 }
             });
@@ -389,7 +441,8 @@
                     $(".tableData").html(result);
                     globalstate = 2;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
                 }
             });
         });
@@ -409,7 +462,8 @@
                     $(".tableData").html(result);
                     globalstate = 3;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
                 }
             });
         });
@@ -428,7 +482,8 @@
                     $(".tableData").html(result);
                     globalstate = 4;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
                 }
             });
         });
@@ -448,7 +503,8 @@
                     $(".tableData").html(result);
                     globalstate = 5;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
                 }
             });
         });
@@ -467,15 +523,17 @@
                     $(".tableData").html(result);
                     globalstate = 6;
                     console.log(globalstate);
-                    setupPagination(5);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
                 }
             });
         });
 
-        function setupPagination(items) {
+        function setupPagination(items, classname) {
             const itemsPerPage = items;
             let currentPage = 1;
-            let totalPages = Math.ceil($('.requestTable').length / itemsPerPage);
+            let totalPages = Math.ceil($(classname).length / itemsPerPage);
+            console.log(classname);
 
             const maxPageButtons = 3;
             let startPage = 1;
@@ -487,9 +545,11 @@
 
                 // console.log("startindex=" +startIndex);
                 // console.log("endindex="+endIndex);
-                $('.requestTable').hide();
+                // $('.requestTable').hide();
+                $(classname).hide();
 
-                $('.requestTable').slice(startIndex, endIndex).show();
+                // $('.requestTable').slice(startIndex, endIndex).show();
+                $(classname).slice(startIndex, endIndex).show();
 
 
 
@@ -497,11 +557,11 @@
             }
 
             function generatePaginationButtons() {
-                $('#page-buttons').empty();
+                $('.page-buttons').empty();
                 let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
                 for (let i = startPage; i <= endPage; i++) {
                     const buttonClass = (i === currentPage) ? 'page-button btn btn-outline-info ms-2 current-page' : 'page-button btn-outline-info ms-2  btn ';
-                    $('#page-buttons').append(`<button class="${buttonClass}" data-page="${i}">${i}</button>`);
+                    $('.page-buttons').append(`<button class="${buttonClass}" data-page="${i}">${i}</button>`);
                 }
             }
             function navigateToPage(page) {
@@ -512,23 +572,23 @@
                 updateButtonStates();
             }
 
-            $('#next-button').on('click', function () {
+            $('.next-button').on('click', function () {
                 if (currentPage < totalPages) {
                     navigateToPage(currentPage + 1);
                 }
             });
 
-            $('#prev-button').on('click', function () {
+            $('.prev-button').on('click', function () {
                 if (currentPage > 1) {
                     navigateToPage(currentPage - 1);
                 }
             });
 
-            $('#first-button').on('click', function () {
+            $('.first-button').on('click', function () {
                 navigateToPage(1);
             });
 
-            $('#last-button').on('click', function () {
+            $('.last-button').on('click', function () {
                 navigateToPage(totalPages);
             });
 
@@ -538,8 +598,8 @@
             });
 
             function updateButtonStates() {
-                $('#prev-button').prop('disabled', currentPage === 1);
-                $('#next-button').prop('disabled', currentPage === totalPages);
+                $('.prev-button').prop('disabled', currentPage === 1);
+                $('.next-button').prop('disabled', currentPage === totalPages);
             }
 
             // Initialize page with first set of rows and pagination buttons
