@@ -4,7 +4,7 @@
 }
 
 <div style="height: 100%" class="bg-light">
-    <div class="">
+    <div class=" d-lg-flex d-none">
         <ul class="nav nav-underline">
 
             <li class="nav-item m-2">
@@ -36,6 +36,37 @@
             </li>
 
         </ul>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><img style="width:70px;" class="largeLogo align-content-center" src="~/images/logo.png" alt="Logo" /></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body aside-cont">
+            <ul class="list-group">
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="ManageAccess-Page" asp-action="ManageAccess" asp-controller="Admin">Access</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Records-Page" asp-action="Records" asp-controller="Admin">Records</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="d-flex justify-content-center">
@@ -221,13 +252,13 @@
                         </div>
 
                         <div class="col-md-2">
-                            <div  class="form-floating mb-3">
+                            <div style="word-break: break-word; " class="form-floating mb-3">
                                 <input type="text"
                                        asp-for="BloodPressureSystolic"
                                        class="form-control input"
                                        id="fax"
                                        placeholder="name@example.com" />
-                                <label for="floatingInput">Blood Pressure(Systolic)</label>
+                                <label style="word-break: break-word;" for="floatingInput"><span>Blood Pressure(Systolic)</span></label>
                             </div>
                         </div>
                         

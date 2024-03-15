@@ -15,6 +15,7 @@ using MimeKit;
 using System.Globalization;
 using BusinessLayer.Repository.Interface;
 using BusinessLayer.Repository.Implementation;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HalloDoc.Controllers
 {
@@ -29,6 +30,7 @@ namespace HalloDoc.Controllers
         public readonly IConciergeRequest conciergeRequestService;
         public readonly IRequestForMe requestForMeService;
         public readonly IJwtService jwtService;
+        private readonly INotyfService _notyf;
         const string CookieUserEmail = "UserId";
     
         const string emailforreset = "EmailId";
@@ -37,7 +39,16 @@ namespace HalloDoc.Controllers
 
 
 
-        public PatientController(HallodocContext context, IHostingEnvironment environment, IEmailSender emailSender, IPatientRequest patientRequest, IFamilyRequest familyRequest, IBusinessRequest businessRequest, IConciergeRequest conciergeRequest, IRequestForMe requestForMe, IJwtService jwt)
+        public PatientController(HallodocContext context, 
+            IHostingEnvironment environment, 
+            IEmailSender emailSender, 
+            IPatientRequest patientRequest, 
+            IFamilyRequest familyRequest, 
+            IBusinessRequest businessRequest, 
+            IConciergeRequest conciergeRequest, 
+            IRequestForMe requestForMe, 
+            IJwtService jwt,
+            INotyfService notyf)
         {
             this.context = context;
             this.patientRequestService = patientRequest;
@@ -48,6 +59,7 @@ namespace HalloDoc.Controllers
             this.conciergeRequestService = conciergeRequest;
             this.requestForMeService = requestForMe;
             this.jwtService = jwt;
+            _notyf = notyf;
         }
 
         [HttpGet]
@@ -76,7 +88,7 @@ namespace HalloDoc.Controllers
                     {
                         if (user.PasswordHash == password)
                         {
-                            
+                            //_notyf.Success("Login successful ");
                             var d = context.AspNetUsers
                                 .Where(context => context.Email == email)
                                 .Include(a=>a.Roles)

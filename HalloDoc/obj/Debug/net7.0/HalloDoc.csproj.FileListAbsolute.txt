@@ -80,3 +80,6 @@ D:\postgreconnection\HalloDoc\bin\Debug\net7.0\runtimes\unix\lib\net6.0\System.D
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\postgreconnection\HalloDoc\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.Views.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\AspNetCoreHero.ToastNotification.dll
+D:\postgreconnection\HalloDoc\bin\Debug\net7.0\Newtonsoft.Json.dll

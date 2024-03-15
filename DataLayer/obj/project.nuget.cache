@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gJNilsjgYN2H9bMmYn3ccqt+lq2ruS3STYNLW6/Y3aHX/lNZVnFAncpR+GTv52TZBxjjWDRoA8ecxSDTH4Lg7w==",
+  "dgSpecHash": "q6YDSXnpVkG9JgQb+UGI3im9DT6CsYWWC578+VagF7bo0YsqsyldkDH+2zHdxNhVGU9Ll3a8o5vE4kitBrSxRw==",
   "success": true,
   "projectFilePath": "D:\\postgreconnection\\DataLayer\\DataLayer.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\pci142\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\aspnetcorehero.toastnotification.1.1.0.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.16\\microsoft.aspnetcore.authentication.jwtbearer.7.0.16.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
@@ -30,6 +31,7 @@
     "C:\\Users\\pci142\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.35.0\\microsoft.identitymodel.protocols.openidconnect.6.35.0.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\microsoft.identitymodel.tokens\\7.4.0\\microsoft.identitymodel.tokens.7.4.0.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\pci142\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\pci142\\.nuget\\packages\\system.codedom\\4.4.0\\system.codedom.4.4.0.nupkg.sha512",

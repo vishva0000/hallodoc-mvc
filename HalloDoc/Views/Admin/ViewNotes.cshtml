@@ -5,43 +5,46 @@
 <div>
 
 
-<div class="">
-    <ul class="nav nav-underline">
+    <div class="">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <li class="nav-item m-2">
-            <a class="nav-link text-info " href="#">Dashboard</a>
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">Provider Location</a>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline">
+                    <li class="nav-item active">
+                        <a class="nav-link text-info" href="#">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Access</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
 
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">My Profile</a>
+                </ul>
 
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">Providers</a>
+            </div>
+        </nav>
+    </div>
 
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">Partners</a>
-
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">Access</a>
-
-        </li>
-        <li class="nav-item m-2">
-            <a class="nav-link text-dark" href="#">Records</a>
-
-        </li>
-
-    </ul>
-</div>
     <div class="d-flex justify-content-center">
         <div class="container">
 
-           
+
             <div class="d-inline-flex justify-content-between w-100 mb-2">
 
                 <h2 class="m-2">Notes</h2>
@@ -55,91 +58,118 @@
                 </div>
             </div>
             <br />
-           
-                <div class="row">
-                    <br />
-                    <div class="col-md-6  ">
-                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
+
+            <div class="row">
+              
+                <div class="col-md-6 p-3 ">
+                    <div class="row bg-white rounded shadow">
+                        <div class="col-1 ">
                             <div class="m-2">
                                 <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
                             </div>
+                        </div>
+                        <div class="col-11 ">
                             <div class="m-2">
                                 <p style="font-weight: bold" class="">Transfer Notes</p>
                                 @if (Model != null)
+                                {
+                                    @if (Model.transfer != null)
                                     {
-                                     @if(Model.transfer!= null)
-                                        {
-                                    <p>@Model.transfer</p>
-                                     }
-                                
-                                }
-                                else
+                                        <p>@Model.transfer</p>
+                                    }
+                                    else
                                     {
                                         <p>-</p>
                                     }
-                                
-                            </div>
-                        </div>
-                       
-                    </div>
-                   <div class="col-md-6  ">
-                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
-                            <div class="m-2">
-                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
-                            </div>
-                            <div class="m-2">
-                                <p style="font-weight: bold" class="">Physician Notes</p>
-                                @if (Model != null)
-                                {
-                                @if (Model.physicianNotes != null)
-                                {
-                                    <p>@Model.physicianNotes</p>
-                                }
+
                                 }
                                 else
                                 {
                                     <p>-</p>
                                 }
-                            </div>
-                        </div>
-                       
-                    </div>
-                   
-                   
-                </div>
-                <br />
-               <div class="row">
-                    <div class="col-md-6  ">
-                        <div class=" d-inline-flex bg-white rounded-3 p-2 w-100">
-                            <div class="m-2">
-                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
-                            </div>
-                            <div class="m-2">
-                                <p style="font-weight: bold" class="">Admin Notes</p>
-                                @if (Model != null)
-                                {
-                                @if (Model.adminNotes != null)
-                                {
-                                    <p>@Model.adminNotes</p>
-                                }
-                                   
-                                }
-                                else
-                                {
-                                    <p>-</p>
-                                }
+
                             </div>
                         </div>
 
                     </div>
-               </div>
-               <br />
+                   
+                </div>
+                <div class="col-md-6  p-3 ">
+                    <div class="row bg-white rounded shadow ">
+
+                        <div class="col-1">
+                            <div class="m-2">
+                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
+                            </div>
+                        </div>
+                        <div class="col-11 ">
+                            <div class="m-2">
+                                <p style="font-weight: bold" class="">Physician Notes</p>
+                                @if (Model != null)
+                                {
+                                    @if (Model.physicianNotes != null)
+                                    {
+                                        <p>@Model.physicianNotes</p>
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>                 
+                <div class="col-md-6 p-3">
+                    <div class=" row bg-white rounded shadow">
+                        <div class="col-1 bg-white rounded">
+                            <div class="m-2">
+                                <i style="font-weight: bold " class="bi bi-arrow-left-right"></i>
+
+                            </div>
+                        </div>
+                        <div class="col-11 bg-white rounded">
+                            <div class="m-2">
+                                <p style="font-weight: bold" class="">Admin Notes</p>
+                                @if (Model != null)
+                                {
+                                    @if (Model.adminNotes != null)
+                                    {
+                                        <p>@Model.adminNotes</p>
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                  
+                </div>
+              
+
+
+            </div>
+          
+         
+            <br />
             <form asp-action="ViewNotes" method="post" asp-controller="Admin">
-                <div class="row bg-white rounded-3">
-                 <div class="col-md-12 p-4 ">
+                <div class="row bg-white rounded-3 shadow">
+                    <div class="col-md-12 p-4 ">
                         <div class="form-floating">
                             <textarea class="form-control"
-                            asp-for="Additional"
+                                      asp-for="Additional"
                                       placeholder="Leave a comment here"
                                       id="floatingTextarea"
                                       style="height: 250px"></textarea>
@@ -147,10 +177,10 @@
                         </div>
                         <br />
                         <div class="w-100 d-flex justify-content-end">
-                            <button class="btn btn-info" type="submit">Save Changes</button>
+                            <button class="btn btn-info text-white" type="submit">Save Changes</button>
                         </div>
-                 </div>
-             </div>
+                    </div>
+                </div>
 
             </form>
         </div>

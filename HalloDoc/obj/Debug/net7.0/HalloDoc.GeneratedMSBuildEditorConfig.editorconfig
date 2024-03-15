@@ -52,28 +52,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld1VwbG9hZHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/postgreconnection/HalloDoc/Views/Admin/_ActiveTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0FjdGl2ZVRhYmxlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/postgreconnection/HalloDoc/Views/Admin/_ConcludeTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX0NvbmNsdWRlVGFibGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/postgreconnection/HalloDoc/Views/Admin/_NewTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX05ld1RhYmxlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/postgreconnection/HalloDoc/Views/Admin/_PendingTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1BlbmRpbmdUYWJsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/postgreconnection/HalloDoc/Views/Admin/_ToCloseTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1RvQ2xvc2VUYWJsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/postgreconnection/HalloDoc/Views/Admin/_UnpaidTable.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1VucGFpZFRhYmxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/postgreconnection/HalloDoc/Views/Home/Index.cshtml]
@@ -162,10 +142,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/postgreconnection/HalloDoc/Views/Shared/_RequestHeader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SZXF1ZXN0SGVhZGVyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/postgreconnection/HalloDoc/Views/Shared/_table.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF90YWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/postgreconnection/HalloDoc/Views/Shared/_ValidationScriptsPartial.cshtml]

@@ -22,7 +22,7 @@
                 </div>
             </div>
             <br />
-            <form asp-action="Encounter" method="post" asp-controller="Admin">
+            <form  method="post" >
 
 
                 <div class="bg-white rounded shadow">
@@ -44,7 +44,10 @@
                     </div>
                    <div >
                         <h3 class="font-weight-bold ps-3">Documents</h3>
-                        <table class="table">
+                        <div class="d-lg-flex d-none">
+
+                       
+                        <table class="table ">
                            <thead>
                                <th></th>
                                <th>Updated Date</th>
@@ -58,6 +61,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                    </div>
                    <br />
                     <p class="ps-3"> Patient Information</p>

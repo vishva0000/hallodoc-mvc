@@ -181,7 +181,7 @@
                                     @if (type == 1)
                                     {
                                         <li>
-                                            <button class="btn cancel-case dropdown-item" data-toggle="modal" data-target="#model1" data-id="@obj.RequestId">
+                                            <button class="btn cancel-case dropdown-item" data-toggle="modal" data-target="#model1" data-name="@obj.Name" data-name="@obj.Name" data-id="@obj.RequestId">
                                                 <i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Cancel Case
                                             </button>
                                         </li>
@@ -264,7 +264,7 @@
                                     @if (type == 1)
                                     {
                                         <li>
-                                            <button class="btn block-case dropdown-item" data-toggle="modal" data-target="#model3" data-blockid="@obj.RequestId">
+                                            <button class="btn block-case dropdown-item" data-toggle="modal" data-target="#model3" data-name="@obj.Name" data-blockid="@obj.RequestId">
                                                 <i class="fa-solid fa-ban  me-2 ms-1"></i> Block Patient
                                             </button>
                                         </li>
@@ -326,7 +326,7 @@
                                             </div>
                                         }@if (item.RequestTypeId == 1)
                                         {
-                                                <div class="d-flex justify-content-end">
+                                                <div class="d-flex justify-content-end9">
                                                 <p>Business</p>
                                                 <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #007fc7;"></div>
 
@@ -350,7 +350,7 @@
                                     </div>
                                 }
 
-
+                                <br>
                             </div>
 
 
@@ -360,11 +360,13 @@
 
                     <div id="id-@acoid" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="d-flex justify-content-end d-inline">
-                            <a class="rounded-pill me-3 viewCaseBtn px-4 py-2 viewCase fw-bolder text-decoration-none">
+                            <a asp-controller="Admin" asp-route-reqId="@item.RequestId" asp-action="ViewCase" 
+                            class="rounded-pill me-3 viewCaseBtn px-4 py-2 viewCase fw-bolder text-decoration-none">
                                 View Case
                             </a>
                         </div>
-                        <div class="accordion-body">
+                       
+                        <div class="accordion-body pt-0">
                             <div>
                                 @if (item.status == 1 || item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5)
                                 {
@@ -501,7 +503,7 @@
                                     <div class="col-6 p-2">
 
                                         <button style="border-radius:30px; "
-                                                data-toggle="modal" data-target="#model1" data-id="@item.RequestId"
+                                                data-toggle="modal" data-target="#model1" data-name="@item.Name" data-id="@item.RequestId"
                                                 class="btn btn-danger cancel-case text-white w-100 p-2 ">
                                             Cancel Case
                                         </button>
@@ -587,7 +589,7 @@
                                 {
                                     <div class="col-6 p-2">
                                         <button style="border-radius:30px; "
-                                                data-toggle="modal" data-target="#model3" data-blockid="@item.RequestId"
+                                                data-toggle="modal" data-target="#model3" data-name="@item.Name" data-blockid="@item.RequestId"
                                                 class="btn btn-danger block-case text-white w-100 p-2">
                                             Block Patient
                                         </button>

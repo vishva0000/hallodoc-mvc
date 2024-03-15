@@ -6,6 +6,8 @@ using BusinessLayer.Utility;
 
 using Microsoft.EntityFrameworkCore;
 using DataLayer.DTO.AdminDTO;
+using AspNetCoreHero.ToastNotification.Extensions;
+using AspNetCoreHero.ToastNotification;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +34,7 @@ builder.Services.AddTransient<IViewUploads, ViewUploads>();
 builder.Services.AddTransient<ICreateRequest, CreateRequest>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IEncounterform, Encounterform>();
+builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
 
 
@@ -51,6 +54,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseAuthorization();
+app.UseNotyf();
 
 app.MapControllerRoute(
     name: "default",

@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "HalloDoc/1.0.0": {
         "dependencies": {
+          "AspNetCoreHero.ToastNotification": "1.1.0",
           "BusinessLayer": "1.0.0",
           "Castle.Core": "5.1.1",
           "DataLayer": "1.0.0",
@@ -21,6 +22,21 @@
         },
         "runtime": {
           "HalloDoc.dll": {}
+        }
+      },
+      "AspNetCoreHero.ToastNotification/1.1.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/net5.0/AspNetCoreHero.ToastNotification.Views.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          },
+          "lib/net5.0/AspNetCoreHero.ToastNotification.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
         }
       },
       "BouncyCastle.Cryptography/2.2.1": {
@@ -349,6 +365,14 @@
           }
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
       "Npgsql/7.0.6": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "7.0.0"
@@ -576,6 +600,7 @@
       },
       "BusinessLayer/1.0.0": {
         "dependencies": {
+          "AspNetCoreHero.ToastNotification": "1.1.0",
           "DataLayer": "1.0.0",
           "MailKit": "4.3.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.16",
@@ -592,6 +617,7 @@
       },
       "DataLayer/1.0.0": {
         "dependencies": {
+          "AspNetCoreHero.ToastNotification": "1.1.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.16",
           "Microsoft.AspNetCore.Http.Features": "5.0.17",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11",
@@ -608,6 +634,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspNetCoreHero.ToastNotification/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bCAYeD+b2pRelcOrHMNtYGVtRq+J2u+SAaND33v3u6qZCatHf4XSZOEPhBfCKJAjMGvsggtPKaNFnrv4VhwOfA==",
+      "path": "aspnetcorehero.toastnotification/1.1.0",
+      "hashPath": "aspnetcorehero.toastnotification.1.1.0.nupkg.sha512"
     },
     "BouncyCastle.Cryptography/2.2.1": {
       "type": "package",
@@ -888,6 +921,13 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "Npgsql/7.0.6": {
       "type": "package",
