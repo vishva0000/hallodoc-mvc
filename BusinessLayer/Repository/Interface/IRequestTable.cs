@@ -9,7 +9,8 @@ namespace BusinessLayer.Repository.Interface
         void BlockCase(int block_req_id, string blocknote);
         void CancelCase(cancelcase model);
         void ClearCase(int clear_req_id);
-        List<RequestTableData> requestTableData(int status, int requesttype);
+        List<RequestTableData> requestTableData(int status, int requesttype, string search);
+        //List<RequestTableData> searchintable(int status, int requesttype, string search);
         void SendAgreementMail(int arg_req_id, string argPhone, string argEmail);
         void TransferCase(int transfer_req_id, string phy_region, string phy_id, string transferNote);
     }

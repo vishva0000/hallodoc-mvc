@@ -14,6 +14,10 @@ using Castle.Core.Smtp;
 using System.Globalization;
 using NPOI.SS.Formula.Functions;
 using static BusinessLayer.Utility.Export;
+using NPOI.POIFS.Properties;
+using NPOI.Util;
+using Microsoft.AspNetCore.Components.Forms;
+using NPOI.SS.Formula.Eval;
 
 namespace HalloDoc.Controllers
 {
@@ -28,17 +32,19 @@ namespace HalloDoc.Controllers
         private readonly ICreateRequest createRequestService;
         private readonly BusinessLayer.Utility.IEmailSender emailSenderService;
         private readonly IEncounterform encounterformService;
-       
+        private readonly ICloseCase closecaseService;
 
 
-        public AdminController(HallodocContext context, 
-            IHostingEnvironment environment, 
-            IAdminDashboard adminDashboard, 
-            IRequestTable requestTable, 
+
+        public AdminController(HallodocContext context,
+            IHostingEnvironment environment,
+            IAdminDashboard adminDashboard,
+            IRequestTable requestTable,
             IViewUploads viewUploads,
             BusinessLayer.Utility.IEmailSender emailSender,
             ICreateRequest createRequest,
-            IEncounterform encounterform)
+            IEncounterform encounterform,
+            ICloseCase closeCase)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -48,17 +54,23 @@ namespace HalloDoc.Controllers
             this.emailSenderService = emailSender;
             this.createRequestService = createRequest;
             this.encounterformService = encounterform;
+            this.closecaseService = closeCase;
         }
         public IActionResult AdminDashboard()
         {
             AdminDashboarddata data = adminDashboardService.countrequest();
             return View(data);
-           
+
         }
-       
-        public IActionResult NewState(int reqStaus, int requesttype)
+
+        public IActionResult NewState(int reqStaus, int requesttype, string searchin)
         {
-            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype);
+            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, searchin);
+            return PartialView("_NewTable", data);
+        }
+        public IActionResult Search(int reqStaus, int requesttype, string searchin)
+        {
+            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, searchin);
             return PartialView("_NewTable", data);
         }
         [HttpGet]
@@ -77,48 +89,51 @@ namespace HalloDoc.Controllers
             return View();
             //return RedirectToAction("AdminDashboard", "Admin");
         }
+        public void SendLink(string emailAdd)
+        {
 
+            emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "Create Request", "Please <a href=\"https://localhost:44301/Patient/PatientRequest\">Create Request</a>");
+        }
         public FileResult ExportCurrent(int reqStaus, int requesttype)
         {
-            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype);           
+            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, null);
             var file = ExcelHelper.CreateFile(data);
             return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "requests.xlsx");
         }
 
         public FileResult ExportALLReq()
         {
-            List<RequestTableData> data = requestTableService.requestTableData(0, 0);
-           
+            List<RequestTableData> data = requestTableService.requestTableData(0, 0, null);
+
             var file = ExcelHelper.CreateFile(data);
             return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "requests.xlsx");
         }
         public void CancelCase(cancelcase model)
         {
             requestTableService.CancelCase(model);
-           
+
         }
-        
+
         public void AssignCase(int assign_req_id, string phy_region, string phy_id, string assignNote)
         {
             requestTableService.AssignCase(assign_req_id, phy_region, phy_id, assignNote);
-          
-           
+
         }
-        
+
         public void TransferCase(int transfer_req_id, string phy_region, string phy_id, string transferNote)
         {
 
             requestTableService.TransferCase(transfer_req_id, phy_region, phy_id, transferNote);
-           
+
         }
-        public void BlockCase( int block_req_id, string blocknote)
+        public void BlockCase(int block_req_id, string blocknote)
         {
-            requestTableService.BlockCase(block_req_id, blocknote);           
+            requestTableService.BlockCase(block_req_id, blocknote);
         }
-         public void ClearCase( int clear_req_id)
-         {
-            requestTableService.ClearCase(clear_req_id);           
-         }
+        public void ClearCase(int clear_req_id)
+        {
+            requestTableService.ClearCase(clear_req_id);
+        }
         //public void SendAgreement()
         public void SendAgreement(int arg_req_id, string argPhone, string argEmail)
         {
@@ -137,8 +152,8 @@ namespace HalloDoc.Controllers
             }).ToList();
 
             return Ok(regions);
-        } 
-        
+        }
+
         public IActionResult FetchProfession()
         {
             var profession = db.HealthProfessionalTypes.Select(r => new
@@ -149,21 +164,21 @@ namespace HalloDoc.Controllers
 
             return Ok(profession);
         }
-        
+
         public IActionResult FetchPhysician(int selectregionid)
         {
-            var physicians = db.Physicians.Where(r=>r.RegionId == selectregionid).Select(r => new
+            var physicians = db.Physicians.Where(r => r.RegionId == selectregionid).Select(r => new
             {
                 physicianid = r.PhysicianId,
                 name = r.FirstName + " " + r.LastName
             }).ToList();
 
             return Ok(physicians);
-        } 
-        
+        }
+
         public IActionResult FetchBusiness(int businessid)
         {
-            var business = db.HealthProfessionals.Where(r=>r.Profession == businessid).Select(r => new
+            var business = db.HealthProfessionals.Where(r => r.Profession == businessid).Select(r => new
             {
                 businessid = r.VendorId,
                 name = r.VendorName
@@ -173,13 +188,13 @@ namespace HalloDoc.Controllers
         }
         public IActionResult BusinessDetails(int businessid)
         {
-            var business = db.HealthProfessionals.Where(r=>r.Profession == businessid).Select(r => new
+            var business = db.HealthProfessionals.Where(r => r.Profession == businessid).Select(r => new
             {
                 businessid = r.VendorId,
                 name = r.VendorName,
                 contact = r.BusinessContact,
                 email = r.Email,
-                fax= r.FaxNumber
+                fax = r.FaxNumber
             }).ToList();
 
             return Ok(business);
@@ -191,7 +206,6 @@ namespace HalloDoc.Controllers
         {
             ViewUploadsModel details = viewUploadsService.Uploadedfilesdata(viewid);
 
-           
             return View(details);
         }
         public IActionResult Downloadfile(int docid)
@@ -217,14 +231,14 @@ namespace HalloDoc.Controllers
         }
         public void SendDocumentEmail(int id, List<string> files)
         {
-            //emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "files", "message", files);
+            emailSenderService.SendFileAsync("vishva.rami@etatvasoft.com", "files", "message", files);
         }
 
         [HttpPost]
         public void addFiles(List<IFormFile> file, int reqid)
         {
 
-            foreach(var item in file)
+            foreach (var item in file)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "uploads");
                 var filePath = Path.Combine(uploads, item.FileName);
@@ -235,26 +249,35 @@ namespace HalloDoc.Controllers
                 {
                     RequestId = reqid,
                     FileName = filePath,
-                    CreatedDate = DateTime.Now                   
+                    CreatedDate = DateTime.Now
 
 
                 };
                 db.RequestWiseFiles.Add(insertfile);
             }
-           
+
             db.SaveChanges();
             RedirectToAction("ViewUploads", reqid);
         }
+        
+        
         [HttpGet]
-        public ActionResult ViewCase(int reqId)
+        [Route("[controller]/[action]/{reqId:int}")]
+        public IActionResult ViewCase(int reqId)
         {
-
-            TempData["requestid"] = reqId;
-
+                  
             var request = db.Requests.Where(a => a.RequestId == reqId).FirstOrDefault();
             var data = db.RequestClients.Where(a => a.RequestId == reqId).FirstOrDefault();
+            
                 ViewCaseData details = new ViewCaseData();
+            
+            if (data.IntYear != null && data.IntDate != null && data.StrMonth != null)
+            {
+                int month = DateTime.ParseExact(data.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month;
+                details.Dob = new DateTime((int)data.IntYear, month, (int)data.IntDate);
+            }
             details.RequestTypeId = request.RequestTypeId;
+            details.RequestId = request.RequestId;
             details.Symp = data.Notes;
             details.Firstname = data.FirstName;
             details.Lastname = data.LastName;
@@ -263,6 +286,8 @@ namespace HalloDoc.Controllers
             details.Street = data.Street;
             details.City = data.City;
             details.State = data.State;
+            details.Room = data.Location;
+            details.status = request.Status;
                 return View(details);
         }
 
@@ -274,13 +299,14 @@ namespace HalloDoc.Controllers
 
             data.Notes = model.Symp;
             data.Street = model.Street;
+            data.PhoneNumber = model.Phone;
             data.City = model.City;
             data.State = model.State;
             data.FirstName = model.Firstname;
             data.LastName = model.Lastname;
             data.Email = model.Email;
             data.Location = model.Room;
-
+            
             db.RequestClients.Update(data);
             db.SaveChanges();
             return RedirectToAction("AdminDashboard");
@@ -371,10 +397,36 @@ namespace HalloDoc.Controllers
 
             return View();
         }
-        public ActionResult Closecase()
-        {
-            return View();
-        }
         
+        
+        [HttpGet]
+        [Route("[controller]/[action]/{closeid:int}")]
+        public IActionResult Closecase(int closeid)
+        {
+         
+            ViewUploadsModel data = closecaseService.Closecasefiles(closeid);
+            return View(data);
+        }
+
+
+       
+        [HttpPost]
+        public void Closecasesubmit(int closeid)
+        {
+            //closecaseService.Closingcase(closeid);
+            //return Redirect(Url.Action("AdminDashboard", "Admin"));
+        }
+
+        public void CloseCaseUpdateByAdmin(int id, string email, string phone)
+        {
+            RequestClient r = db.RequestClients.Where(u => u.RequestId == id).FirstOrDefault();
+            r.Email = email;
+            r.PhoneNumber = phone;
+            db.SaveChanges();
+        }
+        public void ClosecasePatientedit()
+        {
+
+        }
     }
 }

@@ -13,7 +13,8 @@
         public DateTime RequestedDate { get; set; }
         public DateTime DateOfService { get; set; }
         public List<string> Region {  get; set; }
-        public string? Phone { get; set;}
+        public string? PhoneP { get; set;}
+        public string? PhoneO { get; set;}
         public string? Email { get; set;}
         public string? Physician { get; set;}
         public string? Address { get; set;}

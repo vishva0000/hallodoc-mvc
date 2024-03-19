@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LWBFr//DV3fMN1g32udh8oBcqny0UT7+he48F5YyE0s=",
+  "Hash": "pK3wBNhRuNO5oBLk245aZFdtIBY/4x2tmt9a/+MfwM8=",
   "Source": "HalloDoc",
   "BasePath": "_content/HalloDoc",
   "Mode": "Default",
@@ -2344,6 +2344,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (10).png"
+    },
+    {
+      "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (11).png",
+      "SourceId": "HalloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\postgreconnection\\HalloDoc\\wwwroot\\",
+      "BasePath": "_content/HalloDoc",
+      "RelativePath": "uploads/Screenshot (11).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\Screenshot (11).png"
     },
     {
       "Identity": "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\Screenshot (16).png",

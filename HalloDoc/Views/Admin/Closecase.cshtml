@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DataLayer.DTO.AdminDTO.ViewUploadsModel
 @{
     Layout = "_Empty";
 }
@@ -22,78 +20,139 @@
                 </div>
             </div>
             <br />
-            <form  method="post" >
 
 
-                <div class="bg-white rounded shadow">
-                    <br />
 
-                    <div class="d-inline-flex justify-content-between w-100 ps-3 pe-3">
+            <div class="bg-white rounded shadow">
+                <br />
 
-                      <div>
-                          <p>Patient Name</p>
-                          <p class="text-info">Test test</p>
-                      </div>
-                        <div class="ml-auto">
+                <div class="d-inline-flex justify-content-between w-100 ps-3 pe-3">
 
-
-                            <button class="  back-btn btn-outline-info back mt-2 rounded p-2">
-                             Create Invoice Through Quickbooks
-                            </button>
-                        </div>
+                    <div>
+                        <p>Patient Name</p>
+                        <p class="text-info">@Model.name</p>
                     </div>
-                   <div >
-                        <h3 class="font-weight-bold ps-3">Documents</h3>
-                        <div class="d-lg-flex d-none">
+                    <div class="ml-auto">
 
-                       
+
+                        <button class="  back-btn btn-outline-info back mt-2 rounded p-2">
+                            Create Invoice Through Quickbooks
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-weight-bold ps-3">Documents</h3>
+                    <div class="d-lg-flex d-none">
+
+
                         <table class="table ">
-                           <thead>
-                               <th></th>
-                               <th>Updated Date</th>
-                               <th>Actions</th>
-                           </thead>
+                            <thead class="bg-light">
+                            <th></th>
+                            <th>Updated Date</th>
+                            <th>Actions</th>
+                            </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @if (Model.filedata.Count() != 0)
+                                {
+                                    @foreach (var item in Model.filedata)
+                                    {
+                                        <tr>
+                                            <td>@item.file</td>
+                                            <td>@item.createdate.ToShortDateString()</td>
+                                            <td>
+                                                <a class="btn btn-outline-info" id="download-btn" asp-route-docid="@item.docid" asp-action="Downloadfile">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z" />
+                                                        <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>No files uploaded</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+
+
                             </tbody>
                         </table>
-                        </div>
-                   </div>
-                   <br />
-                    <p class="ps-3"> Patient Information</p>
+                    </div>
+
+                    <div class="d-lg-none">
+                        @if (Model.filedata.Count != 0)
+                        {
+                            @foreach (var item in Model.filedata)
+                            {
+                                <div class="border-3 py-3" style="margin-right: -1.5rem!important; margin-left: -1.5rem!important; border-top:1px solid grey;">
+                                    <div class="px-4">
+                                        <div class="mb-3">
+                                            <input type="checkbox" class="check fileCheckbox" name="checkdoc" data-rows-group-id="users">
+
+                                            <span class="fw-medium fs-5 ms-3">  @item.file</span>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <span class="fw-medium fs-5">@item.createdate.ToString("MMM dd, yyyy")</span>
+
+                                        </div>
+                                        <a class="btn btn-outline-info download-btn" asp-route-docid="@item.docid" asp-action="Downloadfile">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z" />
+                                                <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
+                                            </svg>
+                                        </a>
+
+                                        
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            <p class="m-2">No file uploaded</p>
+                        }
+
+                    </div>
+                </div>
+                <br />
+                <h3 class="ps-3 font-weight-bold"> Patient Information</h3>
+                <form id="CloseCaseForm" asp-action="Closecase" method="post">
+                    
                     <div class="row mt-2 p-3">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       @* asp-for="Firstname" *@
+                                       asp-for="Firstname"
                                        class="form-control input"
-                                       id="contact"
                                        placeholder="name@example.com" />
-                                <label for="floatingInput">First Name</label>
+                                <label for="Firstname">First Name</label>
                             </div>
 
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                       @* asp-for="Lastname" *@
+                                       asp-for="LastName"
                                        class="form-control input"
-                                       id="contact"
                                        placeholder="name@example.com" />
-                                <label for="floatingInput">Last Name</label>
+                                <label for="LastName">Last Name</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="date"
-                                       @* asp-for="DOB" *@
-                                       class="form-control"
-                                       id="floatingInput"
+                                       asp-for="Dob"
+                                       class="form-control input"
                                        placeholder="name@example.com" />
                                 <label for="floatingInput">Date of Birth</label>
                             </div>
@@ -101,9 +160,9 @@
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                @* asp-for="Lastname" *@
-                                       class="form-control input"
-                                       id="contact"
+                                       asp-for="phone"
+                                       id="phone"
+                                       class="form-control input editable"
                                        placeholder="name@example.com" />
                                 <label for="floatingInput">Phone number</label>
                             </div>
@@ -111,29 +170,99 @@
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
                                 <input type="text"
-                                @* asp-for="Lastname" *@
-                                       class="form-control input"
-                                       id="contact"
+                                       asp-for="email"
+                                       id="email"
+                                       class="form-control input editable"
                                        placeholder="name@example.com" />
                                 <label for="floatingInput">Email</label>
                             </div>
                         </div>
-                      
+                        <input type="number"
+                               asp-for="reqid"
+                               class="form-control input"
+                               id="reqid"
+                               value="@Model.reqid"
+                               placeholder="name@example.com" hidden />
+
                         <div class="col-md-12">
                             <div class="w-100">
                                 <br />
                                 <div class=" d-flex justify-content-end">
-                                    <button style="width:75px" class="btn btn-info text-white m-2" type="button">Edit</button>
-                                    <button class="btn btn-outline-info m-2">Close case</button>
+                                    <button style="width:75px" class="btn btn-info text-white m-2 btn-edit" type="button">Edit</button>
+                                    <button style="width:75px" class="btn btn-info text-white m-2 btn-save" type="button">Save</button>
+                                    <button type="button" class="btn btn-outline-info m-2 close-case">Close case</button>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                </form>
 
+            </div>
 
-                </div>
-            </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // console.log("reload");
+        $('.input, select').prop('disabled', true);
+        // $('#floatingTextarea').prop('disabled', true);
+        $('.btn-save').hide();
+
+        // Handle click event for the Edit button
+        $('.btn-edit').click(function () {
+            // Enable all input fields
+            // $('.input, select').prop('disabled', false);
+            $('.editable').prop('disabled', false);
+            // $('#floatingTextarea').prop('disabled', false);
+
+            $('.btn-save').show();
+            $('.btn-edit').hide();
+        });
+
+        $(document).on('click', ".btn-save", save);
+    });
+
+    function save() {
+    
+        $('.input, select').prop('disabled', true);
+        $('.btn-edit').show();
+        $('.btn-save').hide();
+        var id = $('#reqid').val();
+        var email = $('#email').val();
+        var mobile = $('#phone').val();
+        
+            $.ajax({
+                url: '/Admin/CloseCaseUpdateByAdmin',
+                type: 'post',
+                data: { id: id, email: email, phone: mobile },
+                success: function (result) {
+                    // CloseCase(id);
+
+                }
+            });
+        
+
+    }
+
+    $(".close-case").on('click', function () {
+        var reqid = $('#reqid').val()
+        console.log(reqid);
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("Closecasesubmit", "Admin")',
+            data: { closeid: reqid },
+            success: function (result) {
+                // console.log("jkl");
+                // AdminDashboard();
+                // window.location.herf = "https://localhost:44301/Admin/AdminDashboard";
+                // window.location.herf = "http://www.google.com";
+                // alert("close case success");
+                window.location.reload();
+            }
+
+        });
+    });
+</script>

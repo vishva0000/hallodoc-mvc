@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using BusinessLayer.Repository.Interface;
 using DataLayer.DTO.AdminDTO;
 using DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using NPOI.SS.Formula.Functions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BusinessLayer.Repository.Implementation
@@ -19,7 +22,7 @@ namespace BusinessLayer.Repository.Implementation
             this.db = context;
         }
 
-        public List<RequestTableData> requestTableData(int status, int requesttype)
+        public List<RequestTableData> requestTableData(int status, int requesttype, string search)
         {
             List<Request> r;
             List<RequestTableData> data = new();
@@ -28,23 +31,28 @@ namespace BusinessLayer.Repository.Implementation
             {
                 if (status == 1)
                 {
-                    r = db.Requests.Where(a => a.Status == 1).ToList();
+                    //r = db.Requests.Where(a => a.Status == 1).ToList();
+                    var my = db.Requests.Where(a => a.Status == 1).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-
-                    var details = db.Requests;
-
-                    foreach (var item in r)
+                    foreach (var item in mydata)
                     {
-
+                            var  patient= db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
+                        
                         RequestTableData request = new RequestTableData();
-                        var patient = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
+                        
                         request.status = 1;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
                         if (patient.IntYear != null && patient.IntDate != null && patient.StrMonth != null)
@@ -68,10 +76,16 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 2)
                 {
-                    r = db.Requests.Where(a => a.Status == 2).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 2).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 2).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -93,7 +107,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
                         
@@ -106,10 +121,17 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 3)
                 {
-                    r = db.Requests.Where(a => a.Status == 4 || a.Status == 5).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 4 || a.Status == 5).ToList();
+                    //var details = db.Requests;
 
-                    foreach (var item in r)
+                    var my = db.Requests.Where(a => a.Status == 4 || a.Status == 5).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -125,7 +147,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -138,10 +161,16 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 4)
                 {
-                    r = db.Requests.Where(a => a.Status == 6).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 6).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 6).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -157,7 +186,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -170,12 +200,23 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 5)
                 {
-                    r = db.Requests.Where(a => a.Status == 3 || a.Status == 7 || a.Status == 8).ToList();
-                   
-                    foreach(var item in r)
+                    //r = db.Requests.Where(a => a.Status == 3 || a.Status == 7 || a.Status == 8).ToList();
+                    var my = db.Requests.Where(a => a.Status == 3 || a.Status == 7 || a.Status == 8).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+
+                    foreach (var item in mydata)
                     {
                         RequestTableData request = new RequestTableData();
                         var patient = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
+                        if (item.PhysicianId != null)
+                        {
+                            var phyid = item.PhysicianId;
+                            request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName + " " + db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().LastName;
+
+                        }
                         if (patient.IntYear != null && patient.IntDate != null && patient.StrMonth != null)
                         {
                             int month = DateTime.ParseExact(patient.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month;
@@ -194,14 +235,26 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 6)
                 {
-                    r = db.Requests.Where(a => a.Status == 9).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 9).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 9).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
                         var patient = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
+                        if (item.PhysicianId != null)
+                        {
+                            var phyid = item.PhysicianId;
+                            request.PhysicianName = db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().FirstName + " " + db.Physicians.Where(a => a.PhysicianId == phyid).FirstOrDefault().LastName;
+
+                        }
                         if (patient.IntYear != null && patient.IntDate != null && patient.StrMonth != null)
                         {
                             int month = DateTime.ParseExact(patient.StrMonth, "MMMM", CultureInfo.CurrentCulture).Month;
@@ -213,7 +266,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -226,10 +280,16 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else
                 {
-                    r = db.Requests.ToList();
-                    var details = db.Requests;
+                    var my = db.Requests.Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+                    //r = db.Requests.ToList();
+                    //var details = db.Requests;
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -245,7 +305,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -262,12 +323,17 @@ namespace BusinessLayer.Repository.Implementation
 
                 if (status == 1)
                 {
-                    r = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId == requesttype).ToList();
+                    //r = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+
+                    var my = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId== requesttype).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
 
-                    var details = db.Requests;
-
-                    foreach (var item in r)
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -283,7 +349,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + " " + item.LastName;
                         request.Name = patient.FirstName + " " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -296,10 +363,15 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 2)
                 {
-                    r = db.Requests.Where(a => a.Status == 2 && a.RequestTypeId == requesttype).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 2 && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 2 && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -315,7 +387,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -328,10 +401,16 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 3)
                 {
-                    r = db.Requests.Where(a => (a.Status == 4 || a.Status == 5) && a.RequestTypeId == requesttype).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => (a.Status == 4 || a.Status == 5) && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => (a.Status == 4 || a.Status == 5) && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -347,7 +426,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -360,10 +440,15 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 4)
                 {
-                    r = db.Requests.Where(a => a.Status == 6 && a.RequestTypeId == requesttype).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 6 && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 6 && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -379,7 +464,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -392,12 +478,17 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 5)
                 {
-                  
 
-                    r = db.Requests.Where(a => (a.Status==3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).ToList();
-                    var details = db.Requests;
 
-                    foreach (var item in r)
+                    //r = db.Requests.Where(a => (a.Status==3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => (a.Status == 3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).Include(b=>b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -413,7 +504,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -427,10 +519,15 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else if (status == 6)
                 {
-                    r = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).ToList();
-                    var details = db.Requests;
+                    //r = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).ToList();
+                    //var details = db.Requests;
+                    var my = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).Include(b=>b.RequestClients).ToList();
+                    var mydata = my.Where(a =>
+                        search.IsNullOrEmpty() ||
+                        a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
+                        a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-                    foreach (var item in r)
+                    foreach (var item in mydata)
                     {
 
                         RequestTableData request = new RequestTableData();
@@ -446,7 +543,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -459,7 +557,7 @@ namespace BusinessLayer.Repository.Implementation
                 }
                 else
                 {
-                    r = db.Requests.Where(a => a.Status == status && a.RequestTypeId == requesttype).ToList();
+                    r = db.Requests.Where(a => a.Status == status && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
                     var details = db.Requests;
 
                     foreach (var item in r)
@@ -478,7 +576,8 @@ namespace BusinessLayer.Repository.Implementation
                         request.Requestor = item.FirstName + ", " + item.LastName;
                         request.Name = patient.FirstName + ", " + patient.LastName;
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
-                        request.Phone = patient.PhoneNumber;
+                        request.PhoneP = patient.PhoneNumber;
+                        request.PhoneO = item.PhoneNumber;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
 
@@ -496,6 +595,8 @@ namespace BusinessLayer.Repository.Implementation
 
             return data;
         }
+
+       
 
         public void AssignCase(int assign_req_id, string phy_region, string phy_id, string assignNote)
         {
@@ -606,5 +707,7 @@ namespace BusinessLayer.Repository.Implementation
         {
 
         }
+
+       
     }
 }

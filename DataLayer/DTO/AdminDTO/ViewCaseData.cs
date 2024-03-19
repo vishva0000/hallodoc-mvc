@@ -4,6 +4,7 @@
     {
         public int RequestId {  get; set; }
         public int RequestTypeId { get; set; }
+        public int status { get; set; }
         public string Symp {  get; set; }
         public string Firstname { get; set;}
         public string Lastname { get; set;}

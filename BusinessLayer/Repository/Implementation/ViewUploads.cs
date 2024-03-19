@@ -29,8 +29,8 @@ namespace BusinessLayer.Repository.Implementation
             {
                 FileData fileup = new FileData();
 
-                //fileup.file = item.FileName.Split('\\').Last();
-                fileup.file = item.FileName;
+                fileup.file = item.FileName.Split('\\').Last();
+                //fileup.file = item.FileName;
                 fileup.createdate = item.CreatedDate;
                 fileup.docid = item.RequestWiseFileId;
                 files.Add(fileup);

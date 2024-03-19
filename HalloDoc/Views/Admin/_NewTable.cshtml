@@ -69,16 +69,12 @@
                         <th scope="col">Notes</th>
 
                     }
-                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
-                    {
-                        <th scope="col">Chat With</th>
+                    <th scope="col">Chat With</th>
 
-                    }
-                    @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5)
-                    {
-                        <th scope="col">Actions</th>
 
-                    }
+
+                    <th scope="col">Actions</th>
+
                 </tr>
             </thead>
             @foreach (var obj in Model)
@@ -86,7 +82,7 @@
                 <tbody>
 
                     <tr class=" requestTable align-middle table-@{
-                            @GetColor(obj.RequestTypeId)
+                                @GetColor(obj.RequestTypeId)
  }">
 
                         <td scope="row" class="text-white">
@@ -133,9 +129,39 @@
                         @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 6)
                         {
                             <td class="text-white">
-                                <div>
-                                    <span class="border border-white rounded p-2"><i class="bi bi-telephone p-2"></i>@obj.Phone</span>
-                                </div>
+
+                                @if (obj.RequestTypeId == 2)
+                                {
+                                    <span class="border border-white rounded p-2 text-nowrap d-block  "><i class="bi bi-telephone p-2"></i>@obj.PhoneP</span>
+                                    <span class="d-block ">(Patient)</span>
+                                }
+                                @if(obj.RequestTypeId == 3)
+                                {
+
+                                    <span class="border border-white rounded p-2 text-nowrap d-block "><i class="bi bi-telephone p-2"></i>@obj.PhoneP</span>
+                                    <span class="d-block ">(Patient)</span>
+                                    <span class="border border-white rounded p-2 text-nowrap d-block"><i class="bi bi-telephone p-2"></i>@obj.PhoneO</span>
+                                    <span class="d-block ">(Family/Friend)</span>
+                                }
+                                @if(obj.RequestTypeId == 1)
+                                {
+
+                                    <span class="border border-white rounded p-2 text-nowrap d-block "><i class="bi bi-telephone p-2"></i>@obj.PhoneP</span>
+                                    <span class="d-block ">(Patient)</span>
+                                    <span class="border border-white rounded p-2 text-nowrap d-block"><i class="bi bi-telephone p-2"></i>@obj.PhoneO</span>
+                                    <span class="d-block ">(Business Partner)</span>
+                                } 
+                                @if(obj.RequestTypeId == 4 )
+                                {
+
+                                    <span class="border border-white rounded p-2 text-nowrap d-block mb-2"><i class="bi bi-telephone p-2"></i>@obj.PhoneP</span>
+                                    <span class="d-block ">(Patient)</span>
+                                    <span class="border border-white rounded p-2 text-nowrap d-block"><i class="bi bi-telephone p-2"></i>@obj.PhoneO</span>
+                                    <span class="d-block ">(Concierge)</span>
+                                }
+                                
+
+
 
                             </td>
 
@@ -181,7 +207,7 @@
                                     @if (type == 1)
                                     {
                                         <li>
-                                            <button class="btn cancel-case dropdown-item" data-toggle="modal" data-target="#model1" data-name="@obj.Name" data-name="@obj.Name" data-id="@obj.RequestId">
+                                            <button class="btn cancel-case dropdown-item" data-toggle="modal" data-target="#model1" data-name="@obj.Name" data-id="@obj.RequestId">
                                                 <i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Cancel Case
                                             </button>
                                         </li>
@@ -190,7 +216,7 @@
                                     }
                                     @if (type == 1 || type == 2 || type == 3 || type == 4 || type == 5 || type == 6)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-reqId="@obj.RequestId" asp-action="ViewCase"> <i class="fa-solid fa-file-signature  me-2 ms-1"></i> View Case</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ViewCase" asp-route-reqId="@obj.RequestId"> <i class="fa-solid fa-file-signature  me-2 ms-1"></i> View Case</a></li>
 
 
                                     }
@@ -212,7 +238,7 @@
                                     }
                                     @if (type == 5)
                                     {
-                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Closecase"><i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Close Case</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-route-closeid="@obj.RequestId" asp-action="Closecase"><i class="fa-regular fa-circle-xmark  me-2 ms-1"></i> Close Case</a></li>
 
                                     }
                                     @if (type == 3 || type == 4 || type == 5)
@@ -252,7 +278,7 @@
                                                     data-toggle="modal" data-target="#model6"
                                                     data-argreqid="@obj.RequestId"
                                                     data-reqtype="@obj.RequestTypeId"
-                                                    data-phone="@obj.Phone"
+                                                    data-phone="@obj.PhoneP"
                                                     data-email="@obj.Email">
                                                 <i class="fa-solid fa-file-import  me-2 ms-1"></i> Send Agreement
                                             </button>
@@ -301,40 +327,40 @@
                                     <div class="col ">
                                         <div class="float-end">
 
-                                    
-                                        @if (item.RequestTypeId == 2)
-                                        {
-                                            <div class="d-flex justify-content-end">
-                                                <p>Patient </p>
-                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #60bc60;"></div>
 
-                                            </div>
-                                        }
-                                        @if (item.RequestTypeId == 3)
-                                        {
+                                            @if (item.RequestTypeId == 2)
+                                            {
                                                 <div class="d-flex justify-content-end">
-                                                <p>Family/Friend</p>
-                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #ee9125;"></div>
+                                                    <p>Patient </p>
+                                                    <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #60bc60;"></div>
 
-
-                                            </div>
-                                        }@if (item.RequestTypeId == 4)
-                                        {
+                                                </div>
+                                            }
+                                            @if (item.RequestTypeId == 3)
+                                            {
                                                 <div class="d-flex justify-content-end">
-                                                <p>Concierge</p>
-                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: pink;"></div>
-                                            </div>
-                                        }@if (item.RequestTypeId == 1)
-                                        {
+                                                    <p>Family/Friend</p>
+                                                    <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #ee9125;"></div>
+
+
+                                                </div>
+                                            }@if (item.RequestTypeId == 4)
+                                            {
+                                                <div class="d-flex justify-content-end">
+                                                    <p>Concierge</p>
+                                                    <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: pink;"></div>
+                                                </div>
+                                            }@if (item.RequestTypeId == 1)
+                                            {
                                                 <div class="d-flex justify-content-end9">
-                                                <p>Business</p>
-                                                <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #007fc7;"></div>
+                                                    <p>Business</p>
+                                                    <div class="border border-1 rounded-5 m-1 " style="width: 15px; height:15px; background-color: #007fc7;"></div>
 
 
-                                            </div>
-                                        }
+                                                </div>
+                                            }
 
-                                        <a class="btn btn-outline-info " style="border-radius:30px">Map Location</a>
+                                            <a class="btn btn-outline-info " style="border-radius:30px">Map Location</a>
                                         </div>
                                     </div>
 
@@ -360,12 +386,12 @@
 
                     <div id="id-@acoid" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="d-flex justify-content-end d-inline">
-                            <a asp-controller="Admin" asp-route-reqId="@item.RequestId" asp-action="ViewCase" 
-                            class="rounded-pill me-3 viewCaseBtn px-4 py-2 viewCase fw-bolder text-decoration-none">
+                            <a asp-controller="Admin" asp-route-reqId="@item.RequestId" asp-action="ViewCase"
+                               class="rounded-pill me-3 viewCaseBtn px-4 py-2 viewCase fw-bolder text-decoration-none">
                                 View Case
                             </a>
                         </div>
-                       
+
                         <div class="accordion-body pt-0">
                             <div>
                                 @if (item.status == 1 || item.status == 2 || item.status == 3 || item.status == 4 || item.status == 5)
@@ -395,7 +421,7 @@
                                              class="border-info d-flex justify-content-center me-2">
                                             <i class="bi bi-telephone"></i>
                                         </div>
-                                        <p><span class="text-muted">Patient:</span> @item.Phone</p>
+                                        <p><span class="text-muted">Patient:</span> @item.PhoneP</p>
                                     </div>
                                 }
 
@@ -479,7 +505,7 @@
                                                 data-toggle="modal" data-target="#model6"
                                                 data-argreqid="@item.RequestId"
                                                 data-reqtype="@item.RequestTypeId"
-                                                data-phone="@item.Phone"
+                                                data-phone="@item.PhoneP"
                                                 data-email="@item.Email">
                                             Send Agreement
                                         </button>
@@ -543,10 +569,10 @@
                                 {
                                     <div class="col-6 p-2">
                                         <a class="text-decoration-none" asp-controller="Admin" asp-action="ViewUploads" asp-route-viewid="@item.RequestId">
-                                        <button style="border-radius:30px; "
-                                                class="btn btn-success text-white w-100 p-2 ">
-                                            View Uploads
-                                        </button>
+                                            <button style="border-radius:30px; "
+                                                    class="btn btn-success text-white w-100 p-2 ">
+                                                View Uploads
+                                            </button>
                                         </a>
                                     </div>
                                 }
@@ -555,10 +581,10 @@
                                 {
                                     <div class="col-6 p-2">
                                         <a class="text-decoration-none" asp-controller="Admin" asp-action="Encounter" asp-route-encreqid="@item.RequestId">
-                                        <button style="border-radius:30px; "
-                                                class="btn btn-success text-white w-100 p-2 ">
-                                            Encounter
-                                        </button>
+                                            <button style="border-radius:30px; "
+                                                    class="btn btn-success text-white w-100 p-2 ">
+                                                Encounter
+                                            </button>
                                         </a>
                                     </div>
                                 }
@@ -575,12 +601,12 @@
                                 }
                                 @if (item.status == 3 || item.status == 4)
                                 {
-                                    <div class="col-6 p-2" >
+                                    <div class="col-6 p-2">
                                         <a class="text-decoration-none" asp-controller="Admin" asp-action="AdminOrders" asp-route-ordreqid="@item.RequestId">
-                                        <button style="border-radius:30px; background-color:#ee9125;"
-                                                class="btn text-white w-100 p-2 ">
-                                            Orders
-                                        </button>
+                                            <button style="border-radius:30px; background-color:#ee9125;"
+                                                    class="btn text-white w-100 p-2 ">
+                                                Orders
+                                            </button>
                                         </a>
                                     </div>
 
@@ -641,7 +667,7 @@
 }
 else
 {
-    <p>No data found</p>
+    <p class="a-table">No data found</p>
 }
 
 <!-- Cancel case  Modal -->
@@ -736,8 +762,8 @@ else
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button style="background-color:#0dcaf0; color:white;" id="assigncasesubmit" type="submit" class="btn">Submit</button>
-                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                    <button id="assigncasesubmit" type="submit" class="btn btn-info text-white">Submit</button>
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
@@ -772,8 +798,8 @@ else
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button style="background-color:#0dcaf0; color:white;" id="blockcasesubmit" type="submit" class="btn">Confirm</button>
-                    <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                    <button id="blockcasesubmit" type="submit" class="btn btn-info text-white">Confirm</button>
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>

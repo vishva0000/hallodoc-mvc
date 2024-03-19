@@ -11,6 +11,12 @@ namespace DataLayer.DTO.AdminDTO
        public List<FileData> filedata;
         public string name {  get; set; }
         public int reqid { get; set; }
+
+        public string Firstname {  get; set; }
+        public string LastName { get; set; }
+        public DateTime Dob{ get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
        
     }
     public class FileData

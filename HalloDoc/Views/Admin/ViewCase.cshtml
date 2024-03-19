@@ -95,7 +95,7 @@
                     <div class="col-md-12 pb-4">
                         <div class="form-floating">
 
-                            <textarea class="form-control"
+                            <textarea class="form-control input-for-form"
                                       asp-for="Symp"
                                       placeholder="Leave a comment here"
                                       id="floatingTextarea"
@@ -108,7 +108,7 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="text"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    asp-for="Firstname"
                                    placeholder="name@example.com" />
@@ -119,7 +119,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    asp-for="Lastname"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Last Name</label>
@@ -128,9 +128,9 @@
                     <div class="col-md-6">
                         <div class="form-floating mb-3">
                             <input type="date"
-                                   value=""
+                                  
                                    asp-for="Dob"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Date of Birth</label>
@@ -140,7 +140,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    asp-for="Phone"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Phone number</label>
@@ -152,7 +152,7 @@
                         <div class="form-floating mb-3">
                             <input type="email"
                                    asp-for="Email"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Email</label>
@@ -168,7 +168,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    asp-for="Street"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Region</label>
@@ -179,7 +179,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    asp-for="State"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Business Address</label>
@@ -196,7 +196,7 @@
                         <div class="form-floating mb-3">
                             <input type="text"
                                    asp-for="Room"
-                                   class="form-control input"
+                                   class="form-control input-for-form"
                                    id="floatingInput"
                                    placeholder="name@example.com" />
                             <label for="floatingInput">Room</label>
@@ -204,9 +204,15 @@
                     </div>
                     <div class="d-flex justify-content-end mb-2">
                         <div class="m-2">
-                            <button type="button" class="btn ml-auto btn-info text-white btn-edit">Assign</button>
-                            <button type="button" class="btn ml-auto btn-info text-white ">View Notes</button>
-                            <button type="button" class="btn ml-auto btn-danger">Cancle</button>
+                            @if (Model.status == 1)
+                            {
+                                <button type="button" data-toggle="modal" id="assigncasebtn" data-target="#model2" data-assreqid="@Model.RequestId" class="btn ml-auto btn-info text-white assign-case">Assign</button>
+
+                            }
+                            <a asp-controller="Admin" asp-route-Requestid="@Model.RequestId" asp-action="ViewNotes">
+                                <button type="button" class="btn ml-auto btn-info text-white ">View Notes</button>
+                           </a> 
+                            <button type="button" data-toggle="modal" data-target="#model1" data-name="@Model.Firstname" data-id="@Model.RequestId" class="btn ml-auto btn-danger cancel-case">Cancle</button>
                             @*<button type="submit" id="btn" class="btn ml-auto btn-outline-info btn-save">Save</button>*@
                         </div>
                     </div>
@@ -215,26 +221,208 @@
             <br/>
         </div>
     </div>
+    <!-- Cancel case  Modal -->
+    <div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Cancellation</h5>
+                    <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="cancelcaseform">
+                    <div class="modal-body">
+                        <input type="number"
+                               hidden
+                               name="req_id"
+                               id="reqestid" />
+                        <p>Patient Name : <span id="Name" class="text-info"></span></p>
+                        <div class="dropdown bg-light">
+
+                            <select class="form-select" aria-label="Default select example" required>
+                                <option selected>Reason for cancellation</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                        <br />
+                        <div class="form-floating">
+                            <textarea class="form-control"
+                                      placeholder="Leave a comment here"
+                                      id="floatingTextarea"
+                                      name="cancelNote"
+                                      style="height: 100px" required></textarea>
+                            <label for="floatingTextarea">Provide Aditional notes</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+
+                        <button id="cancelcasesubmit"  type="submit" class="btn btn-info text-white">Confirm</button>
+                        <button  type="button" class="btn btn-outline-info " data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assign case  Modal -->
+    <div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Assign Request</h5>
+                    <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="assigncaseform">
+                    <div class="modal-body">
+                        <p style="font-size: 15px">To assign this request, search and select another Physician.</p>
+                        <input type="number"
+                               hidden
+                               name="assign_req_id"
+                               id="assignreqid" />
+                        <div class="dropdown bg-light">
+
+                            <select class="form-select regionDropDown" name="phy_region" aria-label="Default select example" required>
+                                <option>Narrow Search by Region</option>
+
+                            </select>
+                        </div>
+                        <br />
+                        <div class="dropdown bg-light">
+
+                            <select class="form-select physicianselect" name="phy_id" aria-label="Default select example" required>
+
+                                <option selected>Select Physician</option>
+
+                            </select>
+                        </div>
+                        <br />
+                        <div class="form-floating">
+                            <textarea class="form-control"
+                                      placeholder="Leave a comment here"
+                                      id="floatingTextarea"
+                                      name="assignNote"
+                                      style="height: 100px" required></textarea>
+                            <label for="floatingTextarea">Description</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button id="assigncasesubmit" type="submit" class="btn btn-info text-white">Submit</button>
+                        <button  type="button" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 @section Scripts{
     <script>
         $(document).ready(function () {
+            $(document).on("click", ".assign-case", OpenAssigncase);
+            $(document).on("click", ".cancel-case", OpenCancelcase);
+
+           
             // Disable all input fields initially
-            $('input, select,.btn-map').prop('disabled', true);
+            $('.input-for-form, .select,.btn-map').prop('disabled', true);
             $('#floatingTextarea').prop('disabled', true);
             $('.btn-save').hide();
 
             // Handle click event for the Edit button
             $('.btn-edit').click(function () {
                 // Enable all input fields
-                $('input, select,.btn-map').prop('disabled', false);
+                $('.input-for-form, .select,.btn-map').prop('disabled', false);
                 $('#floatingTextarea').prop('disabled', false);
 
                 $('.btn-save').show();
                 $('.btn-edit').hide();
             });
+
+
+            $.ajax({
+                url: '/Admin/FetchRegions',
+                method: 'GET',
+                success: function (response) {
+                    response.forEach(function (res) {
+                        $('.regionDropDown').append("<option value='" + res.regionid + "'>" + res.name + "</option>");
+                    });
+                }
+            });
         });
+
+        function OpenAssigncase() {
+            var requestid = $(this).data("assreqid");
+            $('#assignreqid').val(requestid);
+            console.log("assign");
+        }
+
+        function OpenCancelcase() {
+            // var name = $(this).closest('tr').find('td').first().text();
+            var reqid = $(this).data("id");
+            var name = $(this).data("name");
+            $('#Name').html(name);
+            $('#reqestid').val(reqid);
+            $('model1').modal();
+            console.log("cancel model")
+        }
+
+        $('.regionDropDown').change(function () {
+            var selectregionid = $(this).val();
+            var physicianselect = $(".physicianselect");
+            physicianselect.empty().append("<option> Select a physician </option>");
+            console.log("before url");
+            if (selectregionid) {
+                $.ajax({
+                    url: '/Admin/FetchPhysician?selectregionid=' + selectregionid,
+                    method: 'GET',
+                    success: function (response) {
+                        console.log(response);
+
+                        response.forEach(function (res) {
+                            $('.physicianselect').append("<option value='" + res.physicianid + "'>" + res.name + "</option>");
+                        });
+                    }
+                });
+            }
+
+        });
+
+        $('#assigncasesubmit').on('click', function () {
+
+            $.ajax({
+                method: "POST",
+                url: '@Url.Action("AssignCase", "Admin")',
+                data: $('form.assigncaseform').serialize(),
+                success: function (result) {
+                    // console.log("assign case success");
+                    // alert("Assign case success");
+                    window.location.reload();
+                }
+
+            });
+        });
+
+        $('#cancelcasesubmit').on('click', function () {
+
+            $.ajax({
+                method: "POST",
+                url: '@Url.Action("CancelCase", "Admin")',
+                data: $('form.cancelcaseform').serialize(),
+                success: function (result) {
+                    window.location.reload();
+
+                    // console.log("cancel case success");
+                }
+
+            });
+        }); 
+
     </script>
 
 }

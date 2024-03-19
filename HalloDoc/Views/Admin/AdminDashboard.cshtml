@@ -81,7 +81,7 @@
     <div class="row mx-3 my-4">
         <div class="AdminStatediv col-xl-2 col-lg-3 col-sm-4 col-6">
 
-            <div id="NewState" class="AdminState active p-2 ">
+            <div id="NewState" class="AdminState p-2 ">
                 <h6 class="fw-semibold m-0 my-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="20px" width="20px" version="1.1" id="_x32_" viewBox="0 0 512 512" xml:space="preserve" fill="currentColor">
                     <g>
@@ -142,13 +142,69 @@
             </div>
         </div>
     </div>
+    @* Send link mail Model *@
+    <div class="modal fade" id="sendLink" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                    <p class="modal-title" id="exampleModalLongTitle">Send mail to patient for submitting request</p>
+                    <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="SendlinkForm" >
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   class="form-control"
+                                   name="firstName"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">First name</label>
+                        </div>  
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                name="lastname"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Last name</label>
+                        </div>
+                        <div>
+                            <input type="tel"
+                                   class="form-control"
+                                   id="phone3"
+                                   name="phoneNumber"
+                                   placeholder="(201) 555-0123"
+                                   style="height: 58px" />
+                            <label for="phone"></label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                name="emailAdd"
+                                   class="form-control"
+                                   id="floatingInput"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Email</label>
+                        </div>
+                     
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button id="SendLinkSubmit" type="submit" class="btn btn-info text-white">Send</button>
+                        <button style="border-color:#0dcaf0; color:#0dcaf0 " type="button" class="btn " data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="d-xs-block d-sm-flex justify-content-between m-3">
     <div class="p-2">
         <h4>Patients(<span id="state-name"></span>)</h4>
     </div>
     <div class="p-2">
-        <button class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-regular fa-paper-plane"></i> <span class="btntext m-0"> Send Link</span></button>
+        <button data-toggle="modal" data-target="#sendLink" class="admin_btn p-2 fs-6 fw-semibold mx-1"><i class="fa-regular fa-paper-plane"></i> <span class="btntext m-0"> Send Link</span></button>
 
         <button class="admin_btn p-2 fs-6 fw-semibold mx-1">
             <a asp-action="CreateRequest" asp-controller="Admin" class="text-decoration-none text-white">
@@ -163,9 +219,12 @@
 
 <div class="shadow-lg m-3">
     <div class="row ps-2">
+        <div class="d-flex justify-content-between">
+ 
+       
         <div class="row col-xl-6">
             <div class="col-sm-6">
-                <input id="my-search-input" oninput="SearchInTable()" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
+                <input id="my-search-input" onkeyup="SearchInTable()" class="form-control p-2 mt-3 px-4 mb-3 w-100" type="text" placeholder="Search Patients">
             </div>
             <div class="col-sm-6">
                 <div class="">
@@ -180,7 +239,7 @@
             </div>
         </div>
 
-        <div class="row col-xl-6 ">
+            <div class=" col-xl-6 d-flex justify-content-end  ">
 
             <div class="filter-btn ">
                 <button class="btn filter  " id="all-req">
@@ -223,68 +282,15 @@
                 </button>
             </div>
         </div>
-        @* <div class="col-xl-6 d-flex justify-content-xl-end justify-content-center gap-2 gap-sm-3 gap-xl-4 p-0 ">
-            <div class="d-none d-xxl-flex align-items-center justify-content-center ">
-
-                <button class="btn filter " id="all-req">
-                    All
-                </button>
-            </div>
-            <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row  ">
-                <button class="btn filter " id="patient-req">
-                    <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #60bc60;"></div>
-                        <span>Patient</span>
-                    </div>
-                </button>
-
-
-            </div>
-            <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row">
-                <button class="btn filter" id="family-req">
-                    <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #ee9125;"></div>
-                        <span>Family/Friend</span>
-                    </div>
-                </button>
-
-            </div>
-            <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
-                <button class="btn filter" id="business-req">
-                    <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: pink;"></div>
-                        <span>Business</span>
-
-                    </div>
-                </button>
-            </div>
-            <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
-                <button class="btn filter" id="concierge-req">
-                    <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #007fc7;"></div>
-                        <span>Concierge</span>
-
-                    </div>
-                </button>
-            </div>
-            <div class="d-flex align-items-center justify-content-center flex-column flex-lg-row ">
-                <button class="btn filter">
-                    <div class="d-inline-flex">
-                        <div class="border border-1 rounded-5 m-1" style="width: 15px; height:15px; background-color: #943db8;"></div>
-                        <span>VIP</span>
-
-                    </div>
-                </button>
-            </div>
         </div>
- *@
-
-
         <div id="partial_container" class="tableData">
         </div>
 
 
+
     </div>
+    @* Send link in mail model *@
+
     <div class="points">
         <div class="border border-1 rounded-5 m-1 patient-point" style="width: 15px; height:15px; background-color: #60bc60;"></div>
         <div class="border border-1 rounded-5 m-1 family-point" style="width: 15px; height:15px; background-color: #ee9125;"></div>
@@ -306,11 +312,12 @@
         var globalstate = 1;
         var states = document.querySelectorAll(".AdminState");
         var requesttype = 0;
-
+        var search = "";
+      
         for (var i = 0; i < states.length; i++) {
             states[i].addEventListener("click", function () {
                 const previouslyActive = document.querySelector('.active');
-                console.log(previouslyActive);
+              
                 if (previouslyActive) {
                     previouslyActive.classList.remove('active');
                 }
@@ -318,19 +325,35 @@
             })
         }
 
+     
+
+
         $(document).ready(function () {
             var text = "New";
             $('#state-name').text(text);
-            var status = 1;
+            
+            globalstate = parseInt(localStorage.getItem("state"));
+            console.log(globalstate);
+            requesttype = parseInt(localStorage.getItem("RequestType"));
+            console.log(requesttype);
+            states[globalstate - 1].classList.add('active');
+            setStateText(globalstate);
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: status, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("onload New state Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
+                   
+                    if (result.includes("table")) {
+                        console.log("onload New state Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                    
 
                 }
             });
@@ -365,15 +388,23 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: status, requesttype: requesttype },
+                data: { reqStaus: status, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("New state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 1;
-                    console.log(globalstate);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
-
+                    
+                    if (result.includes("table")) {
+                        console.log("New state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 1;
+                        console.log(globalstate);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                   
                 }
             });
         });
@@ -383,12 +414,20 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("All request filter Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
+                    if (result.includes("table")) {
+                        console.log("All request filter Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                    } else {
+                        window.location.reload();
+                    }
+
+                   
 
                 }
             });
@@ -400,13 +439,20 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("patient request filter Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
-
+                    if (result.includes("table")) {
+                        console.log("patient request filter Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                    } else {
+                        window.location.reload();
+                    }
+                   
+                   
                 }
             });
         });
@@ -416,12 +462,20 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("Family request filter Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
+                  
+                    if (result.includes("table")) {
+                        console.log("Family request filter Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                    } else {
+                        window.location.reload();
+                    }
+                   
 
                 }
             });
@@ -432,13 +486,20 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("Business request filter Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
-
+                   
+                    if (result.includes("table")) {
+                        console.log("Business request filter Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                    } else {
+                        window.location.reload();
+                    }
+                   
                 }
             });
         });
@@ -448,13 +509,19 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
-                    console.log("Concierge request filter Function Success");
-                    $(".tableData").html(result);
-                    setupPagination(5, '.requestTable');
-                    setupPagination(5, '.accordion');
-
+                    if (result.includes("table")) {
+                        console.log("Concierge request filter Function Success");
+                        $(".tableData").html(result);
+                        setupPagination(5, '.requestTable');
+                        setupPagination(5, '.accordion');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                    } else {
+                        window.location.reload();
+                    } 
+                    
                 }
             });
         });
@@ -462,103 +529,150 @@
 
 
         $('#PendingState').on('click', function () {
-            var text = "Pending";
-            $('#state-name').text(text);
+     
             var status = 2;
-            requesttype = 0;
+            setStateText(status);
+            
+            requesttype = 0;          
+            
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
-                data: { reqStaus: status, requesttype: requesttype },
+                data: { reqStaus: status, requesttype: requesttype},
                 success: function (result) {
-                    console.log("Pending state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 2;
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                    if (result.includes("table")) {
+                        console.log("Pending state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 2;
+                        console.log(globalstate);
+                        setupPagination(5, '.accordion');
+                        setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    }else{
+                        window.location.reload();
+                    } 
+                    
+                    
+                   
                 }
             });
         });
 
         $('#ActiveState').on('click', function () {
-
-            var text = "Active";
-            $('#state-name').text(text);
+ 
             var status = 3;
+            setStateText(status);
+
             requesttype = 0;
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
-                    console.log("Active state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 3;
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                   
+                    if (result.includes("table")) {
+                        console.log("Active state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 3;
+                        console.log(globalstate);
+                        setupPagination(5, '.accordion');
+                        setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                    
                 }
             });
         });
 
         $('#ConcludeState').on('click', function () {
-            var text = "Conclude";
-            $('#state-name').text(text);
+           
             var status = 4;
             requesttype = 0;
+            setStateText(status);
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
-                    console.log("Conclude state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 4;
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                    
+                    if (result.includes("table")) {
+                        console.log("To close state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 4;
+                        console.log(globalstate);
+                        setupPagination(5, '.accordion');
+                        setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                   
                 }
             });
         });
 
         $('#ToCloseState').on('click', function () {
-            var text = "To close";
-            $('#state-name').text(text);
+       
             console.log("to close ajax");
             var status = 5;
+            setStateText(status);
             requesttype = 0;
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
-                    console.log("To close state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 5;
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                    if (result.includes("table")) {
+                        console.log("To close state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 5;
+                        console.log(globalstate);
+                        setupPagination(5, '.accordion');
+                        setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                    
+                    
                 }
             });
         });
 
         $('#UnpaidState').on('click', function () {
-            var text = "Unpaid";
-            $('#state-name').text(text);
             var status = 6;
+            setStateText(status);
             requesttype = 0;
             $.ajax({
                 method: "GET",
                 url: "/Admin/NewState",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
-                    console.log("Unpaid state Function Success");
-                    $(".tableData").html(result);
-                    globalstate = 6;
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                    if (result.includes("table")) {
+                        console.log("Unpaid state Function Success");
+                        $(".tableData").html(result);
+                        globalstate = 6;
+                        console.log(globalstate);
+                        setupPagination(5, '.accordion');
+                        setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        $('#my-search-input').val("");
+                    } else {
+                        window.location.reload();
+                    }
+                   
+                   
                 }
             });
         });
@@ -643,7 +757,21 @@
         }
 
         function SearchInTable() {
-            console.log("input search");
+            search = $('#my-search-input').val();
+            console.log(search);
+            $.ajax({
+                method: "GET",
+                url: "/Admin/NewState",
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
+                success: function (result) {
+                    console.log("Search ");
+                    $(".tableData").html(result);
+                   
+                    console.log(globalstate);
+                    setupPagination(5, '.accordion');
+                    setupPagination(5, '.requestTable');
+                }
+            });
         }
 
         function OpenCancelcase() {
@@ -728,6 +856,21 @@
 
         }
 
+        $('#SendLinkSubmit').on('click', function () {
+            alert("Send link");
+            $.ajax({
+                method: "POST",
+                url: '@Url.Action("SendLink", "Admin")',
+                data: $('form.SendlinkForm').serialize(),
+                success: function (result) {
+                    // console.log("assign case success");
+                    console.log("Link sent");
+                }
+
+            });
+        });
+
+
         function Export() {
             $.ajax({
                 method: "GET",
@@ -778,7 +921,28 @@
             });
         }
 
+        function setStateText(status) {
+            console.log(status);
+            if (status == 1) {
+                $('#state-name').text("New");
+            }
+            else if (status == 2) {
+                $('#state-name').text("Pending");
+            }
+            else if (status == 3) {
+                $('#state-name').text("Active");
+            }
+            else if (status == 4) {
+                $('#state-name').text("Conclude");
+            }
+            else if (status == 5) {
+                $('#state-name').text("To Close");
+            }
+            else if(status==6) {
+                $('#state-name').text("Unpaid");
+            }
 
+        }
 
     </script>
 }

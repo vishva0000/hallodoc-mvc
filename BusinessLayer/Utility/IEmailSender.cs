@@ -9,6 +9,7 @@ namespace BusinessLayer.Utility
     public interface IEmailSender
     {
         Task SendEmailAsync(string v1, string v2, string v3);
+        Task SendFileAsync(string email, string subject, string message, List<string>? files);
         //Task SendEmailAsync(string email, string subject, string message, List<string>? files);
     }
 }
