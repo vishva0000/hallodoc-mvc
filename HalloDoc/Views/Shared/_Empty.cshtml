@@ -24,7 +24,7 @@
 <body class="bg-light">
 
 
-    <header class=" shadow m-0" style="height: 70px">
+    <header class=" m-0 bg-white">
         <div class="d-inline-flex w-100 bg-white">
             <div>
                 <button class="navbar-toggler text-info d-lg-none border-info" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasWithBothOptions">
@@ -39,7 +39,7 @@
             alt="" />
             <div class="flex-grow-1 d-flex justify-content-end">
                 <div class="d-inline-flex">
-                    <p class="m-2 mt-3"><span class="text-muted">Welcome</span> Admin admin2</p>
+                    <p class="m-2 mt-3"><span class="text-muted">Welcome</span> Admin admin</p>
                     <a asp-controller="patient" asp-action="Logout">
                         <button class="btn btn-outline-info m-2">
                             <i class="fa-solid fa-arrow-right-from-bracket d-lg-none"></i><span class="d-none d-lg-block">Logout</span>
@@ -61,11 +61,27 @@
         </div>
     </header>
     <div class="">
+        <div class="loader" id="AjaxLoader" style="display:none;">
+            <div class="strip-holder">
+                <div class="strip-1"></div>
+                <div class="strip-2"></div>
+                <div class="strip-3"></div>
+            </div>
+        </div>
         <main role="main" class="">
             @RenderBody()
         </main>
     </div>
-      
+      <script>
+            $(document)
+                .ajaxStart(function () {
+                    $('#AjaxLoader').show();
+                })
+                .ajaxStop(function () {
+                    $('#AjaxLoader').hide();
+                });
+    
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script> 
     @await Component.InvokeAsync("Notyf")

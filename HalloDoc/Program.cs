@@ -36,6 +36,7 @@ builder.Services.AddTransient<ICreateRequest, CreateRequest>();
 builder.Services.AddTransient<IJwtService, JwtService>();
 builder.Services.AddTransient<IEncounterform, Encounterform>();
 builder.Services.AddTransient<ICloseCase, CloseCase>();
+builder.Services.AddTransient<IAdminProfile, AdminProfile>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
 

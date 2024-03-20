@@ -33,8 +33,9 @@ namespace HalloDoc.Controllers
         private readonly BusinessLayer.Utility.IEmailSender emailSenderService;
         private readonly IEncounterform encounterformService;
         private readonly ICloseCase closecaseService;
+        private readonly IAdminProfile adminprofileService;
 
-
+       
 
         public AdminController(HallodocContext context,
             IHostingEnvironment environment,
@@ -44,7 +45,8 @@ namespace HalloDoc.Controllers
             BusinessLayer.Utility.IEmailSender emailSender,
             ICreateRequest createRequest,
             IEncounterform encounterform,
-            ICloseCase closeCase)
+            ICloseCase closeCase,
+            IAdminProfile adminProfile)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -55,6 +57,7 @@ namespace HalloDoc.Controllers
             this.createRequestService = createRequest;
             this.encounterformService = encounterform;
             this.closecaseService = closeCase;
+            this.adminprofileService = adminProfile;
         }
         public IActionResult AdminDashboard()
         {
@@ -62,6 +65,7 @@ namespace HalloDoc.Controllers
             return View(data);
 
         }
+
 
         public IActionResult NewState(int reqStaus, int requesttype, string searchin)
         {
@@ -88,6 +92,14 @@ namespace HalloDoc.Controllers
             }
             return View();
             //return RedirectToAction("AdminDashboard", "Admin");
+        }
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            string? UserEmail = Request.Cookies["UserId"];
+
+            ProfileData data = adminprofileService.AdminProfileDetails(UserEmail);
+            return View(data);
         }
         public void SendLink(string emailAdd)
         {
@@ -262,7 +274,7 @@ namespace HalloDoc.Controllers
         
         
         [HttpGet]
-        [Route("[controller]/[action]/{reqId:int}")]
+        //[Route("[controller]/[action]/{reqId:int}")]
         public IActionResult ViewCase(int reqId)
         {
                   
@@ -292,10 +304,10 @@ namespace HalloDoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult ViewCase(ViewCaseData model)
+        public ActionResult ViewCase(ViewCaseData model, int reqId)
         {
-            var id = (int)TempData["requestid"];
-            var data = db.RequestClients.Where(a => a.RequestId == id).FirstOrDefault();
+           
+            var data = db.RequestClients.Where(a => a.RequestId == reqId).FirstOrDefault();
 
             data.Notes = model.Symp;
             data.Street = model.Street;
@@ -317,10 +329,23 @@ namespace HalloDoc.Controllers
         {
             TempData["Requestid"] = Requestid;
             var data = db.RequestNotes.Where(a=>a.RequestId == Requestid).FirstOrDefault();
-            ViewNotesData notes = new ViewNotesData();
-            if (data != null)
+
+            var statustrans = db.RequestStatusLogs.Where(a => a.RequestId == Requestid && a.Status==2).ToList();
+
+            List<string> tnotes = new();
+
+            foreach(var item in statustrans)
             {
-               
+                
+                string phy = db.Physicians.Where(a => a.PhysicianId == item.PhysicianId).FirstOrDefault().FirstName;
+                string assnote = item.Notes;
+                string note = "Request is assigned to " + phy + ": " +assnote;
+                tnotes.Add(note);
+            }
+
+            ViewNotesData notes = new ViewNotesData();
+            if (data != null){
+                notes.transfernote = tnotes;
                 notes.physicianNotes = data.PhysicianNotes;
                 notes.adminNotes = data.AdminNotes;
             }
@@ -427,6 +452,65 @@ namespace HalloDoc.Controllers
         public void ClosecasePatientedit()
         {
 
+        }
+        [HttpPost]
+        public IActionResult ProfileMailEdit(ProfileData model)
+        {
+            var admin = db.Admins.Where(a => a.AdminId == model.id).FirstOrDefault();
+
+            admin.Address1 = model.Address1;
+            admin.Address2 = model.Address2;
+            admin.City = model.City;
+            admin.Zip = model.Zipcode;
+            admin.AltPhone = model.MailNo;
+            db.Admins.Update(admin);
+            db.SaveChanges();
+            return RedirectToAction("Profile", "Admin");
+        }
+
+        [HttpPost]
+        public IActionResult AdminDetailsEdit(ProfileData model)
+        {
+            var admin = db.Admins.Where(a=>a.AdminId == model.id).FirstOrDefault();
+            List<AdminRegion> adregion = db.AdminRegions.Where(a => a.AdminId == model.id).ToList();
+            admin.FirstName = model.Firstname;
+            admin.LastName = model.Lastname;
+            admin.Email = model.ConfirmEmail;
+            admin.Mobile = model.Phone;
+
+            foreach(var item in adregion)
+            {
+                if (!model.regionmodified.Contains(item.RegionId))
+                {
+                    db.AdminRegions.Remove(item);
+                    
+                }
+                model.regionmodified.Remove(item.RegionId);
+            }
+
+            foreach(var item in model.regionmodified)
+            {
+                AdminRegion addnew = new()
+                {
+                    AdminId = model.id,
+                    RegionId = item
+                };
+                db.AdminRegions.Add(addnew); 
+               
+            }
+            db.Admins.Update(admin);
+            db.SaveChanges();
+            return RedirectToAction("Profile", "Admin");
+        }
+        
+        [HttpPost]
+        public IActionResult ResetAdminPass(string Username,string Password)
+        {
+            var asp = db.AspNetUsers.Where(a => a.UserName == Username).FirstOrDefault();
+            asp.PasswordHash = Password;
+            db.AspNetUsers.Update(asp);
+            db.SaveChanges();
+            return RedirectToAction("Profile", "Admin");
         }
     }
 }

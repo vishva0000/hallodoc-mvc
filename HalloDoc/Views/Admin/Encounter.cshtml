@@ -4,38 +4,41 @@
 }
 
 <div style="height: 100%" class="bg-light">
-    <div class=" d-lg-flex d-none">
-        <ul class="nav nav-underline">
+    <div class="d-none d-lg-flex shadow bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <li class="nav-item m-2">
-                <a class="nav-link text-info " href="#">Dashboard</a>
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">Provider Location</a>
+            <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline bg-white">
+                    <li class="nav-item ">
+                        <a class="nav-link " asp-action="AdminDashboard" asp-controller="Admin">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Access</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
 
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">My Profile</a>
+                </ul>
 
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">Providers</a>
+            </div>
+        </nav>
 
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">Partners</a>
-
-            </li>
-            <li class="nav-item m-2">
-                <a class="nav-link text-dark" href="#">Access</a>
-
-            </li>
-            <li class="nav-item m-2 ">
-                <a class="nav-link text-dark" href="#">Records</a>
-
-            </li>
-
-        </ul>
     </div>
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
         <div class="offcanvas-header">
@@ -45,7 +48,7 @@
         <div class="offcanvas-body aside-cont">
             <ul class="list-group">
                 <li class="list-group-item ">
-                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
                 </li>
                 <li class="list-group-item ">
                     <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
@@ -69,7 +72,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center mt-3">
         <div class="container">
 
             <div class="d-inline-flex justify-content-between w-100">
@@ -88,7 +91,7 @@
             <form asp-action="Encounter" method="post" asp-controller="Admin">
 
 
-                <div class="bg-white rounded shadow">
+                <div class="bg-white rounded shadow mt-2">
                     <br />
 
                     <div class="d-flex justify-content-center">

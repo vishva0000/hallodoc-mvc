@@ -1,0 +1,393 @@
+﻿@model DataLayer.DTO.AdminDTO.ProfileData
+@{
+    Layout = "_Empty";
+}
+<div>
+    <div class="d-none d-lg-flex shadow bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline bg-white">
+                    <li class="nav-item ">
+                        <a class="nav-link " asp-action="AdminDashboard" asp-controller="admin">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item border-bottom text-info ">
+                        <a class="nav-link text-info active" asp-action="Profile" asp-controller="admin">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Access</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><img style="width:70px;" class="largeLogo align-content-center" src="~/images/logo.png" alt="Logo" /></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body aside-cont">
+            <ul class="list-group">
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="ManageAccess-Page" asp-action="ManageAccess" asp-controller="Admin">Access</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Records-Page" asp-action="Records" asp-controller="Admin">Records</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-3">
+        <div class="container">
+
+            <div class="d-inline-flex justify-content-between w-100">
+
+                <h3 class="m-2">My Profile</h3>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+
+
+
+            <div class="bg-white rounded shadow">
+                <div class="row mt-2 p-3">
+                    <p style="font-weight: bold;">Account Information</p>
+
+                    <form class="resetpassform">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Username"
+                                           name="Username"
+                                           class="form-control input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">User Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Password"
+                                           name="Password"
+                                           class="form-control"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Password</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="col-md-6">
+
+                        <select style="height:55px;" class="form-select" aria-label="Default select example">
+                            <option value="1">Active</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6">
+                        <select style="height:55px;" class="form-select" aria-label="Default select example">
+                            <option value="1">Master Admin</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="w-100">
+                            <div class=" d-flex justify-content-end mt-3">
+                                <button id="resetPass" class="btn btn-outline-info m-2" type="button"><span>Reset Password</span></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <p style="font-weight: bold;">Administrator Information</p>
+
+                    <form asp-action="AdminDetailsEdit" asp-controller="Admin" method="post">
+                        <div class="row">
+                            <input type="number" asp-for="id" hidden />
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Firstname"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Lastname"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Email"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="ConfirmEmail"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Confirm Email</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                           asp-for="Phone"
+                                           class="form-control input info-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Phone</label>
+                                </div>
+                            </div>
+
+                            <div  class="col-md-6">
+                                @*  <input class="form-check-input input info-input" type="checkbox" value="">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Sabarkantha
+                                </label> *@
+                                @foreach (var item in Model.serviceregions)
+                                {
+                                    <input name="regionmodified" checked="@item.Ischecked" id="@item.Name" value="@item.RegionId" class="form-check-input input info-input" type="checkbox" >
+                                    <label class="form-check-label" for="@item.Name">
+                                        @item.Name
+                                    </label>
+                                }
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="w-100">
+                                    <div class=" d-flex justify-content-end ">
+                                        <button class="btn btn-info text-white info-edit " type="button"><span class="m-2">Edit</span></button>
+                                        <button class="btn btn-outline-info info-save " type="submit"><span class="m-2">Save</span></button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <p style="font-weight: bold;">Mailing & Billing Information</p>
+
+
+                    <form asp-action="ProfileMailEdit" asp-controller="Admin" method="post">                    
+
+                            <div class="row">
+                                <input type="number" asp-for="id" hidden />
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="Address1"
+                                               class="form-control input  mail-input"
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Address 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="Address2"
+                                               class="form-control input mail-input"
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Address 2</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="City"
+                                               class="form-control input mail-input"
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">City</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="State"
+                                               class="form-control input mail-input"
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">State</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="Zipcode"
+                                               class="form-control input mail-input"
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Zip</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="MailNo"
+                                               class="form-control input mail-input "
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Phone</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="w-100">
+                                        <div class=" d-flex justify-content-end">
+                                            <button class="btn btn-info text-white m-2 mail-edit" type="button"><span class="m-2">Edit</span></button>
+                                            <button class="btn btn-outline-info mail-save m-2" type="submit"><span class="m-2">Save</span></button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Admin/FetchRegions',
+            method: 'GET',
+            success: function (response) {
+                response.forEach(function (res) {
+                    $('#checkregions').append('<input class="form-check-input input info-input ms-1" type="checkbox" value="' + res.regionid + '"><label class="form-check-label ms-1" for="flexCheckDefault">' + res.name + '</label>');
+                });
+                $('.input, select').prop('disabled', true);
+            }
+        });
+        // Disable all input fields initially
+        $('.input, select').prop('disabled', true);
+        $('.mail-save').hide();
+        $('.info-save').hide();
+
+        // Handle click event for the Edit button
+        $('.info-edit').click(function () {
+            // Enable all input fields
+            $('.info-input').prop('disabled', false);
+            $('.info-save').show();
+            $('.info-edit').hide();
+        });
+
+        $('.mail-edit').click(function () {
+            // Enable all input fields
+            $('.mail-input').prop('disabled', false);
+            $('.mail-save').show();
+            $('.mail-edit').hide();
+        });
+
+
+
+        // $.ajax({
+        //     url: '/Admin/FetchRegions',
+        //     method: 'GET',
+        //     success: function (response) {
+
+        //         response.forEach(function (res) {
+        //             $('#regions').append("< input class= "'form-check-input input info-input" type = "checkbox" value = "' + res.regionid + " '>"' < label class= "form-check-label" for= "flexCheckDefault" >' + res.name + ' < /label>"');
+        //         });
+
+        //     }
+        // });
+
+
+    });
+
+    $('#resetPass').on('click', function () {
+
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("ResetAdminPass", "Admin")',
+            data: $('form.resetpassform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+            }
+
+        });
+    });
+
+
+
+</script>
+

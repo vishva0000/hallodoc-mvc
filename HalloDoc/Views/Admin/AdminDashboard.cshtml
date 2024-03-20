@@ -4,25 +4,24 @@
 }
 
 
-<div class="p-2 container-fluid">
-</div>
+
 <div>
-    <div class="d-none d-lg-flex">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="d-none d-lg-flex shadow bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light ">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto nav-underline">
+            <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline bg-white">
                     <li class="nav-item ">
-                        <a class="nav-link text-info" href="#">Dashboard </a>
+                        <a class="nav-link text-info active" asp-action="AdminDashboard" asp-controller="admin">Dashboard </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Provider Location</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Profile</a>
+                        <a class="nav-link" asp-action="Profile" asp-controller="Admin">My Profile</a>
                     </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="#">Providers</a>
@@ -52,7 +51,7 @@
         <div class="offcanvas-body aside-cont">
             <ul class="list-group">
                 <li class="list-group-item ">
-                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
                 </li>
                 <li class="list-group-item ">
                     <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
@@ -316,12 +315,12 @@
       
         for (var i = 0; i < states.length; i++) {
             states[i].addEventListener("click", function () {
-                const previouslyActive = document.querySelector('.active');
+                const previouslyActive = document.querySelector('.div-active');
               
                 if (previouslyActive) {
-                    previouslyActive.classList.remove('active');
+                    previouslyActive.classList.remove('div-active');
                 }
-                this.classList.add("active");
+                this.classList.add("div-active");
             })
         }
 
@@ -336,7 +335,7 @@
             console.log(globalstate);
             requesttype = parseInt(localStorage.getItem("RequestType"));
             console.log(requesttype);
-            states[globalstate - 1].classList.add('active');
+            states[globalstate - 1].classList.add('div-active');
             setStateText(globalstate);
             $.ajax({
                 method: "GET",

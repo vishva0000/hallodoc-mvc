@@ -15,14 +15,11 @@ body {
         /* Safari and Chrome */
     }
 
-header {
-    height: 80px;
-    margin-bottom: 40px;
-}
 
-.underline{
+.underline {
     border: 1px solid black;
 }
+
 .dark_mode_btn {
     border: 2px solid #01BCE9;
     border-radius: 5px;
@@ -63,7 +60,7 @@ header {
         background-color: #00ccff !important;
     }
 
-.filter-btn{
+.filter-btn {
     display: inline-flex;
 }
 
@@ -138,7 +135,7 @@ header {
     cursor: pointer;
 }
 
-    #NewState.active {
+    #NewState.div-active {
         background-color: #213f99;
         color: #ffffff;
         border: 1px solid #213f99;
@@ -156,7 +153,7 @@ header {
     cursor: pointer;
 }
 
-    #ActiveState.active {
+    #ActiveState.div-active {
         background-color: #228b22;
         color: #ffffff;
         border: 1px solid #228b22;
@@ -174,7 +171,7 @@ header {
     cursor: pointer;
 }
 
-    #PendingState.active {
+    #PendingState.div-active {
         background-color: #00adef;
         color: #ffffff;
         border: 1px solid #00adef;
@@ -193,7 +190,7 @@ header {
     cursor: pointer;
 }
 
-    #ConcludeState.active {
+    #ConcludeState.div-active {
         background-color: #d90f81;
         color: #ffffff;
         border: 1px solid #d90f81;
@@ -211,7 +208,7 @@ header {
     cursor: pointer;
 }
 
-    #ToCloseState.active {
+    #ToCloseState.div-active {
         background-color: #0371d7;
         color: #ffffff;
         border: 1px solid #0371d7;
@@ -244,7 +241,7 @@ header {
     cursor: pointer;
 }
 
-    #UnpaidState.active {
+    #UnpaidState.div-active {
         background-color: #9966cf;
         color: #ffffff;
         border: 1px solid #9966cf;
@@ -281,7 +278,7 @@ header {
 @media (min-width: 980px) {
 
 
-    #NewState.active::after {
+    #NewState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -292,7 +289,7 @@ header {
         transition: 1s;
     }
 
-    #ActiveState.active::after {
+    #ActiveState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -303,7 +300,7 @@ header {
         transition: 1s;
     }
 
-    #PendingState.active::after {
+    #PendingState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -314,7 +311,7 @@ header {
         transition: 1s;
     }
 
-    #ConcludeState.active::after {
+    #ConcludeState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -325,7 +322,7 @@ header {
         transition: 1s;
     }
 
-    #ToCloseState.active::after {
+    #ToCloseState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -336,7 +333,7 @@ header {
         transition: 1s;
     }
 
-    #UnpaidState.active::after {
+    #UnpaidState.div-active::after {
         position: absolute;
         content: '';
         left: 40%;
@@ -379,20 +376,24 @@ select#regionsearch {
         border-color: #00ccff !important;
     }
 
-.table-green{
-    background-color:green;
+.table-green {
+    background-color: green;
 }
+
 .table-orange {
     background-color: orange;
 }
-.table-pink{
+
+.table-pink {
     background-color: pink;
 }
+
 .table-blue {
     background-color: #007fc7;
 }
-.table{
-    --bs-table-bg:none;
+
+.table {
+    --bs-table-bg: none;
 }
 
 .aside-cont {
@@ -432,4 +433,123 @@ select#regionsearch {
 .nav-underline .nav-link.active, .nav-underline .show > .nav-link {
     color: #0dcaf0 !important;
     border-bottom-color: #0dcaf0 !important;
+}
+
+
+/********************Loader*******************/
+
+
+.loader {
+    top: 0;
+    left: 0;
+    position: fixed;
+    opacity: 0.8;
+    z-index: 10000000;
+    background: Black;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+.strip-holder {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 50%;
+    margin-left: -50px;
+    position: relative;
+}
+
+.strip-1,
+.strip-2,
+.strip-3 {
+    width: 20px;
+    height: 20px;
+    background: #0072bc;
+    position: relative;
+    -webkit-animation: stripMove 2s ease infinite alternate;
+    animation: stripMove 2s ease infinite alternate;
+    -moz-animation: stripMove 2s ease infinite alternate;
+}
+
+.strip-2 {
+    -webkit-animation-duration: 2.1s;
+    animation-duration: 2.1s;
+    background-color: #23a8ff;
+}
+
+.strip-3 {
+    -webkit-animation-duration: 2.2s;
+    animation-duration: 2.2s;
+    background-color: #89d1ff;
+}
+
+@@-webkit-keyframes stripMove {
+    0% {
+        transform: translate3d(0px, 0px, 0px);
+        -webkit-transform: translate3d(0px, 0px, 0px);
+        -moz-transform: translate3d(0px, 0px, 0px);
+    }
+
+    50% {
+        transform: translate3d(0px, 0px, 0px);
+        -webkit-transform: translate3d(0px, 0px, 0px);
+        -moz-transform: translate3d(0px, 0px, 0px);
+        transform: scale(4, 1);
+        -webkit-transform: scale(4, 1);
+        -moz-transform: scale(4, 1);
+    }
+
+    100% {
+        transform: translate3d(-50px, 0px, 0px);
+        -webkit-transform: translate3d(-50px, 0px, 0px);
+        -moz-transform: translate3d(-50px, 0px, 0px);
+    }
+}
+
+@@-moz-keyframes stripMove {
+    0% {
+        transform: translate3d(-50px, 0px, 0px);
+        -webkit-transform: translate3d(-50px, 0px, 0px);
+        -moz-transform: translate3d(-50px, 0px, 0px);
+    }
+
+    50% {
+        transform: translate3d(0px, 0px, 0px);
+        -webkit-transform: translate3d(0px, 0px, 0px);
+        -moz-transform: translate3d(0px, 0px, 0px);
+        transform: scale(4, 1);
+        -webkit-transform: scale(4, 1);
+        -moz-transform: scale(4, 1);
+    }
+
+    100% {
+        transform: translate3d(50px, 0px, 0px);
+        -webkit-transform: translate3d(50px, 0px, 0px);
+        -moz-transform: translate3d(50px, 0px, 0px);
+    }
+}
+
+@@keyframes stripMove {
+    0% {
+        transform: translate3d(-50px, 0px, 0px);
+        -webkit-transform: translate3d(-50px, 0px, 0px);
+        -moz-transform: translate3d(-50px, 0px, 0px);
+    }
+
+    50% {
+        transform: translate3d(0px, 0px, 0px);
+        -webkit-transform: translate3d(0px, 0px, 0px);
+        -moz-transform: translate3d(0px, 0px, 0px);
+        transform: scale(4, 1);
+        -webkit-transform: scale(4, 1);
+        -moz-transform: scale(4, 1);
+    }
+
+    100% {
+        transform: translate3d(50px, 0px, 0px);
+        -webkit-transform: translate3d(50px, 0px, 0px);
+        -moz-transform: translate3d(50px, 0px, 0px);
+    }
 }
