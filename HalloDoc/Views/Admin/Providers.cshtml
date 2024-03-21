@@ -1,0 +1,179 @@
+﻿@model List<DataLayer.DTO.AdminDTO.ProviderDetails>
+@{
+    Layout = "_Empty";
+   
+}
+
+<div class="d-none d-lg-flex shadow bg-white">
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto nav-underline bg-white">
+                <li class="nav-item ">
+                    <a class="nav-link " asp-action="AdminDashboard" asp-controller="admin">Dashboard </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Provider Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info active" asp-action="Providers" asp-controller="Admin">Providers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Partners</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Access</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Records</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+</div>
+
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><img style="width:70px;" class="largeLogo align-content-center" src="~/images/logo.png" alt="Logo" /></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body aside-cont">
+        <ul class="list-group">
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="ManageAccess-Page" asp-action="ManageAccess" asp-controller="Admin">Access</a>
+            </li>
+            <li class="list-group-item ">
+                <a class="nav-link fs-5 text-dark ps-4" id="Records-Page" asp-action="Records" asp-controller="Admin">Records</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container d-flex justify-content-between mb-4 mt-3">
+    <h3 class="">Provider Information</h3>
+
+
+    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+            onclick="back()">
+        &lt Back
+    </button>
+
+</div>
+<div class="container bg-white pt-4 ps-0 pe-0 shadow" style="border-radius: 10px;">
+    <div class="row justify-content-between">
+        <div class="col-lg-3">
+            <div class="input-group  rounded ms-lg-4 me-lg-4 m-3 w-auto" style="border:2px solid #dee2e6; border-radius:5px;">
+
+                <span class="input-group-text inputIcon "><i class="bi bi-search "></i></span>
+                <select onchange="SearchByRegion()" class="form-select h-100 input providerStateDrop "  aria-label="Default select example assignRegion">
+                    <option value="0">Select State</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3 align-self-center">
+            <div class="float-lg-end text-center me-lg-4 mb-4 mt-2">
+                <button class="btn btn-info text-white">Create Provider Account</button>
+            </div>
+        </div>
+    </div>
+    <div id="ProviderTable">
+    </div>
+   
+  
+</div>
+
+
+
+
+<script>
+    var str = "";
+    $(document).ready(function () {
+
+        $.ajax({
+            method: "GET",
+            url: "/Admin/ProviderDataTable",
+            success: function (result) {
+                $("#ProviderTable").html(result);               
+
+            }
+        });
+
+
+         $.ajax({
+            method: "GET",
+            url: "/Admin/FetchRegions",
+            data: { search: str },
+            success: function (response) {                
+                alert("kj");
+                response.forEach(function (res) {
+                    $('.providerStateDrop').append("<option value='" + res.regionid + "'>" + res.name + "</option>");
+                    console.log("hbhj");
+                });
+            }
+        });
+
+
+        $(document).on("click", ".contact", OpenContactProvider);
+
+
+    });
+    
+    function OpenContactProvider(){
+        var reqid = $(this).data("physicianid");
+        $('#phyid').val(reqid);
+    }
+
+    $('#SendtoPhy').on('click', function () {
+
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("ContactProvider", "Admin")',
+            data: $('form.Contactform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+                alert("Assign case success");
+            }
+
+        });
+    });
+
+    function SearchByRegion(){
+         str = $('.providerStateDrop').val();
+        $.ajax({
+            method: "GET",
+            url: "/Admin/ProviderDataTable",
+            data: {search: str},
+            success: function (result) {
+                $("#ProviderTable").html(result);
+
+            }
+        });
+        alert("nbh");
+    }
+</script>
+

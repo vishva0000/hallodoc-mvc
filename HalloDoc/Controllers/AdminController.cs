@@ -18,6 +18,8 @@ using NPOI.POIFS.Properties;
 using NPOI.Util;
 using Microsoft.AspNetCore.Components.Forms;
 using NPOI.SS.Formula.Eval;
+using System.Security.Policy;
+using NPOI.POIFS.Crypt.Dsig;
 
 namespace HalloDoc.Controllers
 {
@@ -34,6 +36,7 @@ namespace HalloDoc.Controllers
         private readonly IEncounterform encounterformService;
         private readonly ICloseCase closecaseService;
         private readonly IAdminProfile adminprofileService;
+        private readonly IProviderData providerDataService;
 
        
 
@@ -46,7 +49,8 @@ namespace HalloDoc.Controllers
             ICreateRequest createRequest,
             IEncounterform encounterform,
             ICloseCase closeCase,
-            IAdminProfile adminProfile)
+            IAdminProfile adminProfile,
+            IProviderData providerData)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -58,6 +62,7 @@ namespace HalloDoc.Controllers
             this.encounterformService = encounterform;
             this.closecaseService = closeCase;
             this.adminprofileService = adminProfile;
+            this.providerDataService = providerData;
         }
         public IActionResult AdminDashboard()
         {
@@ -337,7 +342,7 @@ namespace HalloDoc.Controllers
             foreach(var item in statustrans)
             {
                 
-                string phy = db.Physicians.Where(a => a.PhysicianId == item.PhysicianId).FirstOrDefault().FirstName;
+                string phy = db.Physicians.Where(a => a.PhysicianId == item.PhysicianId).FirstOrDefault().FirstName +" "+ db.Physicians.Where(a => a.PhysicianId == item.PhysicianId).FirstOrDefault().LastName;
                 string assnote = item.Notes;
                 string note = "Request is assigned to " + phy + ": " +assnote;
                 tnotes.Add(note);
@@ -511,6 +516,36 @@ namespace HalloDoc.Controllers
             db.AspNetUsers.Update(asp);
             db.SaveChanges();
             return RedirectToAction("Profile", "Admin");
+        }
+
+        public IActionResult Providers()
+        {
+            return View();
+        }
+
+        public IActionResult ProviderDataTable(string search)
+        {
+            List<ProviderDetails> data = providerDataService.getProviderData(search);
+
+            return PartialView("_ProviderTable", data);
+        }
+
+        public IActionResult ContactProvider(int physicianid, string Message)
+        {
+            emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "Messgae sent by Admin", Message);
+
+
+            return RedirectToAction("Profile", "Admin");
+        }
+
+        public IActionResult ManageAccess()
+        {
+            return View();
+        }  
+        
+        public IActionResult CreateRoleAll()
+        {
+            return View();
         }
     }
 }

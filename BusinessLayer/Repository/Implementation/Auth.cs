@@ -33,7 +33,7 @@ namespace BusinessLayer.Repository.Implementation
             var url = context.HttpContext.Request.Path;
             if (token == null || !jwtService.ValidateToken(token, out JwtSecurityToken jwtToken))
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Patient", action = "PatientLogin", returnurl= url }));
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Patient", action = "PatientLogin" }));
                 return;
 
             }

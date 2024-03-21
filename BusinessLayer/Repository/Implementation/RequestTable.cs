@@ -84,7 +84,6 @@ namespace BusinessLayer.Repository.Implementation
                         a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
                         a.RequestClients.FirstOrDefault()!.LastName!.Contains(search, StringComparison.CurrentCultureIgnoreCase));
 
-
                     foreach (var item in mydata)
                     {
 
@@ -109,6 +108,9 @@ namespace BusinessLayer.Repository.Implementation
                         request.Address = patient.Location + " " + patient.Street + " " + patient.City + " " + patient.State;
                         request.PhoneP = patient.PhoneNumber;
                         request.PhoneO = item.PhoneNumber;
+                        //var lastassphy = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId && a.Status == 2).OrderByDescending(b => b.CreatedDate).FirstOrDefault().PhysicianId;
+
+                        //request.Notes = "Assigned to " + db.Physicians.Where(a => a.PhysicianId == lastassphy).FirstOrDefault().FirstName + " " + db.Physicians.Where(a => a.PhysicianId == lastassphy).FirstOrDefault().LastName;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
                         

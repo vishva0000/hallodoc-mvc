@@ -10,7 +10,7 @@ public partial class PhysicianNotification
 
     public int PhysicianId { get; set; }
 
-    public BitArray IsNotificationStopped { get; set; } = null!;
+    public BitArray? IsNotificationStopped { get; set; }
 
     public virtual Physician Physician { get; set; } = null!;
 }

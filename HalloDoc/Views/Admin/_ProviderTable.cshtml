@@ -1,0 +1,179 @@
+﻿@model List<DataLayer.DTO.AdminDTO.ProviderDetails>
+@{
+    int i = 1;
+}
+
+<div class="d-lg-block d-none ps-0 pe-0">
+    <table class="table">
+        <thead>
+            <tr class="table-secondary bg-body-tertiary">
+                <th class="ps-3 text-center me-4" style="width:150px;">
+                    Stop Notification
+                </th>
+                <th>
+                    Provider Name <i class="bi bi-arrow-up"></i>
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    On Call Status
+                </th>
+                <th>
+                    Status
+                </th>
+
+                <th class="text-center">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="ps-3 text-center me-4" style="width:150px;">
+                        <input class="form-check-input change" type="checkbox" checked="@item.IsNotificationStopped">
+                    </td>
+
+                    <td>
+                        @item.ProviderName
+                    </td>
+                    <td>
+                        @item.Role
+                    </td>
+                    <td>
+                        @item.OnCallStatus
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td class="text-center">
+                        <button data-toggle="modal" data-target="#contact" data-physicianid="@item.Phyid" class="btn btn-outline-info contact">Contact</button>
+                        <button class="btn btn-outline-info">Edit</button>
+
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<div class="d-lg-none" id="accordianData">
+    <div class="accordion accordion-flush " id="accordionFlushExample">
+        @foreach (var item in Model)
+        {
+            <div class="accordion-item accordian-back">
+                <h2 class="accordi on-header">
+                    <button class="accordion-button collapsed accordian-back d-block" type="button" data-bs-toggle="collapse" data-bs-target="#flush-@i" aria-expanded="false" aria-controls="flush-collapseOne">
+                        <div class="container ">
+                            <div class="row row-cols-2 lh-sm" style="font-size:1em">
+                                <div class="d-flex">
+                                    <input class="form-check-input change me-3" type="checkbox" checked="@item.IsNotificationStopped">
+                                    @item.ProviderName
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                On call Status: <span class="fw-bold">@item.OnCallStatus</span>
+                            </div>
+                        </div>
+
+                    </button>
+
+                    @*<hr class="m-0">*@
+
+                </h2>
+
+                <div id="flush-@i" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+
+                    <div class="accordion-body d-flex flex-column gap-1 ">
+                        <div class="d-flex mt-4">
+                            <div style="width:40px">
+                                <span class="accordian-span align-items-center">
+                                    <span class="bi bi-calendar2-minus accordian-icon"></span>
+                                </span>
+                            </div>
+                            <span class="align-self-center">Role: <span class="fw-semibold">@item.Role</span></span>
+                        </div>
+                        <div class="d-flex">
+                            <div style="width:40px">
+                                <span class="accordian-span align-items-center">
+                                    <span class="bi bi-calendar2-minus accordian-icon"></span>
+                                </span>
+                            </div>
+                            <span class="align-self-center">Status: <span class="fw-semibold">@item.Status</span></span>
+                        </div>
+
+                        <br />
+                        <div class="d-flex justify-content-end">
+
+                            <a class="btn btn-outline-info me-3 px-4">Contact</a>
+                            <a class="btn btn-outline-info px-4">Edit</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+</div>
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div style="background-color:#0dcaf0; color:white;" class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Contact Your Provider</h5>
+                <button type="button" class="close btn btn-lg text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="Contactform">
+                <div class="modal-body">
+                    <p style="font-size: 15px">Choose communication to send message</p>
+                    <input type="number"
+                           hidden
+                           name="physicianid"
+                           id="phyid" />
+                    <div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                SMS
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Mail
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Both
+                            </label>
+                        </div>
+
+                    </div>
+                    <br />
+
+                    <div class="form-floating">
+                        <textarea class="form-control"
+                                  placeholder="Leave a comment here"
+                                  id="floatingTextarea"
+                                  name="Message"
+                                  style="height: 100px" required></textarea>
+                        <label for="floatingTextarea">Message</label>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button id="SendtoPhy" type="submit" class="btn btn-info text-white">Send</button>
+                    <button type="button" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
