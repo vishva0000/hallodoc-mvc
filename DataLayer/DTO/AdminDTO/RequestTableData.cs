@@ -2,7 +2,7 @@
 {
     public class RequestTableData
     {
-
+        
         public int? RequestId { get; set; }
         public int RequestTypeId { get; set; }
         public string? Name { get; set; }   

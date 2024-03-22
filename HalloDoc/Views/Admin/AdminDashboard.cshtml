@@ -24,7 +24,30 @@
                         <a class="nav-link" asp-action="Profile" asp-controller="Admin">My Profile</a>
                     </li> 
                     <li class="nav-item">
-                        <a class="nav-link" asp-action="Providers" asp-controller="Admin">Providers</a>
+                        <div class="dropdown">
+                            <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Provider
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="">
+                                    <button class="btn dropdown-item" >
+                                        <a class="text-decoration-none text-dark" asp-action="Providers" asp-controller="Admin">Providers</a>
+                                    </button>
+                                </li>
+                                <li class="">
+                                    <button class="btn dropdown-item" >
+                                        <a class="text-decoration-none text-dark" >Scheduling</a>
+                                    </button>
+                                </li>
+                                <li class="">
+                                    <button class="btn dropdown-item" >
+                                        <a class="text-decoration-none text-dark" >Invoicing</a>
+                                    </button>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                        @* <a class="nav-link" asp-action="Providers" asp-controller="Admin">Providers</a> *@
                     </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="#">Partners</a>
@@ -59,8 +82,31 @@
                 <li class="list-group-item ">
                     <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
                 </li>
-                <li class="list-group-item ">
-                    <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a>
+                <li class="list-group-item  ">
+                    <div class="dropdown nav-link fs-5 text-dark ps-4">
+                        <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Provider
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark" asp-action="Providers" asp-controller="Admin">Providers</a>
+                                </button>
+                            </li>
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark">Scheduling</a>
+                                </button>
+                            </li>
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark">Invoicing</a>
+                                </button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    @* <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a> *@
                 </li>
                 <li class="list-group-item ">
                     <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
@@ -312,7 +358,9 @@
         var states = document.querySelectorAll(".AdminState");
         var requesttype = 0;
         var search = "";
-      
+        var page = 0;
+        var noRow = $('#adminTable').data("count");
+
         for (var i = 0; i < states.length; i++) {
             states[i].addEventListener("click", function () {
                 const previouslyActive = document.querySelector('.div-active');
@@ -328,27 +376,26 @@
 
 
         $(document).ready(function () {
-            var text = "New";
-            $('#state-name').text(text);
+           
             
             globalstate = parseInt(localStorage.getItem("state"));
-            console.log(globalstate);
             requesttype = parseInt(localStorage.getItem("RequestType"));
-            console.log(requesttype);
             states[globalstate - 1].classList.add('div-active');
             setStateText(globalstate);
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                    
                     if (result.includes("table")) {
                         console.log("onload New state Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -363,6 +410,7 @@
             $(document).on('click', ".block-case", OpenBlockcase);
             $(document).on('click', ".transfer-case", OpenTransfercase);
             $(document).on('click', ".clear-case", OpenClearcase);
+            $(document).on('click', '.page-button', OpenSelectedPage);
             $(".points").hide();
         });
 
@@ -379,14 +427,12 @@
         // }
 
         $('#NewState').on('click', function () {
-            var text = "New";
-            $('#state-name').text(text);
-
+         
             var status = 1;
             requesttype = 0;
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype, searchin: search },
                 success: function (result) {
                     
@@ -394,12 +440,14 @@
                         console.log("New state Function Success");
                         $(".tableData").html(result);
                         globalstate = 1;
-                        console.log(globalstate);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -412,16 +460,18 @@
             requesttype = 0;
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                     if (result.includes("table")) {
                         console.log("All request filter Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -437,16 +487,18 @@
             requesttype = 2
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                     if (result.includes("table")) {
                         console.log("patient request filter Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -460,17 +512,19 @@
             requesttype = 3
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                   
                     if (result.includes("table")) {
                         console.log("Family request filter Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -484,17 +538,19 @@
             requesttype = 1
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                    
                     if (result.includes("table")) {
                         console.log("Business request filter Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -507,16 +563,18 @@
             requesttype = 4
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                     if (result.includes("table")) {
                         console.log("Concierge request filter Function Success");
                         $(".tableData").html(result);
-                        setupPagination(5, '.requestTable');
-                        setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     } 
@@ -524,8 +582,6 @@
                 }
             });
         });
-
-
 
         $('#PendingState').on('click', function () {
      
@@ -536,7 +592,7 @@
             
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype},
                 success: function (result) {
                     if (result.includes("table")) {
@@ -544,11 +600,13 @@
                         $(".tableData").html(result);
                         globalstate = 2;
                         console.log(globalstate);
-                        setupPagination(5, '.accordion');
-                        setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     }else{
                         window.location.reload();
                     } 
@@ -567,7 +625,7 @@
             requesttype = 0;
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                    
@@ -576,11 +634,13 @@
                         $(".tableData").html(result);
                         globalstate = 3;
                         console.log(globalstate);
-                        setupPagination(5, '.accordion');
-                        setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -596,7 +656,7 @@
             setStateText(status);
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     
@@ -605,11 +665,13 @@
                         $(".tableData").html(result);
                         globalstate = 4;
                         console.log(globalstate);
-                        setupPagination(5, '.accordion');
-                        setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -626,7 +688,7 @@
             requesttype = 0;
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     if (result.includes("table")) {
@@ -634,11 +696,13 @@
                         $(".tableData").html(result);
                         globalstate = 5;
                         console.log(globalstate);
-                        setupPagination(5, '.accordion');
-                        setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
                         $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -650,11 +714,12 @@
 
         $('#UnpaidState').on('click', function () {
             var status = 6;
+           
             setStateText(status);
             requesttype = 0;
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: status, requesttype: requesttype },
                 success: function (result) {
                     if (result.includes("table")) {
@@ -662,11 +727,13 @@
                         $(".tableData").html(result);
                         globalstate = 6;
                         console.log(globalstate);
-                        setupPagination(5, '.accordion');
-                        setupPagination(5, '.requestTable');
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
                         localStorage.setItem("state", globalstate);
                         localStorage.setItem("RequestType", requesttype);
-                        $('#my-search-input').val("");
+                        // $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
                     } else {
                         window.location.reload();
                     }
@@ -675,6 +742,50 @@
                 }
             });
         });
+
+        function generatebtns(){
+           
+            let startPage = 1;
+            var totalPages = Math.ceil(noRow / 5);
+            $('.page-buttons').empty();
+            // let endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+            for (let i = startPage; i <= totalPages; i++) {
+                
+                // $('.page-buttons').append(`<button class="${buttonClass}" data-page="${i}">${i}</button>`);
+                $('.page-buttons').append(`<button class="page-button btn btn-outline-info ms-2" data-page="${i}">${i}</button>`);
+            }
+           
+        }
+       
+        function OpenSelectedPage(){
+            page = $(this).data("page")-1;
+
+            $.ajax({
+                method: "GET",
+                url: "/Admin/NewState1",
+                data: { reqStaus: globalstate, requesttype: requesttype, searchin: search, page:page },
+                success: function (result) {
+                    if (result.includes("table")) {
+                        $(".tableData").html(result);
+                        globalstate = 6;
+                        console.log(globalstate);
+                        // setupPagination(5, '.accordion');
+                        // setupPagination(5, '.requestTable');
+                        localStorage.setItem("state", globalstate);
+                        localStorage.setItem("RequestType", requesttype);
+                        // $('#my-search-input').val("");
+                        noRow = $('#adminTable').data("count");
+                        generatebtns();
+                    } else {
+                        window.location.reload();
+                    }
+
+
+                }
+            });
+            
+        }
+     
 
         function setupPagination(items, classname) {
             const itemsPerPage = items;
@@ -756,19 +867,21 @@
         }
 
         function SearchInTable() {
+          
             search = $('#my-search-input').val();
             console.log(search);
             $.ajax({
                 method: "GET",
-                url: "/Admin/NewState",
+                url: "/Admin/NewState1",
                 data: { reqStaus: globalstate, requesttype: requesttype, searchin: search },
                 success: function (result) {
                     console.log("Search ");
                     $(".tableData").html(result);
-                   
-                    console.log(globalstate);
-                    setupPagination(5, '.accordion');
-                    setupPagination(5, '.requestTable');
+                    noRow = $('#adminTable').data("count");
+                    generatebtns();
+                    // console.log(globalstate);
+                    // setupPagination(5, '.accordion');
+                    // setupPagination(5, '.requestTable');
                 }
             });
         }
@@ -874,7 +987,7 @@
             $.ajax({
                 method: "GET",
                 url: "/Admin/ExportCurrent",
-                data: { reqStaus: globalstate, requesttype: requesttype },
+                data: { reqStaus: globalstate, requesttype: requesttype, page: page },
                 contentType: "application/json; charset=utf-8",
                 xhrFields: {
                     responseType: 'blob' // Important for binary data

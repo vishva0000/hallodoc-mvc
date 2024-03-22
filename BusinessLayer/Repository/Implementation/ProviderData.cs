@@ -23,18 +23,15 @@ namespace BusinessLayer.Repository.Implementation
 
         public List<ProviderDetails> getProviderData(string search)
         {
-            
+                int seid = int.Parse(search);
+
             var providers = db.Physicians.ToList();
             var notification = db.PhysicianNotifications.ToList();
             List<ProviderDetails> data = new();
 
-            if (search != null)
+            if (seid == 0)
             {
-                int seid = int.Parse(search);
-                var providerselect = providers.Where(a =>
-                      search.IsNullOrEmpty() ||
-                      a.RegionId == seid);
-                foreach (var item in providerselect)
+                foreach (var item in providers)
                 {
                     ProviderDetails dto = new ProviderDetails();
                     dto.Phyid = item.PhysicianId;
@@ -52,10 +49,16 @@ namespace BusinessLayer.Repository.Implementation
                     }
                     data.Add(dto);
                 }
+
+
+               
             }
             else
             {
-                foreach (var item in providers)
+                var providerselect = providers.Where(a =>
+                     search.IsNullOrEmpty() ||
+                     a.RegionId == seid);
+                foreach (var item in providerselect)
                 {
                     ProviderDetails dto = new ProviderDetails();
                     dto.Phyid = item.PhysicianId;

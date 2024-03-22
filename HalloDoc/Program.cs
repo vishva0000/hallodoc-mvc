@@ -38,6 +38,7 @@ builder.Services.AddTransient<IEncounterform, Encounterform>();
 builder.Services.AddTransient<ICloseCase, CloseCase>();
 builder.Services.AddTransient<IAdminProfile, AdminProfile>();
 builder.Services.AddTransient<IProviderData, ProviderData>();
+builder.Services.AddTransient<IAccessRoles, AccessRoles>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
 

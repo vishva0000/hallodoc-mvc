@@ -5,19 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLayer.Repository.Interface;
+using BusinessLayer.Repository.IRepository;
 using DataLayer.DTO.AdminDTO;
 using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NPOI.SS.Formula.Functions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BusinessLayer.Repository.Implementation
 {
     public class RequestTable : IRequestTable
     {
         public HallodocContext db;
-        public RequestTable(HallodocContext context) 
+        public RequestTable(HallodocContext context)
         {
             this.db = context;
         }
@@ -40,10 +42,10 @@ namespace BusinessLayer.Repository.Implementation
 
                     foreach (var item in mydata)
                     {
-                            var  patient= db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
-                        
+                        var patient = db.RequestClients.Where(a => a.RequestId == item.RequestId).FirstOrDefault();
+
                         RequestTableData request = new RequestTableData();
-                        
+
                         request.status = 1;
                         request.RequestId = item.RequestId;
                         request.RequestTypeId = item.RequestTypeId;
@@ -113,8 +115,8 @@ namespace BusinessLayer.Repository.Implementation
                         //request.Notes = "Assigned to " + db.Physicians.Where(a => a.PhysicianId == lastassphy).FirstOrDefault().FirstName + " " + db.Physicians.Where(a => a.PhysicianId == lastassphy).FirstOrDefault().LastName;
                         request.RequestedDate = item.CreatedDate;
                         request.Email = patient.Email;
-                        
-                       
+
+
                         //request.Notes = db.RequestNotes.Where(a => a.RequestId == item.RequestId).FirstOrDefault().PhysicianNotes;
                         //var phyid = item.PhysicianId;
                         //request.DateOfService = db.RequestStatusLogs.Where(a => a.RequestId == item.RequestId).FirstOrDefault().CreatedDate;
@@ -328,7 +330,7 @@ namespace BusinessLayer.Repository.Implementation
                     //r = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId == requesttype).ToList();
                     //var details = db.Requests;
 
-                    var my = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId== requesttype).Include(b => b.RequestClients).ToList();
+                    var my = db.Requests.Where(a => a.Status == 1 && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
                     var mydata = my.Where(a =>
                         search.IsNullOrEmpty() ||
                         a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
@@ -484,7 +486,7 @@ namespace BusinessLayer.Repository.Implementation
 
                     //r = db.Requests.Where(a => (a.Status==3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).ToList();
                     //var details = db.Requests;
-                    var my = db.Requests.Where(a => (a.Status == 3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).Include(b=>b.RequestClients).ToList();
+                    var my = db.Requests.Where(a => (a.Status == 3 || a.Status == 7 || a.Status == 8) && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
                     var mydata = my.Where(a =>
                         search.IsNullOrEmpty() ||
                         a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
@@ -523,7 +525,7 @@ namespace BusinessLayer.Repository.Implementation
                 {
                     //r = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).ToList();
                     //var details = db.Requests;
-                    var my = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).Include(b=>b.RequestClients).ToList();
+                    var my = db.Requests.Where(a => a.Status == 9 && a.RequestTypeId == requesttype).Include(b => b.RequestClients).ToList();
                     var mydata = my.Where(a =>
                         search.IsNullOrEmpty() ||
                         a.RequestClients.FirstOrDefault()!.FirstName!.Contains(search, StringComparison.CurrentCultureIgnoreCase) ||
@@ -598,7 +600,7 @@ namespace BusinessLayer.Repository.Implementation
             return data;
         }
 
-       
+
 
         public void AssignCase(int assign_req_id, string phy_region, string phy_id, string assignNote)
         {
@@ -684,8 +686,8 @@ namespace BusinessLayer.Repository.Implementation
             db.RequestStatusLogs.Add(data);
 
             db.SaveChanges();
-        } 
-        
+        }
+
         public void ClearCase(int clear_req_id)
         {
             var data = db.Requests.Where(a => a.RequestId == clear_req_id).FirstOrDefault();
@@ -710,6 +712,16 @@ namespace BusinessLayer.Repository.Implementation
 
         }
 
-       
+        public PagedList<RequestTableData> GetData(int reqStaus, int requesttype, string searchin, int page,out int Count)
+        {
+            var query = requestTableData(reqStaus,requesttype,searchin);
+            var count = query.Count();
+            Count = count;
+            var items = query.Skip((page) * 5).Take(5).ToList();
+            return PagedList<RequestTableData>.Create(query, page);
+
+
+
+        }
     }
 }

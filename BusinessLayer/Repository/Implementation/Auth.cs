@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -23,6 +24,9 @@ namespace BusinessLayer.Repository.Implementation
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            if (context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any())
+                return;
+
             var jwtService = context.HttpContext.RequestServices.GetService<IJwtService>();
             if (jwtService == null)
             {

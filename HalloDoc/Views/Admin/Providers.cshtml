@@ -83,14 +83,14 @@
     </button>
 
 </div>
-<div class="container bg-white pt-4 ps-0 pe-0 shadow" style="border-radius: 10px;">
+<div class="container bg-white pt-4 ps-0 pe-0 shadow" style="border-radius: 10px; ">
     <div class="row justify-content-between">
         <div class="col-lg-3">
             <div class="input-group  rounded ms-lg-4 me-lg-4 m-3 w-auto" style="border:2px solid #dee2e6; border-radius:5px;">
 
                 <span class="input-group-text inputIcon "><i class="bi bi-search "></i></span>
                 <select onchange="SearchByRegion()" class="form-select h-100 input providerStateDrop "  aria-label="Default select example assignRegion">
-                    <option value="0">Select State</option>
+                    <option value="0" selected>All</option>
 
                 </select>
             </div>
@@ -111,12 +111,13 @@
 
 
 <script>
-    var str = "";
+    var str = "0";
     $(document).ready(function () {
 
         $.ajax({
             method: "GET",
             url: "/Admin/ProviderDataTable",
+            data: { search: str },
             success: function (result) {
                 $("#ProviderTable").html(result);               
 
@@ -129,10 +130,8 @@
             url: "/Admin/FetchRegions",
             data: { search: str },
             success: function (response) {                
-                alert("kj");
                 response.forEach(function (res) {
                     $('.providerStateDrop').append("<option value='" + res.regionid + "'>" + res.name + "</option>");
-                    console.log("hbhj");
                 });
             }
         });
@@ -156,7 +155,6 @@
             data: $('form.Contactform').serialize(),
             success: function (result) {
                 // console.log("assign case success");
-                alert("Assign case success");
             }
 
         });
@@ -173,7 +171,6 @@
 
             }
         });
-        alert("nbh");
     }
 </script>
 

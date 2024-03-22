@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Components.Forms;
 using NPOI.SS.Formula.Eval;
 using System.Security.Policy;
 using NPOI.POIFS.Crypt.Dsig;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HalloDoc.Controllers
 {
@@ -37,6 +39,7 @@ namespace HalloDoc.Controllers
         private readonly ICloseCase closecaseService;
         private readonly IAdminProfile adminprofileService;
         private readonly IProviderData providerDataService;
+        private readonly IAccessRoles accessRolesService;
 
        
 
@@ -50,7 +53,8 @@ namespace HalloDoc.Controllers
             IEncounterform encounterform,
             ICloseCase closeCase,
             IAdminProfile adminProfile,
-            IProviderData providerData)
+            IProviderData providerData,
+            IAccessRoles accessRoles)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -63,6 +67,7 @@ namespace HalloDoc.Controllers
             this.closecaseService = closeCase;
             this.adminprofileService = adminProfile;
             this.providerDataService = providerData;
+            this.accessRolesService = accessRoles;
         }
         public IActionResult AdminDashboard()
         {
@@ -75,13 +80,20 @@ namespace HalloDoc.Controllers
         public IActionResult NewState(int reqStaus, int requesttype, string searchin)
         {
             List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, searchin);
+            //List<RequestTableData> data = getPaginatedData(reqStaus, requesttype, searchin, page);
+            
             return PartialView("_NewTable", data);
         }
-        public IActionResult Search(int reqStaus, int requesttype, string searchin)
+        [AllowAnonymous]
+        public IActionResult NewState1(int reqStaus, int requesttype, string searchin,int page)
         {
-            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, searchin);
+            //ViewBag.Count = 5;
+            //    List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, searchin);
+            List<RequestTableData> data = getPaginatedData(reqStaus, requesttype, searchin, page);
             return PartialView("_NewTable", data);
         }
+        
+    
         [HttpGet]
         public IActionResult CreateRequest()
         {
@@ -111,9 +123,10 @@ namespace HalloDoc.Controllers
 
             emailSenderService.SendEmailAsync("vishva.rami@etatvasoft.com", "Create Request", "Please <a href=\"https://localhost:44301/Patient/PatientRequest\">Create Request</a>");
         }
-        public FileResult ExportCurrent(int reqStaus, int requesttype)
+        public FileResult ExportCurrent(int reqStaus, int requesttype, int page)
         {
-            List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, null);
+            List<RequestTableData> data = getPaginatedData(reqStaus, requesttype, null, page);
+            //List<RequestTableData> data = requestTableService.requestTableData(reqStaus, requesttype, null);
             var file = ExcelHelper.CreateFile(data);
             return File(file, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "requests.xlsx");
         }
@@ -540,12 +553,52 @@ namespace HalloDoc.Controllers
 
         public IActionResult ManageAccess()
         {
-            return View();
+            List<RoleData> data= accessRolesService.getAllRoles();
+            return View(data);
         }  
         
         public IActionResult CreateRoleAll()
         {
             return View();
+        }
+
+        public void CreateRole(string RoleName, string AccountType, List<int> selectedMenu)
+        {
+            accessRolesService.CreateRole(RoleName,AccountType,selectedMenu);
+        }
+
+        public IActionResult GetMenus(string actype)
+        {
+            int type = int.Parse(actype);
+            if (type == 0)
+            {
+                
+                var data = db.Menus.Select(r => new
+                {
+                    id = r.MenuId,
+                    name = r.Name
+                }).ToList();
+                return Ok(data);
+            }
+            else
+            {
+                var data = db.Menus.Where(a => a.AccountType == type).Select(r => new
+                {
+                    id = r.MenuId,
+                    name = r.Name
+                }).ToList();
+                return Ok(data);
+            }       
+
+          
+        }
+        [AllowAnonymous]
+        public List<RequestTableData> getPaginatedData(int reqStaus, int requesttype, string searchin,int page)
+        {
+            List<RequestTableData> data = requestTableService.GetData(reqStaus, requesttype,searchin,page,out int Count);
+            ViewBag.Count = Count;
+            return (data);
+
         }
     }
 }

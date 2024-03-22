@@ -1,4 +1,5 @@
-﻿using DataLayer.DTO.AdminDTO;
+﻿using BusinessLayer.Repository.IRepository;
+using DataLayer.DTO.AdminDTO;
 
 
 namespace BusinessLayer.Repository.Interface
@@ -13,5 +14,7 @@ namespace BusinessLayer.Repository.Interface
         //List<RequestTableData> searchintable(int status, int requesttype, string search);
         void SendAgreementMail(int arg_req_id, string argPhone, string argEmail);
         void TransferCase(int transfer_req_id, string phy_region, string phy_id, string transferNote);
+
+        public PagedList<RequestTableData> GetData(int reqStaus, int requesttype, string searchin, int page, out int Count);
     }
 }
