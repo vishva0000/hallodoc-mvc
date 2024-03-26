@@ -40,8 +40,9 @@ namespace HalloDoc.Controllers
         private readonly IAdminProfile adminprofileService;
         private readonly IProviderData providerDataService;
         private readonly IAccessRoles accessRolesService;
+        private readonly IProviderProfileEditByAdmin providerEditService;
 
-       
+
 
         public AdminController(HallodocContext context,
             IHostingEnvironment environment,
@@ -54,7 +55,8 @@ namespace HalloDoc.Controllers
             ICloseCase closeCase,
             IAdminProfile adminProfile,
             IProviderData providerData,
-            IAccessRoles accessRoles)
+            IAccessRoles accessRoles,
+            IProviderProfileEditByAdmin providerProfileEditByAdmin)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -68,6 +70,7 @@ namespace HalloDoc.Controllers
             this.adminprofileService = adminProfile;
             this.providerDataService = providerData;
             this.accessRolesService = accessRoles;
+            this.providerEditService = providerProfileEditByAdmin;
         }
         public IActionResult AdminDashboard()
         {
@@ -84,7 +87,6 @@ namespace HalloDoc.Controllers
             
             return PartialView("_NewTable", data);
         }
-        [AllowAnonymous]
         public IActionResult NewState1(int reqStaus, int requesttype, string searchin,int page)
         {
             //ViewBag.Count = 5;
@@ -92,8 +94,14 @@ namespace HalloDoc.Controllers
             List<RequestTableData> data = getPaginatedData(reqStaus, requesttype, searchin, page);
             return PartialView("_NewTable", data);
         }
-        
-    
+        public List<RequestTableData> getPaginatedData(int reqStaus, int requesttype, string searchin, int page)
+        {
+            List<RequestTableData> data = requestTableService.GetData(reqStaus, requesttype, searchin, page, out int Count);
+            ViewBag.Count = Count;
+            return (data);
+
+        }
+
         [HttpGet]
         public IActionResult CreateRequest()
         {
@@ -454,10 +462,10 @@ namespace HalloDoc.Controllers
 
        
         [HttpPost]
-        public void Closecasesubmit(int closeid)
+        public IActionResult Closecasesubmit(int closeid)
         {
             //closecaseService.Closingcase(closeid);
-            //return Redirect(Url.Action("AdminDashboard", "Admin"));
+            return RedirectToAction("AdminDashboard", "Admin");
         }
 
         public void CloseCaseUpdateByAdmin(int id, string email, string phone)
@@ -474,60 +482,21 @@ namespace HalloDoc.Controllers
         [HttpPost]
         public IActionResult ProfileMailEdit(ProfileData model)
         {
-            var admin = db.Admins.Where(a => a.AdminId == model.id).FirstOrDefault();
-
-            admin.Address1 = model.Address1;
-            admin.Address2 = model.Address2;
-            admin.City = model.City;
-            admin.Zip = model.Zipcode;
-            admin.AltPhone = model.MailNo;
-            db.Admins.Update(admin);
-            db.SaveChanges();
+            adminprofileService.editMail(model);
             return RedirectToAction("Profile", "Admin");
         }
 
         [HttpPost]
         public IActionResult AdminDetailsEdit(ProfileData model)
         {
-            var admin = db.Admins.Where(a=>a.AdminId == model.id).FirstOrDefault();
-            List<AdminRegion> adregion = db.AdminRegions.Where(a => a.AdminId == model.id).ToList();
-            admin.FirstName = model.Firstname;
-            admin.LastName = model.Lastname;
-            admin.Email = model.ConfirmEmail;
-            admin.Mobile = model.Phone;
-
-            foreach(var item in adregion)
-            {
-                if (!model.regionmodified.Contains(item.RegionId))
-                {
-                    db.AdminRegions.Remove(item);
-                    
-                }
-                model.regionmodified.Remove(item.RegionId);
-            }
-
-            foreach(var item in model.regionmodified)
-            {
-                AdminRegion addnew = new()
-                {
-                    AdminId = model.id,
-                    RegionId = item
-                };
-                db.AdminRegions.Add(addnew); 
-               
-            }
-            db.Admins.Update(admin);
-            db.SaveChanges();
+            adminprofileService.adminDetailsEdit(model);           
             return RedirectToAction("Profile", "Admin");
         }
         
         [HttpPost]
         public IActionResult ResetAdminPass(string Username,string Password)
         {
-            var asp = db.AspNetUsers.Where(a => a.UserName == Username).FirstOrDefault();
-            asp.PasswordHash = Password;
-            db.AspNetUsers.Update(asp);
-            db.SaveChanges();
+            adminprofileService.resetAdminPass(Username, Password);
             return RedirectToAction("Profile", "Admin");
         }
 
@@ -549,6 +518,12 @@ namespace HalloDoc.Controllers
 
 
             return RedirectToAction("Profile", "Admin");
+        }
+
+        public IActionResult EditProvider(int Phyid)
+        {
+            ProviderProfileData data = providerEditService.getProviderProfileData(Phyid);
+            return View(data);
         }
 
         public IActionResult ManageAccess()
@@ -592,13 +567,45 @@ namespace HalloDoc.Controllers
 
           
         }
-        [AllowAnonymous]
-        public List<RequestTableData> getPaginatedData(int reqStaus, int requesttype, string searchin,int page)
+        
+        public IActionResult SelectedMenu(string actype, int roleid)
         {
-            List<RequestTableData> data = requestTableService.GetData(reqStaus, requesttype,searchin,page,out int Count);
-            ViewBag.Count = Count;
-            return (data);
+            int type = int.Parse(actype);
+            var avimenus = db.RoleMenus.Where(a => a.RoleId == roleid).ToList();
 
+            var allmenu = db.Menus.Where(a => a.AccountType == type).ToList();
+             var menu=   allmenu.Select(r=> new
+            {
+                id = r.MenuId,
+                name = r.Name,
+                isSelected = avimenus.Any(b=>b.MenuId== r.MenuId)
+            }).ToList();
+
+            return Ok(menu);
+
+        }
+
+        [HttpGet]
+       public IActionResult EditRole(int editid)
+       {
+
+            RoleData data = accessRolesService.GetOneRole(editid);
+
+
+            return View(data);
+       }
+
+        [HttpPost]
+        public IActionResult EditRole(RoleData model)
+        {
+            accessRolesService.SetOneRole(model);
+            return View();
+        }
+
+        public IActionResult DeleteRole(int delete_id)
+        {
+            accessRolesService.deleteRole(delete_id);
+            return RedirectToAction("ManageAccess", "Admin");
         }
     }
 }

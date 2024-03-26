@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace BusinessLayer.Repository.Implementation
             foreach(var item in roles)
             {
                 RoleData r = new RoleData();
+                r.RoleId = item.RoleId;
                 r.RoleName = item.Name;
                 r.AccType = item.AccountType;
                 allroles.Add(r);
@@ -59,5 +61,66 @@ namespace BusinessLayer.Repository.Implementation
             db.SaveChanges();
         }
 
+
+        public RoleData GetOneRole( int editid)
+        {
+            var role = db.Roles.Where(a => a.RoleId == editid).FirstOrDefault();
+            RoleData data = new RoleData();
+
+            data.RoleId = editid;
+            data.RoleName = role.Name;
+            data.AccType = role.AccountType;
+            return data;
+        }
+
+        public void SetOneRole(RoleData model)
+        {
+            var role = db.Roles.Where(a => a.RoleId == model.RoleId).FirstOrDefault();
+            role.Name = model.RoleName;
+            role.AccountType = (short)model.AccType;
+
+            db.Roles.Update(role);
+
+            var menu = db.RoleMenus.Where(a => a.RoleId == model.RoleId).ToList();
+           
+            foreach (var item in menu)
+            {
+                if (!model.selectedMenu.Contains(item.MenuId))
+                {
+                    db.RoleMenus.Remove(item);
+
+                }
+                model.selectedMenu.Remove(item.MenuId);
+            }
+            foreach (var item in model.selectedMenu)
+            {
+                RoleMenu i = new RoleMenu()
+                {
+                    MenuId = item,
+                    RoleId = model.RoleId
+                };
+                db.RoleMenus.Add(i);
+
+            }
+
+            db.SaveChanges();
+
+        }
+
+        public void deleteRole(int roleid)
+        {
+            var role = db.Roles.Where(a => a.RoleId == roleid).FirstOrDefault();         
+
+            var menu = db.RoleMenus.Where(a => a.RoleId == roleid).ToList();
+
+            foreach (var item in menu)
+            {
+                db.RoleMenus.Remove(item);
+            }
+
+            db.Roles.Remove(role);
+
+            db.SaveChanges();
+        }
     }
 }

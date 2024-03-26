@@ -53,5 +53,59 @@ namespace BusinessLayer.Repository.Implementation
             return data;
         }
 
+        public void editMail(ProfileData model)
+        {
+            var admin = db.Admins.Where(a => a.AdminId == model.id).FirstOrDefault();
+
+            admin.Address1 = model.Address1;
+            admin.Address2 = model.Address2;
+            admin.City = model.City;
+            admin.Zip = model.Zipcode;
+            admin.AltPhone = model.MailNo;
+            db.Admins.Update(admin);
+            db.SaveChanges();
+        }
+
+        public void adminDetailsEdit(ProfileData model)
+        {
+            var admin = db.Admins.Where(a => a.AdminId == model.id).FirstOrDefault();
+            List<AdminRegion> adregion = db.AdminRegions.Where(a => a.AdminId == model.id).ToList();
+            admin.FirstName = model.Firstname;
+            admin.LastName = model.Lastname;
+            admin.Email = model.ConfirmEmail;
+            admin.Mobile = model.Phone;
+
+            foreach (var item in adregion)
+            {
+                if (!model.regionmodified.Contains(item.RegionId))
+                {
+                    db.AdminRegions.Remove(item);
+
+                }
+                model.regionmodified.Remove(item.RegionId);
+            }
+
+            foreach (var item in model.regionmodified)
+            {
+                AdminRegion addnew = new()
+                {
+                    AdminId = model.id,
+                    RegionId = item
+                };
+                db.AdminRegions.Add(addnew);
+
+            }
+            db.Admins.Update(admin);
+            db.SaveChanges();
+
+        }
+
+        public void resetAdminPass(string Username, string Password)
+        {
+            var asp = db.AspNetUsers.Where(a => a.UserName == Username).FirstOrDefault();
+            asp.PasswordHash = Password;
+            db.AspNetUsers.Update(asp);
+            db.SaveChanges();
+        }
     }
 }

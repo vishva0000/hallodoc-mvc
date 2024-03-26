@@ -63,8 +63,12 @@ namespace BusinessLayer.Utility
             string path = "D:\\postgreconnection\\HalloDoc\\wwwroot\\uploads\\";
             foreach (string item in files)
             {
-                string fullpath = Path.Combine(path, item.Trim());
-                builder.Attachments.Add(fullpath);
+                if(item != null)
+                {
+                    string fullpath = Path.Combine(path, item.Trim());
+                    builder.Attachments.Add(fullpath);
+                }
+               
             }
             emailToSend.Body = builder.ToMessageBody();
             //emailToSend.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message };

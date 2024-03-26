@@ -1,0 +1,614 @@
+﻿@model DataLayer.DTO.AdminDTO.ProviderProfileData
+@{
+    Layout = "_Empty";
+}
+<div>
+    <div class="d-none d-lg-flex shadow bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline bg-white">
+                    <li class="nav-item ">
+                        <a class="nav-link " asp-action="AdminDashboard" asp-controller="admin">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item  ">
+                        <a class="nav-link" asp-action="Profile" asp-controller="admin">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-info active">Providers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Access</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><img style="width:70px;" class="largeLogo align-content-center" src="~/images/logo.png" alt="Logo" /></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body aside-cont">
+            <ul class="list-group">
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="Index" asp-controller="Admin">Dashboard</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="ManageAccess-Page" asp-action="ManageAccess" asp-controller="Admin">Access</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Records-Page" asp-action="Records" asp-controller="Admin">Records</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="d-flex justify-content-center mt-3">
+        <div class="container">
+
+            <div class="d-inline-flex justify-content-between w-100">
+
+                <h3 style="font-weight: bold;" class="m-2">Edit Physician Account</h3>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+
+
+
+            <div class="bg-white rounded shadow">
+                <div class="row mt-2 p-3">
+                    <p style="font-weight: bold;">Account Information</p>
+
+                    <form class="resetpassform">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Username"
+                                           name="Username"
+                                           class="form-control input acc-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">User Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Password"
+                                           name="Password"
+                                           class="form-control acc-input"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Password</label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="col-md-6">
+
+                        <select style="height:55px;" class="form-select acc-input" aria-label="Default select example">
+                            <option value="1">Active</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6">
+                        <select style="height:55px;" class="form-select acc-input" aria-label="Default select example">
+                            <option value="1">Master Admin</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="w-100">
+                            <div class=" d-flex justify-content-end mt-3">
+                                <button class="btn btn-info text-white Account-edit m-2"><span class="m-2">Edit</span></button>
+                                <button class="btn btn-outline-info  Account-save m-2"><span class="m-2">Save</span></button>
+                                <button id="resetPass" class="btn btn-outline-info m-2" type="button"><span>Reset Password</span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <p style="font-weight: bold;">Physician Information</p>
+
+                    <form  method="post">
+                        <div class="row">
+                            <input type="number" asp-for="ProviderId" hidden />
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Firstname"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Lastname"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Email"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Phone"
+                                           class="form-control input info-input"
+                                           id="contact"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Phone number</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="MedicalLicense"
+                                           class="form-control input info-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Medical License #</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="NPINumber"
+                                           class="form-control input info-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">NPI Number   </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="syncEmail"
+                                           class="form-control input info-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Synchronization Email Address  </label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                @*  <input class="form-check-input input info-input" type="checkbox" value="">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                Sabarkantha
+                                </label> *@
+                                @foreach (var item in Model.ProviderServiceRegion)
+                                {
+                                <input name="regionmodified" checked="@item.Ischecked" id="@item.Name" value="@item.RegionId" class="form-check-input input info-input" type="checkbox">
+                                <label class="form-check-label" for="@item.Name">
+                                @item.Name
+                                </label>
+                                }
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="w-100">
+                                    <div class=" d-flex justify-content-end ">
+                                        <button class="btn btn-info text-white info-edit " type="button"><span class="m-2">Edit</span></button>
+                                        <button class="btn btn-outline-info info-save " type="submit"><span class="m-2">Save</span></button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <p style="font-weight: bold;">Mailing & Billing Information</p>
+
+
+                    <form  method="post">
+
+                        <div class="row">
+                            <input type="number" asp-for="ProviderId" hidden />
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Address1"
+                                           class="form-control input  mail-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Address 1</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Address2"
+                                           class="form-control input mail-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Address 2</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="City"
+                                           class="form-control input mail-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">City</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="State"
+                                           class="form-control input mail-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">State</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="Zip"
+                                           class="form-control input mail-input"
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Zip</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text"
+                                    asp-for="MailPhone"
+                                           class="form-control input mail-input "
+                                           id="email"
+                                           placeholder="name@example.com" />
+                                    <label for="floatingInput">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="w-100">
+                                    <div class=" d-flex justify-content-end">
+                                        <button class="btn btn-info text-white m-2 mail-edit" type="button"><span class="m-2">Edit</span></button>
+                                        <button class="btn btn-outline-info mail-save m-2" type="submit"><span class="m-2">Save</span></button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form method="post" >
+
+                        <div class="pt-4">
+
+                            <p style="font-weight: bold;">Provider Profile</p>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="BusinessName"
+                                               class="form-control input profile-input "
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Business Name</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text"
+                                               asp-for="BusinessWebsite"
+                                               class="form-control input profile-input "
+                                               id="email"
+                                               placeholder="name@example.com" />
+                                        <label for="floatingInput">Business Website</label>
+                                    </div>
+                                </div>
+
+
+                                <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex ">
+                                    <div class="input-group">
+                                        <input type="file" asp-for="Photo" class="input profile-input form-control py-3" id="inputGroupFile" placeholder="Profile Photo">
+                                        <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile">
+                                            <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                                            <span class="text-white"> Profile Photo </span>
+                                        </label>
+                                    </div>
+                                </div>  <!-- Profile Photo -->
+
+                                <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex">
+                                    <div class="input-group">
+                                        <input type="file" asp-for="Sign" class="input  profile-input form-control py-3" id="inputGroupFile1">
+                                        <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile1">
+                                            <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
+                                            <span class="text-white"> Signature </span>
+                                        </label>
+                                    </div>
+
+                                    <button type="button" id="CreateSign" class=" input profile-input btn btn-info ms-2 text-white d-flex align-items-center">
+                                        <i class="bi bi-pen me-1"></i><span> Create </span>
+                                    </button>
+                                </div>  <!-- Signature -->
+
+                                <div class=" col-12 form-floating mb-3">
+                                    <textarea class="form-control h-100 input profile-input" asp-for="AdminNote" rows="5" placeholder="Admin Notes" id="AdminNotes"></textarea>
+                                    <label class="ms-2" for="AdminNotes">
+                                        Admin Notes
+                                    </label>
+                                </div>  <!-- Admin Notes -->
+                            </div>
+
+                            <div class="d-grid gap-2 d-flex justify-content-end justify-content-md-end mb-3">
+                                <button type="button" id="editBtn4" class="btn btn-info text-white profile-edit">
+                                    <span class="m-2">Edit</span>
+                                </button>  <!-- Edit btn -->
+
+                                <button type="submit" id="submitBtn4" class="btn btn-outline-info  profile-save">
+                                    <span class="m-2">Save</span>
+                                </button>  <!-- Save btn -->
+
+                               
+                            </div>
+                        </div>
+                    </form>  <!-- eof ProviderInfo Form 4 -->
+                    <hr class="w-100" />
+
+                    <form method="post" id="Onboarding">
+
+                        <div class="pt-4 p-3">
+                        <p style="font-weight:bold;" class="mb-4">
+                            Onboarding
+                        </p>
+
+                        <div class="mb-3  col-lg-8 row">
+                            <div class="form-check col-md-8">
+                                <input class="form-check-input  Onboarding" type="checkbox" value="1" id="Onboarding1">
+                                <label class="form-check-label fw-bolder" for="Onboarding1">
+                                    Independent Contractor Agreement
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex d-inline-flex">
+                                    <button type="button" id="Upload1" class="btn btn-info text-white m-2 ">Upload</button>
+                                    <button type="button" id="OnboardingView2" class="btn m-2 btn-info text-white">
+                                        View
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mb-3  col-lg-8 row">
+                            <div class="form-check col-md-8">
+                                <input class="form-check-input  Onboarding" type="checkbox" value="1" id="Onboarding1">
+                                <label class="form-check-label fw-bolder" for="Onboarding1">
+                                    Background Check
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex d-inline-flex">
+                                    <button type="button" id="Upload1" class="btn btn-info text-white m-2">Upload</button>
+                                    <button type="button" id="OnboardingView2" class="btn m-2 btn-info text-white">
+                                        View
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mb-3  col-lg-8 row">
+                            <div class="form-check col-md-8">
+                                <input class="form-check-input  Onboarding" type="checkbox" value="1" id="Onboarding1">
+                                <label class="form-check-label fw-bolder" for="Onboarding1">
+                                    HIPAA Compliance
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex d-inline-flex">
+                                    <button type="button" id="Upload1" class="btn btn-info text-white m-2">Upload</button>
+                                    <button type="button" id="OnboardingView2" class="btn m-2 btn-info text-white">
+                                        View
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="mb-3  col-lg-8 row">
+                            <div class="form-check col-md-8">
+                                <input class="form-check-input  Onboarding" type="checkbox" value="1" id="Onboarding1">
+                                <label class="form-check-label fw-bolder" for="Onboarding1">
+                                    Non-disclouser Agreement
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex d-inline-flex">
+                                    <button type="button" id="Upload1" class="btn btn-info text-white m-2">Upload</button>
+                                    <button type="button" id="OnboardingView2" class="btn m-2 btn-info text-white">
+                                        View
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="mb-3  col-lg-8 row">
+                            <div class="form-check col-md-8">
+                                <input class="form-check-input  Onboarding" type="checkbox" value="1" id="Onboarding1">
+                                <label class="form-check-label fw-bolder" for="Onboarding1">
+                                    License Document
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex d-inline-flex">
+                                    <button type="button" id="Upload1" class="btn btn-info text-white m-2">Upload</button>
+                                    <button type="button" id="OnboardingView2" class="btn m-2 btn-info text-white">
+                                        View
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div> 
+                         
+
+               </div>
+                </form>  <!-- eof onboarding Form 5 -->
+                <hr class="w-100" />
+
+                <div class="d-grid gap-2 d-flex justify-content-center justify-content-md-end mb-3">
+
+                    <button type="submit" id="savebtn" class="btn btn-info text-white me-1" >
+                        Save
+                    </button> <!-- Main Save btn -->
+
+                    <button type="button" id="DeleteAccount" class="btn btn-danger" >
+                        Delete Account
+                    </button>  <!-- Delete Account -->
+                </div>  <!-- Main Save & Delete btn -->
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+       
+        // Disable all input fields initially
+        $('.input, select').prop('disabled', true);
+        $('.Account-save').hide();
+        $('.info-save').hide();
+        $('.mail-save').hide();
+        $('.profile-save').hide();
+
+
+
+        // Handle click event for the Edit button
+        $('.Account-edit').click(function () {
+            // Enable all input fields
+            $('.acc-input').prop('disabled', false);
+            $('.Account-save').show();
+            $('.Account-edit').hide();
+        }); 
+
+        $('.info-edit').click(function () {
+            // Enable all input fields
+            $('.info-input').prop('disabled', false);
+            $('.info-save').show();
+            $('.info-edit').hide();
+        }); 
+        $('.mail-edit').click(function () {
+            // Enable all input fields
+            $('.mail-input').prop('disabled', false);
+            $('.mail-save').show();
+            $('.mail-edit').hide();
+        });
+
+        $('.profile-edit').click(function () {
+            // Enable all input fields
+            $('.profile-input').prop('disabled', false);
+            $('.profile-save').show();
+            $('.profile-edit').hide();
+        });
+
+
+
+        // $.ajax({
+        //     url: '/Admin/FetchRegions',
+        //     method: 'GET',
+        //     success: function (response) {
+
+        //         response.forEach(function (res) {
+        //             $('#regions').append("< input class= "'form-check-input input info-input" type = "checkbox" value = "' + res.regionid + " '>"' < label class= "form-check-label" for= "flexCheckDefault" >' + res.name + ' < /label>"');
+        //         });
+
+        //     }
+        // });
+
+
+    });
+
+    $('#resetPass').on('click', function () {
+
+        $.ajax({
+            method: "POST",
+            url: '@Url.Action("ResetAdminPass", "Admin")',
+            data: $('form.resetpassform').serialize(),
+            success: function (result) {
+                // console.log("assign case success");
+            }
+
+        });
+    });
+
+
+
+</script>
+

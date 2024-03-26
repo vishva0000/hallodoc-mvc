@@ -12,5 +12,12 @@ namespace DataLayer.DTO.AdminDTO
         public string RoleName { get; set; }
         public int AccType { get; set; }
 
+        public List<int> selectedMenu {  get; set; }
+        
+        public class selectedroles
+        {
+            public string name { get; set; }
+            public bool isSelected { get; set; }
+        }
     }
 }

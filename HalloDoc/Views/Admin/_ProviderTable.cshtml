@@ -50,7 +50,9 @@
                     </td>
                     <td class="text-center">
                         <button data-toggle="modal" data-target="#contact" data-physicianid="@item.Phyid" class="btn btn-outline-info contact">Contact</button>
-                        <button class="btn btn-outline-info">Edit</button>
+                        <a class="text-decoration-none" asp-action="EditProvider" asp-controller="Admin" asp-route-PhyID="@item.Phyid">
+                            <button class="btn btn-outline-info">Edit</button>
+                        </a>
 
                     </td>
                 </tr>

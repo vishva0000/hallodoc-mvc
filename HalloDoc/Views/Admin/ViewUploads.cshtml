@@ -332,7 +332,7 @@
 
         $('.sendMail').click(function () {
             var files = [];
-            $('.check:checked').each(function () {
+        $('.fileCheckbox:checked').each(function () {
                 console.log("Hello");
                 var filePath = $(this).closest('tr').find('#FileName').text();
                 files.push(filePath)             
