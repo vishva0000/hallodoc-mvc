@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="Views\Provider\" />
     <Folder Include="wwwroot\uploads\Family\" />
+    <Folder Include="wwwroot\uploads\Physician\" />
     <Folder Include="wwwroot\uploads\Patient\" />
   </ItemGroup>
 

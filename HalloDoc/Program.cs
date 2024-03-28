@@ -40,6 +40,9 @@ builder.Services.AddTransient<IAdminProfile, AdminProfile>();
 builder.Services.AddTransient<IProviderData, ProviderData>();
 builder.Services.AddTransient<IAccessRoles, AccessRoles>();
 builder.Services.AddTransient<IProviderProfileEditByAdmin, ProviderProfileEditByAdmin>();
+builder.Services.AddTransient<ICreateProviderAC, CreateProviderAC>();
+builder.Services.AddTransient<IUserAccess, UserAccess>();
+builder.Services.AddTransient<ICreateAdminAC, CreateAdminAC>();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
 
 

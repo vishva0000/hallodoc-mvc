@@ -97,7 +97,10 @@
         </div>
         <div class="col-lg-3 align-self-center">
             <div class="float-lg-end text-center me-lg-4 mb-4 mt-2">
-                <button class="btn btn-info text-white">Create Provider Account</button>
+                <a class="text-decoration-none" asp-action="CreateProviderAccount" asp-controller="Admin">
+                    <button  class="btn btn-info text-white">Create Provider Account</button>
+
+                </a>
             </div>
         </div>
     </div>
@@ -119,7 +122,12 @@
             url: "/Admin/ProviderDataTable",
             data: { search: str },
             success: function (result) {
-                $("#ProviderTable").html(result);               
+                if(result.includes("table")){
+                    $("#ProviderTable").html(result);
+
+                }else{
+                    window.location.reload();
+                }
 
             }
         });
@@ -167,7 +175,12 @@
             url: "/Admin/ProviderDataTable",
             data: {search: str},
             success: function (result) {
-                $("#ProviderTable").html(result);
+                if (result.includes("table")) {
+                    $("#ProviderTable").html(result);
+
+                } else {
+                    window.location.reload();
+                }
 
             }
         });

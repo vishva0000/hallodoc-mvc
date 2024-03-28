@@ -1,0 +1,373 @@
+﻿@model DataLayer.DTO.AdminDTO.AdminAccountData
+@{
+    Layout = "_Empty";
+}
+<div>
+    <div class="d-none d-lg-flex shadow bg-white">
+        <nav class="navbar navbar-expand-lg navbar-light ">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse bg-white" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto nav-underline bg-white">
+                    <li class="nav-item ">
+                        <a class="nav-link " asp-action="AdminDashboard" asp-controller="admin">Dashboard </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Provider Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="nav-link text-info active" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Provider
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="">
+                                    <button class="btn dropdown-item">
+                                        <a class="text-decoration-none text-dark" asp-action="Providers" asp-controller="Admin">Providers</a>
+                                    </button>
+                                </li>
+                                <li class="">
+                                    <button class="btn dropdown-item">
+                                        <a class="text-decoration-none text-dark">Scheduling</a>
+                                    </button>
+                                </li>
+                                <li class="">
+                                    <button class="btn dropdown-item">
+                                        <a class="text-decoration-none text-dark">Invoicing</a>
+                                    </button>
+                                </li>
+
+                            </ul>
+                        </div>
+                        @* <a class="nav-link" asp-action="Providers" asp-controller="Admin">Providers</a> *@
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Partners</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Access
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="">
+                                    <a class="text-decoration-none text-dark" asp-action="ManageAccess" asp-controller="Admin">
+                                        <button class="btn dropdown-item">
+                                            Account
+                                        </button>
+                                    </a>
+
+                                </li>
+                                <li class="">
+                                    <button class="btn dropdown-item">
+                                        <a class="text-decoration-none text-dark">User</a>
+                                    </button>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                        @* <a class="nav-link" asp-action="Providers" asp-controller="Admin">Providers</a> *@
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Records</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="offcanvasSidebar" aria-labelledby="offcanvasSidebarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasSidebarLabel"><img style="width:70px;" class="largeLogo align-content-center" src="~/images/logo.png" alt="Logo" /></h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body aside-cont">
+            <ul class="list-group">
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 fw-semibo text-dark ps-4" id="Dashboard-Page" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Location-Page" asp-action="Location" asp-controller="Admin">Provider Location</a>
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Profile-Page" asp-action="Profile" asp-controller="Admin">My Profile</a>
+                </li>
+                <li class="list-group-item  ">
+                    <div class="dropdown nav-link fs-5 text-dark ps-4">
+                        <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Provider
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark" asp-action="Providers" asp-controller="Admin">Providers</a>
+                                </button>
+                            </li>
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark">Scheduling</a>
+                                </button>
+                            </li>
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark">Invoicing</a>
+                                </button>
+                            </li>
+
+                        </ul>
+                    </div>
+                    @* <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a> *@
+                </li>
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Partner-Page" asp-action="Partners" asp-controller="Admin">Partners</a>
+                </li>
+                <li class="list-group-item  ">
+                    <div class="dropdown nav-link fs-5 text-dark ps-4">
+                        <button class="nav-link" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Access
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark" asp-action="ManageAccess" asp-controller="Admin">Account</a>
+                                </button>
+                            </li>
+                            <li class="">
+                                <button class="btn dropdown-item">
+                                    <a class="text-decoration-none text-dark">User</a>
+                                </button>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    @* <a class="nav-link fs-5 text-dark ps-4" id="Provider-Page" asp-action="Providers" asp-controller="Admin">Providers</a> *@
+                </li>
+
+                <li class="list-group-item ">
+                    <a class="nav-link fs-5 text-dark ps-4" id="Records-Page" asp-action="Records" asp-controller="Admin">Records</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <div class="container">
+
+            <div class="d-inline-flex justify-content-between w-100">
+
+                <h3 class="m-2 fw-bold">Create Admin Account</h3>
+                <div class="ml-auto">
+
+
+                    <button class="  back-btn btn-outline-info back mt-2 rounded p-2 "
+                            onclick="back()">
+                        &lt Back
+                    </button>
+                </div>
+            </div>
+            <br />
+
+
+
+            <div class="bg-white rounded shadow">
+                <form asp-action="CreateAdminAccount" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                    <div class="row mt-2 p-3">
+                        <p class="fw-bold">Account Information</p>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       class="form-control "
+                                       asp-for="Username"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">User Name</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Username"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       class="form-control "
+                                       asp-for="Password"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Password</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <select asp-for="Roleid" style="height:55px;" class="form-select acc-input" aria-label="Default select example">
+                                <option value="0">Select Role</option>
+                                @foreach (var obj in Model.RolesList)
+                                {
+                                    <option value="@obj.Roleid">@obj.Rolename</option>
+                                }
+                            </select>
+                        </div>
+                        <p class="fw-bold">Administrator Information</p>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Firstname"
+                                       class="form-control input info-input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">First Name</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Firstname"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Lastname"
+                                       class="form-control input info-input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Last Name</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Lastname"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Email"
+                                       class="form-control input info-input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Email</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Email"></span>
+
+                        </div> 
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="ConfirmEmail"
+                                       class="form-control input info-input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Confirm Email</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="ConfirmEmail"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Phone"
+                                       class="form-control input info-input"
+                                       id="contact"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Phone number</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Phone"></span>
+
+                        </div>
+
+                     
+
+                       
+                        <div class="col-md-12">
+                            @foreach (var item in Model.ProviderServiceRegion)
+                            {
+                                <input name="Selectedregions" id="@item.Name" value="@item.RegionId" class="form-check-input input info-input ms-2" type="checkbox">
+                                <label class="form-check-label ms-2" for="@item.Name">
+                                    @item.Name
+                                </label>
+                            }
+                        </div>
+                        <span class="text-danger" asp-validation-for="Selectedregions"></span>
+
+                        <br />
+                        <p class="fw-bold mt-3">Mailing & Billing Information</p>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Address1"
+                                       class="form-control input  mail-input"
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Address 1</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="Address1"></span>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Address2"
+                                       class="form-control input mail-input"
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Address 2</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="City"
+                                       class="form-control input mail-input"
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">City</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <select asp-for="StateId" style="height:55px;" class="form-select mail-input" aria-label="Default select example">
+                                <option value="0">Select state</option>
+                                @foreach (var obj in Model.stateList)
+                                {
+                                    <option value="@obj.regid">@obj.stateName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="Zip"
+                                       class="form-control input mail-input"
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Zip</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text"
+                                       asp-for="AltPhone"
+                                       class="form-control input mail-input "
+                                       id="email"
+                                       placeholder="name@example.com" />
+                                <label for="floatingInput">Phone</label>
+                            </div>
+                        </div>
+                       
+
+                      
+                       
+                        <div class="col-md-12">
+                            <div class="text-end"><button class="btn btn-success text-white" type="submit">Create Account</button></div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

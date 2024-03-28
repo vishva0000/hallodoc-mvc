@@ -1,0 +1,30 @@
+﻿@model List<DataLayer.DTO.AdminDTO.UserAccessData>
+
+@{
+}
+
+<div>
+    <table class="w-100">
+        <thead class="bg-light">
+            <th>AccountType</th>
+            <th>Account POC</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Open Requests</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Accounttype</td>
+                    <td>@item.AccountPOC</td>
+                    <td>@item.Phone</td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-outline-info">Edit</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

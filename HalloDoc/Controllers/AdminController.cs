@@ -22,6 +22,7 @@ using System.Security.Policy;
 using NPOI.POIFS.Crypt.Dsig;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
 
 namespace HalloDoc.Controllers
 {
@@ -41,6 +42,9 @@ namespace HalloDoc.Controllers
         private readonly IProviderData providerDataService;
         private readonly IAccessRoles accessRolesService;
         private readonly IProviderProfileEditByAdmin providerEditService;
+        private readonly ICreateProviderAC createProviderACService;
+        private readonly IUserAccess userAccessService;
+        private readonly ICreateAdminAC createAdminACService;
 
 
 
@@ -56,7 +60,10 @@ namespace HalloDoc.Controllers
             IAdminProfile adminProfile,
             IProviderData providerData,
             IAccessRoles accessRoles,
-            IProviderProfileEditByAdmin providerProfileEditByAdmin)
+            IProviderProfileEditByAdmin providerProfileEditByAdmin,
+            ICreateProviderAC createProviderAC,
+            IUserAccess userAccess,
+            ICreateAdminAC createAdminAC)
         {
             this.db = context;
             this.adminDashboardService = adminDashboard;
@@ -71,6 +78,9 @@ namespace HalloDoc.Controllers
             this.providerDataService = providerData;
             this.accessRolesService = accessRoles;
             this.providerEditService = providerProfileEditByAdmin;
+            this.createProviderACService = createProviderAC;
+            this.userAccessService = userAccess;
+            this.createAdminACService = createAdminAC;
         }
         public IActionResult AdminDashboard()
         {
@@ -519,19 +529,87 @@ namespace HalloDoc.Controllers
 
             return RedirectToAction("Profile", "Admin");
         }
-
+        
         public IActionResult EditProvider(int Phyid)
         {
             ProviderProfileData data = providerEditService.getProviderProfileData(Phyid);
             return View(data);
         }
+        [HttpPost]
+        public IActionResult EditAccountInfo(ProviderProfileData model)
+        {
+            providerEditService.EditAccountInfo(model);
 
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditPhysicianInfo(ProviderProfileData model)
+        {
+            providerEditService.EditPhysicianInfo(model);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EditPhyMailInfo(ProviderProfileData model)
+        {
+            providerEditService.EditPhyMailInfo(model);
+            return View();
+        } 
+        [HttpPost]
+        public IActionResult EditPhyProfileInfo(ProviderProfileData model)
+        {
+            providerEditService.EditPhyProfileInfo(model);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CreateProviderAccount()
+        {
+            ProviderProfileData data = createProviderACService.getallList();
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult CreateProviderAccount(ProviderProfileData model)
+        {
+            if (ModelState.IsValid)
+            {
+                string? UserEmail = Request.Cookies["UserId"];
+                createProviderACService.CreateAccount(model, UserEmail);
+            }
+            return RedirectToAction("Providers", "Admin");
+        }
         public IActionResult ManageAccess()
         {
             List<RoleData> data= accessRolesService.getAllRoles();
             return View(data);
         }  
-        
+        public IActionResult UserAccess()
+        {
+            return View();
+        }
+        public IActionResult GetUserAccess(string search)
+        {
+            List<UserAccessData> data = userAccessService.getData(search);
+            return PartialView("_UserAccessTable", data);
+
+        }
+        [HttpGet]
+        public IActionResult CreateAdminAccount()
+        {
+            AdminAccountData data = createAdminACService.getAllList();
+            return View(data);
+        }
+        [HttpPost]
+        public IActionResult CreateAdminAccount(AdminAccountData model)
+        {
+            if (ModelState.IsValid)
+            {
+                string? UserEmail = Request.Cookies["UserId"];
+
+                createAdminACService.CreateAccount(model, UserEmail);
+
+            }
+            return RedirectToAction("UserAccess", "Admin");
+        }
         public IActionResult CreateRoleAll()
         {
             return View();
@@ -606,6 +684,11 @@ namespace HalloDoc.Controllers
         {
             accessRolesService.deleteRole(delete_id);
             return RedirectToAction("ManageAccess", "Admin");
+        }
+
+        public IActionResult Scheduling()
+        {
+            return View();
         }
     }
 }

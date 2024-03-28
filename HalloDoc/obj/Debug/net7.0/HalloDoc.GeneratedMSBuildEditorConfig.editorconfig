@@ -28,6 +28,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2xvc2VjYXNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/postgreconnection/HalloDoc/Views/Admin/CreateAdminAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlQWRtaW5BY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/postgreconnection/HalloDoc/Views/Admin/CreateProviderAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlUHJvdmlkZXJBY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/postgreconnection/HalloDoc/Views/Admin/CreateRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlUmVxdWVzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,8 +68,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvdmlkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/postgreconnection/HalloDoc/Views/Admin/Scheduling.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2NoZWR1bGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/postgreconnection/HalloDoc/Views/Admin/test.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cdGVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/postgreconnection/HalloDoc/Views/Admin/UserAccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlckFjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/postgreconnection/HalloDoc/Views/Admin/ViewCase.cshtml]
@@ -82,6 +98,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/postgreconnection/HalloDoc/Views/Admin/_ProviderTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1Byb3ZpZGVyVGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/postgreconnection/HalloDoc/Views/Admin/_UserAccessTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cX1VzZXJBY2Nlc3NUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/postgreconnection/HalloDoc/Views/Home/Index.cshtml]

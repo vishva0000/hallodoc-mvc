@@ -95,37 +95,33 @@
             <div class="bg-white rounded shadow">
                 <div class="row mt-2 p-3">
                     <p style="font-weight: bold;">Account Information</p>
+                    <form method="post" asp-action="EditAccountInfo" asp-controller="Admin">
+                    <div class="row">                 
+                            <input type="number" asp-for="ProviderId" hidden />
 
-                    <form class="resetpassform">
-                        <div class="row">
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text"
-                                    asp-for="Username"
-                                           name="Username"
-                                           class="form-control input acc-input"
-                                           id="contact"
-                                           placeholder="name@example.com" />
-                                    <label for="floatingInput">User Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-
-                                <div class="form-floating mb-3">
-                                    <input type="text"
-                                    asp-for="Password"
-                                           name="Password"
-                                           class="form-control acc-input"
-                                           placeholder="name@example.com" />
-                                    <label for="floatingInput">Password</label>
-                                </div>
-
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="Username"
+                                   name="Username"
+                                   class="form-control input acc-input"
+                                   id="contact"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">User Name</label>
                         </div>
-                    </form>
-
+                    </div>
                     <div class="col-md-6">
-
+                        <div class="form-floating mb-3">
+                            <input type="text"
+                                   asp-for="Password"
+                                   name="Password"
+                                   class="form-control acc-input"
+                                   placeholder="name@example.com" />
+                            <label for="floatingInput">Password</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
                         <select style="height:55px;" class="form-select acc-input" aria-label="Default select example">
                             <option value="1">Active</option>
                             <option value="2">Two</option>
@@ -134,25 +130,32 @@
 
                     </div>
                     <div class="col-md-6">
-                        <select style="height:55px;" class="form-select acc-input" aria-label="Default select example">
-                            <option value="1">Master Admin</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select asp-for="Roleid" style="height:55px;" class="form-select acc-input" aria-label="Default select example">
+                            <option value="0">Select Role</option>
+                            @foreach (var obj in Model.RolesList)
+                            {
+                                <option value="@obj.Roleid">@obj.Rolename</option>
+                            }
                         </select>
-                    </div>
+
+                    </div> 
                     <div class="col-md-12">
                         <div class="w-100">
                             <div class=" d-flex justify-content-end mt-3">
                                 <button class="btn btn-info text-white Account-edit m-2"><span class="m-2">Edit</span></button>
-                                <button class="btn btn-outline-info  Account-save m-2"><span class="m-2">Save</span></button>
+                                <button class="btn btn-outline-info  Account-save m-2" type="submit"><span class="m-2">Save</span></button>
                                 <button id="resetPass" class="btn btn-outline-info m-2" type="button"><span>Reset Password</span></button>
                             </div>
 
                         </div>
+
                     </div>
+                        </div>
+                    </form>
+          
                     <p style="font-weight: bold;">Physician Information</p>
 
-                    <form  method="post">
+                    <form method="post" asp-action="EditPhysicianInfo" asp-controller="Admin">
                         <div class="row">
                             <input type="number" asp-for="ProviderId" hidden />
 
@@ -237,7 +240,7 @@
                                 </label> *@
                                 @foreach (var item in Model.ProviderServiceRegion)
                                 {
-                                <input name="regionmodified" checked="@item.Ischecked" id="@item.Name" value="@item.RegionId" class="form-check-input input info-input" type="checkbox">
+                                    <input name="Selectedregions" checked="@item.Ischecked" id="@item.Name" value="@item.RegionId" class="form-check-input input info-input" type="checkbox">
                                 <label class="form-check-label" for="@item.Name">
                                 @item.Name
                                 </label>
@@ -261,7 +264,7 @@
                     <p style="font-weight: bold;">Mailing & Billing Information</p>
 
 
-                    <form  method="post">
+                    <form method="post" asp-action="EditPhyMailInfo" asp-controller="Admin">
 
                         <div class="row">
                             <input type="number" asp-for="ProviderId" hidden />
@@ -297,14 +300,13 @@
                             </div>
 
                             <div class="col-md-6">
-                                <div class="form-floating mb-3">
-                                    <input type="text"
-                                    asp-for="State"
-                                           class="form-control input mail-input"
-                                           id="email"
-                                           placeholder="name@example.com" />
-                                    <label for="floatingInput">State</label>
-                                </div>
+                                <select asp-for="StateId" style="height:55px;" class="form-select mail-input" aria-label="Default select example">
+                                    <option value="0">Select state</option>
+                                    @foreach (var obj in Model.stateList)
+                                    {
+                                        <option value="@obj.regid">@obj.stateName</option>
+                                    }
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
@@ -339,9 +341,10 @@
                         </div>
                     </form>
 
-                    <form method="post" >
+                    <form method="post" asp-action="EditPhyProfileInfo" asp-controller="Admin" enctype="multipart/form-data">
 
                         <div class="pt-4">
+                            <input type="number" asp-for="ProviderId" hidden />
 
                             <p style="font-weight: bold;">Provider Profile</p>
                             <div class="row mb-3">
@@ -370,7 +373,7 @@
 
                                 <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex ">
                                     <div class="input-group">
-                                        <input type="file" asp-for="Photo" class="input profile-input form-control py-3" id="inputGroupFile" placeholder="Profile Photo">
+                                        <input type="file" asp-for="photo" class="input profile-input form-control py-3" id="inputGroupFile" placeholder="Profile Photo">
                                         <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile">
                                             <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
                                             <span class="text-white"> Profile Photo </span>
@@ -380,7 +383,7 @@
 
                                 <div class=" col-xl-6 col-lg-6 col-md-6 col-sm-12 form-floating mb-3 d-flex">
                                     <div class="input-group">
-                                        <input type="file" asp-for="Sign" class="input  profile-input form-control py-3" id="inputGroupFile1">
+                                        <input type="file" asp-for="signature" class="input  profile-input form-control py-3" id="inputGroupFile1">
                                         <label class="input-group-text fw-bold bg-info border-info upload" for="inputGroupFile1">
                                             <i class="bi bi-cloud-arrow-up me-2 fw-bold text-white"></i>
                                             <span class="text-white"> Signature </span>
